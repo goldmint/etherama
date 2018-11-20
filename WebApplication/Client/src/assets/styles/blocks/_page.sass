@@ -1,0 +1,158 @@
+.page
+  display: block
+  padding-top: 50px
+
+  &__heading
+    font-weight: 300
+    font-size: rem(48px)
+    line-height: rem(46px)
+    letter-spacing: .1em
+    text-transform: uppercase
+    margin-bottom: 0
+    min-height: 92px
+    padding-bottom: 45px
+
+  &__jumbotron
+    .page--auth &
+      margin-top: 47px
+      margin-bottom: 37px
+      text-align: center
+
+  &__title
+    /* */
+
+  &__subtitle
+    font-size: rem(24px)
+    line-height: rem(30px)
+    text-transform: uppercase
+    letter-spacing: .1em
+
+    .page--auth &
+      margin-top: 16px
+      margin-bottom: 16px
+      padding: rem(16px) 0
+
+  &__sidebar
+    // padding-top: 9px /* @todo: remove it */
+    padding-top: 34px
+
+  &__section
+    min-height: 150px
+    position: relative
+
+    &--bottom-border
+      border-bottom: 3px solid $color-gray-0
+
+  &__note
+    font-size: rem(12px)
+    line-height: rem(14px)
+    display: inline-block
+    color: $color-gray-1
+
+.font-weight-500
+  font-weight: 500
+
+.main-logotype-container
+  width: 100%
+  display: flex
+  justify-content: center
+
+.main-logotype
+  width: 100%
+  max-width: 359px
+  height: 162px
+  background-image: url(../../assets/img/logotype.svg)
+  -webkit-background-size: 100%
+  background-size: 100%
+  background-repeat: no-repeat
+  background-position: center
+
+.font-weight-500
+  font-weight: 500
+
+.metamask-icon
+  width: 100%
+  height: 80px
+  background-image: url(../../assets/img/metamask.svg)
+  background-repeat: no-repeat
+  background-size: 70px
+  background-position: center bottom
+
+.gold-circle-icon
+  width: 100%
+  height: 80px
+  background-image: url(../../assets/icons/gold-circle.svg)
+  background-repeat: no-repeat
+  background-size: 70px
+  background-position: center
+
+.main-language
+  .dropdown-menu.show
+    left: -20px !important
+
+.word-break
+  word-break: break-all
+
+.overflow-ellipsis
+  text-overflow: ellipsis
+  overflow: hidden
+
+.overflow-hidden
+  overflow: hidden !important
+
+.nowrap
+  white-space: nowrap
+
+.wrap
+  white-space: inherit !important
+
+.font-weight-500
+  font-weight: 500
+
+.line-height
+  line-height: 1.5
+
+.a-link
+  cursor: pointer
+  color: #0093e5
+
+.a-link:hover
+  text-decoration: underline
+
+.pointer
+  cursor: pointer
+
+.tx-status-2
+  color: #7ec722
+
+.tx-status-3
+  color: #fa3c00
+
+@media only screen and (max-width: 1199px)
+  .lead
+    font-size: 1rem
+
+  .section__title > span
+    font-size: 1rem
+    line-height: 1rem !important
+
+@media only screen and (max-width: 767px)
+  .page__sidebar
+    padding-top: 0
+
+@media only screen and (max-width: 576px)
+  h1.page__heading
+    font-size: 1.75rem
+    min-height: 75px
+    padding-bottom: 45px
+
+  .fees-btn-group label
+    font-size: 0.75rem
+
+  .lead-right
+    font-size: 0.875rem
+    text-align: right
+
+  .blockchain-address-link
+    word-break: break-all
+

@@ -1,0 +1,43 @@
+<svg width="54" height="59" viewBox="0 0 54 59" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>icon_account_corporate</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-369 -8142)">
+<g id="icon_account_corporate">
+<g id="Vector">
+<use xlink:href="#path0_fill" transform="translate(369 8142)" fill="#E9CB6B"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path1_fill" transform="translate(385.2 8148.1)" fill="#E9CB6B"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path2_fill" transform="translate(385.2 8154)" fill="#E9CB6B"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path3_fill" transform="translate(385.2 8159.8)" fill="#E9CB6B"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path4_fill" transform="translate(385.2 8165.7)" fill="#E9CB6B"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path2_fill" transform="translate(385.2 8171.5)" fill="#E9CB6B"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path5_fill" transform="translate(385.2 8177.4)" fill="#E9CB6B"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path4_fill" transform="translate(385.2 8183.2)" fill="#E9CB6B"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path2_fill" transform="translate(385.2 8189)" fill="#E9CB6B"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 38.3 17.6L 38.3 0L 10.5 0L 10.5 36.4L 0 36.5L 0 58.2L 10.5 58.2L 36.5 58.2L 36.5 58.4L 53.1 58.4L 53.1 17.7L 38.3 17.6ZM 2.1 56.1L 2.1 49.1L 7.8 49.1L 7.8 47.1L 2.1 47.1L 2.1 43.3L 7.8 43.3L 7.8 41.3L 2.1 41.3L 2.1 38.7L 10.5 38.7L 10.5 56.3L 2.1 56.3L 2.1 56.1ZM 35.9 55.8L 12.9 55.8L 12.9 2.4L 36 2.4L 36 55.8L 35.9 55.8ZM 38.3 55.9L 38.3 20.1L 50.6 20.2L 50.6 23.9L 41.1 23.9L 41.1 25.5L 50.6 25.5L 50.6 29.7L 41.1 29.7L 41.1 31.3L 50.6 31.3L 50.6 35.5L 41.1 35.5L 41.1 37.1L 50.6 37.1L 50.6 41.3L 41.1 41.3L 41.1 43L 50.6 43L 50.6 47.2L 41.1 47.2L 41.1 48.8L 50.6 48.8L 50.6 55.8L 38.3 55.8L 38.3 55.9Z"/>
+<path id="path1_fill" d="M 16 0L 0 0L 0 2L 16 2L 16 0Z"/>
+<path id="path2_fill" d="M 16 0L 0 0L 0 2L 16 2L 16 0Z"/>
+<path id="path3_fill" d="M 16 0L 0 0L 0 2L 16 2L 16 0Z"/>
+<path id="path4_fill" d="M 16 0L 0 0L 0 2L 16 2L 16 0Z"/>
+<path id="path5_fill" d="M 16 0L 0 0L 0 2L 16 2L 16 0Z"/>
+</defs>
+</svg>

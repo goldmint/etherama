@@ -1,0 +1,22 @@
+<svg width="16" height="15" viewBox="0 0 16 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>icon_deposit</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(128 -1184)">
+<g id="icon_deposit">
+<g id="Vector">
+<use xlink:href="#path0_fill" transform="translate(-128 1197)" fill="#E9CB6B"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path1_fill" transform="matrix(6.12323e-17 -1 1 6.12323e-17 -121 1190)" fill="#E9CB6B"/>
+</g>
+<g id="Vector">
+<use xlink:href="#path2_fill" transform="translate(-125 1189)" fill="#E9CB6B"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 16 0L 0 0L 0 2L 16 2L 16 0Z"/>
+<path id="path1_fill" d="M 6 0L 0 0L 0 2L 6 2L 6 0Z"/>
+<path id="path2_fill" d="M 5 6L 10 4.47035e-08L -4.67487e-08 4.47035e-08L 5 6Z"/>
+</defs>
+</svg>

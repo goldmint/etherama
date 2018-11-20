@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- <base href="/"> -->
+  <meta charset="utf-8">
+
+  <title>GM Cabinet</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="assets/img/favicons/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="assets/img/favicons/favicon-16x16.png" sizes="16x16" />
+
+  <style type="text/css">
+    body, html {
+      min-height: 100%;
+    }
+
+    .app-loading {
+      display: inline-block;
+      position: absolute;
+      height: 75px;
+      width: 75px;
+      left: 50%;
+      top: 40%;
+      transform: translateX(-50%);
+      color: #E9CB6B;
+    }
+
+    .app-loading .text {
+      margin-top: -15px;
+      text-align: center;
+      color: #1C1C1C;
+    }
+
+    .app-loading .logo {
+      position: absolute;
+      height: 32px;
+      width: 32px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .app-loading .spinner {
+      height: 64px;
+      width: 64px;
+      animation: rotate 2s linear infinite;
+      transform-origin: center center;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    .app-loading .spinner .path {
+      stroke-dasharray: 1, 200;
+      stroke-dashoffset: 0;
+      animation: loading-dash 1.5s ease-in-out infinite;
+      stroke-linecap: round;
+      stroke: #E9CB6B;
+    }
+
+    .app-loading .spinner .shadow {
+      stroke: #E9CB6B;
+      opacity: .25;
+    }
+
+    @keyframes rotate {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes loading-dash {
+      0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+      }
+      50% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -35px;
+      }
+      100% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -124px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <app-root>
+    <div class="app-loading">
+      <!-- <div class="text">Loading...</div> -->
+
+      <svg class="logo" viewBox="0 0 32 32">
+        <g transform="translate(2796 3500)">
+          <use fill="currentColor" transform="translate(-2796 -3500)" xlink:href="#pa"></use>
+          <use fill="currentColor" transform="translate(-2778.95 -3486.78)" xlink:href="#pb"></use>
+        </g>
+        <defs>
+          <path id="pa" d="M16.018 32C7.194 32 0 24.822 0 15.982S7.194 0 16.018 0c3.72 0 7.335 1.308 10.206 3.642l-1.701 2.05c-2.375-1.98-5.422-3.04-8.505-3.04-7.371 0-13.36 5.976-13.36 13.33 0 7.355 5.989 13.366 13.36 13.366 5.174 0 9.78-2.935 12.013-7.46H17.045v-2.653h14.778l-.567 1.733A15.997 15.997 0 0 1 16.018 32z"></path>
+          <path id="pb" d="M14.955 0H0v2.652h14.955V0z"></path>
+        </defs>
+      </svg>
+
+      <svg class="spinner" viewBox="25 25 50 50">
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2.5"></circle>
+        <circle class="shadow" cx="50" cy="50" r="20" fill="none" stroke-width="2.5"></circle>
+      </svg>
+    </div>
+  </app-root>
+</body>
+
+</html>

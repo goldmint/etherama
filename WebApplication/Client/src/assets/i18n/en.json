@@ -1,0 +1,1519 @@
+{
+  "COMMONS": {
+	"Loading": "Loading...",
+	"TFACode": "Two-factor authentication code",
+	"TFACodeInvalid": "Invalid code",
+    "ConfirmTr": "Confirm the transaction in MetaMask"
+  },
+  "HEADER": {
+    "Wallet": "Wallet",
+    "SignIn": "Sign in",
+    "SignUp": "Sign up",
+    "SignOut": "Sign out",
+    "AccountInfo": "Account Info",
+    "Menu": {
+      "Exchange": {
+        "Heading": "Exchange",
+        "Sell": "Sell GOLD",
+        "Buy": "Buy GOLD",
+        "Transfer": "Transfer GOLD",
+        "Finance": "Finance"
+      },
+      "GoldmintBlockchain": {
+        "Heading": "Goldmint Blockchain",
+        "Wallet": "Wallet",
+        "MasterNode": "Master node",
+        "Scanner": "Scanner"
+      },
+      "PAWN": "PAWN MARKETPLACE"
+    }
+  },
+  "FOOTER": {
+    "Menu": {
+      "About": "About",
+      "Transparency": "Transparency",
+      "LegalSecurity": "Legal & Security",
+      "HelpCenter": "Help Center"
+    },
+    "Copyright": "Goldmint PTE. Ltd © {{year}}"
+  },
+  "PAGES": {
+    "Home": {
+      "Heading": "Do You want to buy or sell GOLD cryptoassets?",
+      "Or": "or",
+      "Buttons": {
+        "Sell": "Sell",
+        "Buy": "Buy"
+      }
+    },
+    "Sell": {
+      "Heading": "Sell GOLD cryptoassets",
+      "Labels": {
+        "Amount": "Amount",
+        "Estimate": "Estimates Amount *",
+        "Buy": "Buy now",
+        "Get": "and get"
+      },
+      "Method": {
+        "CtyptoCurrency": "Cryptocurrency",
+        "CryptoCapital": "CryptoCapital",
+        "PaymentCard": "Payment card"
+      },
+      "Paused": "Sell transactions are paused",
+      "CtyptoCurrency": {
+        "Heading": "Cryptocurrency",
+        "Labels": {
+          "Amount": "Amount",
+          "Estimate": "Estimates Amount"
+        },
+        "SuccessModal": {
+          "Heading": "Transaction in Process:",
+          "Steps": "Please wait at least 100 confirmation steps (about 30 minutes).",
+          "Hash": "Your transaction hash is:",
+          "Link": "View your transaction on EtherScan"
+        },
+        "LimitModal": {
+          "Text": {
+            "First": "We are sorry we can't perform your transaction completely at the moment due to insufficient of funds on the contract. You can sell only",
+            "Second": "for now."
+          },
+          "Buttons": {
+            "Sell": "Sell",
+            "TryLater": "I'll try later"
+          }
+        }
+      },
+      "PaymentCard": {
+        "Heading": "Payment Card",
+        "Labels": {
+          "SelectCard": "Select a card",
+          "Amount": "Amount",
+          "Estimate": "Estimates Amount"
+        }
+      },
+      "SectionTitle": "Instant Sell",
+      "Discount": "Fee",
+      "Note": "*The estimated USD amount is calculated from the highest price offered to a lower price until all BTC is sold",
+      "Buttons": {
+        "SellNow": "Sell now",
+        "BuyMore": "Buy more"
+      },
+      "Errors": {
+        "InvalidGold": "Invalid GOLD amount",
+        "InvalidUsd": "Invalid USD amount",
+        "InvalidEth": "Invalid ETH amount",
+        "minLimit": "Amount is less than minimum limit",
+        "maxLimit": "Amount is greater than maximum limit",
+        "UseMM": "Use metamask",
+        "NotAllow": "Method is not allowed now"
+      }
+    },
+    "Buy": {
+      "Heading": "Buy GOLD cryptoassets",
+      "SectionTitle": "Instant Buy",
+      "Note": "*The estimated USD amount is calculated from the highest price offered to a lower price until all BTC is sold",
+	  "DepositDesc": "Make a deposit in a fiat currency to your account for purchases",
+      "Method": {
+        "CtyptoCurrency": "Cryptocurrency",
+        "CryptoCapital": "CryptoCapital",
+        "PaymentCard": "Payment card"
+      },
+      "Paused": "Buy transactions are paused",
+      "Promo": {
+        "PromoInfo": {
+          "Text": "Your discount is",
+          "Or": "or"
+        },
+        "PromoPermission": "You should pass advanced verification for using promo code"
+      },
+      "CtyptoCurrency": {
+        "Heading": "Cryptocurrency",
+        "Labels": {
+          "Amount": "Estimates Amount",
+          "PromoCode": "Your promo code"
+        },
+        "SuccessModal": {
+          "Heading": "Transaction in Process:",
+          "Steps": "Please wait at least 12 confirmation steps",
+          "Hash": "Your transaction hash is:",
+          "Link": "View your transaction on EtherScan"
+        }
+      },
+      "PaymentCard": {
+        "Heading": "Payment Card",
+        "Labels": {
+          "SelectCard": "Select a card",
+          "Amount": "Amount",
+          "Estimate": "Estimates Amount",
+          "PromoCode": "Your promo code"
+        }
+      },
+      "Labels": {
+        "Spend": "Spend",
+        "Estimate": "Estimates Amount *"
+      },
+      "Buttons": {
+        "BuyNow": "Buy now",
+        "Deposit": "Deposit"
+      },
+      "Message": {
+        "Progress": "Your request is in progress now!"
+      },
+      "Errors": {
+        "Exceeded": "You have exceeded request frequency (One request for 30 minutes). Please try later",
+        "Pending": "Your previously blockchain operation is still pending",
+        "UseMM": "Use metamask",
+        "NotAllow": "Method is not allowed now",
+        "InvalidEth": "Invalid ETH amount",
+        "InvalidUsd": "Invalid USD amount",
+        "InvalidGold": "Invalid GOLD amount",
+        "EnoughMoney": "You don't have enough money",
+        "BuyLimit": "The purchase limit has been exceeded. You are allowed to make a purchase for {{ allow }} USD of {{ limit }} USD",
+        "NoKyc": "You need to pass the KYC verification",
+        "IncorrectPromo": "Incorrect promo code",
+        "PromoCodeErrors": {
+          "501": "Promo code not enter",
+          "502": "Promo code not found",
+          "503": "Promo code expired",
+          "504": "Promo code is used",
+          "505": "Promo code limit exceeded"
+        }
+      }
+    },
+    "Transfer": {
+      "Heading": "Transfer GOLD cryptoassets",
+      "Labels": {
+        "TransferToWallet": "Transfer to wallet",
+        "Amount": "Amount",
+        "ChooseMethod": "Choose transfer method",
+        "MyWallet": "My Etherium wallet",
+        "Or": "or",
+        "NoMM": "Use metamask"
+      },
+      "Steps": {
+        "One": "Go to",
+        "Two": "Enter the address of the smart contract",
+        "Three": "Click confirm transaction"
+      },
+      "Placeholders": {
+        "EtheriumWallet": "Ethereum wallet"
+      },
+      "Buttons": {
+        "Send": "Send"
+      },
+      "Errors": {
+        "InvalidAddress": "Invalid address",
+        "InvalidAmount": "Invalid amount value",
+        "AddressMatches": "Address matches to active Metamask wallet address"
+      }
+    },
+    "Finance": {
+      "Heading": "Finance",
+      "Menu": {
+        "Deposit": "Deposit",
+        "Withdraw": "Withdraw",
+        "History": "History"
+      },
+      "KYC": {
+        "Text": "<span class=\"lead\">We need to confirm your identity</span>",
+        "BlockedCountry": "Actions BUY/SELL of GOLD cryptoasset are not available for your country",
+        "Pros": {
+          "Secure": {
+            "Title": "Secure",
+            "Text": "All provided information is encrypted and securely stored."
+          },
+          "Simple": {
+            "Title": "Simple",
+            "Text": "Verification process is very simple and takes not more than 15 minutes."
+          },
+          "Complaint": {
+            "Title": "Complaint",
+            "Text": "Verification procedure is fully compliant with AML and KYC regulations."
+          }
+        }
+      },
+      "TableLimits": {
+        "Heading": "Account limits",
+        "Table": {
+          "Heading": {
+            "AccountType": "Account type",
+            "Basic": "BASIC",
+            "Verified": "VERIFIED",
+            "Verified+": "VERIFIED PLUS",
+            "Corporate": "CORPORATE"
+          },
+          "Labels": {
+            "Daily": "Daily",
+            "Monthly": "Monthly",
+            "Unlimited": "Unlimited",
+            "LimitUsed": "Limit used:"
+          }
+        }
+      }
+    },
+	"MasterNode": {
+      "Heading": "Master Node",
+      "Tabs": {
+        "Overview": "Overview",
+        "Launch": "Launch master node",
+        "Migration": "Token migration"
+      },
+      "LaunchPage": {
+        "Heading": "Launch Master Node",
+        "Description": "Here you can find the installation and configuration instructions for your blockchain Goldmint master-node for OS",
+        "Labels": {
+          "ChooseOS": "Choose OS",
+          "VideoInst": "Video instruction",
+          "TextInst": "Text instruction",
+          "InstFor": "Instruction for"
+        },
+        "Buttons": {
+          "Migrate": "I'm ready for doing the migration of my MNTP tokens to start mining",
+          "MigrateSmall": "I'm ready for doing the migration"
+        }
+      },
+      "MigrationPage": {
+        "Heading": "Token Migration",
+        "TransferDescr": "You have to transfer your tokens to this address:",
+        "Labels": {
+          "Amount": "Amount",
+          "Address": "Sumus address"
+        },
+        "SuccessModal": {
+          "Heading": "Transaction in Process:",
+          "Hash": "Your transaction hash is:",
+          "Link": "View your transaction on EtherScan"
+        },
+        "Errors": {
+          "InvalidAmount": "Invalid amount",
+          "Maximum": "Maximum amount is",
+          "Required": "Field is required",
+          "InvalidAddress": "Invalid address"
+        },
+        "Buttons": {
+          "go": "GO"
+        },
+        "Popover": {
+          "Copied": "Copied"
+        }
+      },
+      "Overview": {
+        "Heading": "Overview",
+        "Labels": {
+          "Nodes": "Total running nodes:",
+          "MNT": "Total MNT holded:",
+          "Reward": "Total reward earned:",
+          "ActiveNodes": "Current active nodes"
+        },
+        "Links": {
+          "LatestReward": "Latest reward distributions"
+        },
+        "Table": {
+          "Node": "Node wallet",
+          "Date": "Launch date",
+          "MNT": "MNT Holded",
+          "Reward": "Total reward earned",
+          "Chart": "Mini chart"
+        },
+        "Chart": "Reward Progress Chart"
+      },
+      "LatestReward": {
+        "Heading": "Latest reward distributions",
+        "Table": {
+          "Date": "Date",
+          "TxAmount": "Tx amount",
+          "TransferredToken": "Transferred token amount",
+          "RewardAmount": "Reward amount"
+        }
+      }
+    },
+    "Scanner": {
+      "Heading": "Scanner",
+      "Caption": "Goldmint blockchain scanner",
+      "LatestStatistic": {
+        "Caption": "Latest statistics",
+        "Input": {
+          "Placeholder": "Search by Address / Txhash"
+        },
+        "Labels": {
+          "QuantityNodes": "Quantity of nodes:",
+          "QuantityMNT": "Quantity of MNT for nodes:",
+          "Remuneration": "The remuneration amount for 1 MNT/per day:"
+        },
+        "Charts": {
+          "Reward": "Collected commission by days chart",
+          "Tx": "Transactions amount by days chart"
+        },
+        "Blocks": {
+          "Heading": "Blocks",
+          "Labels": {
+            "Number": "Number:",
+            "Mined": "Mined by:",
+            "Count": "Transaction quantity:",
+            "TotalAmount": "Total amount:",
+            "Fee": "Fee:",
+            "Date": "Create date:"
+          },
+          "Buttons": {
+            "More": "View more"
+          }
+        },
+        "Transactions": {
+          "Heading": "Transactions",
+          "Labels": {
+            "From": "From:",
+            "To": "To:",
+            "Amount": "Amount:",
+            "Fee": "Fee:",
+            "Date": "Create date:"
+          },
+          "Buttons": {
+            "More": "View more"
+          }
+        }
+      },
+      "AllBlocks": {
+        "Heading": "Blocks",
+        "Labels": {
+          "Number": "Number",
+          "Mined": "Mined by",
+          "Count": "Transaction quantity",
+          "ctFee": "GOLD fee",
+          "utFee": "MNT fee",
+          "Date": "Create date"
+        }
+      },
+      "AllTransactions": {
+        "Heading": "Transactions",
+        "Labels": {
+          "From": "From",
+          "To": "To",
+          "Count": "Amount",
+          "Fee": "Fee",
+          "Date": "Create date"
+        }
+      },
+      "TransactionsInBlock": {
+        "Heading": "Transaction list in the block",
+        "Labels": {
+          "From": "From",
+          "To": "To",
+          "Count": "Amount",
+          "Fee": "Fee",
+          "Date": "Create date"
+        }
+      },
+      "AddressInfo" : {
+        "Heading": "Address info",
+        "Labels": {
+          "Address": "Address:",
+          "Balance": "Balance:",
+          "Transactions": "Transactions:"
+        },
+        "Table": {
+          "Hash": "TxHash",
+          "Block": "Block",
+          "Date": "Date",
+          "From": "From",
+          "To": "To",
+          "Value": "Amount",
+          "Fee": "Fee"
+        }
+      },
+      "TransactionInfo": {
+        "Heading": "Transaction info",
+        "Labels": {
+          "Hash": "Tx Hash:",
+          "TimeStamp": "TimeStamp:",
+          "Destination": "Destination wallet:",
+          "Source": "Source wallet:",
+          "TokenType": "Token type:",
+          "BlockNumber": "Block number:",
+          "Amount": "Amount:",
+          "Fee": "Fee:",
+          "Id": "Transaction Id:",
+          "Status": "Transaction status:"
+        },
+        "Status": {
+          "1": "Pending",
+          "2": "Success",
+          "3": "Failed"
+        },
+        "NotFound": "Transaction not found",
+        "Pending": "Transaction is pending"
+      },
+      "Errors": {
+        "Required": "Field is required",
+        "Pattern": "Field must contains digits and latin letters",
+        "InvalidAddress": "Invalid address",
+        "InvalidHash": "Invalid hash"
+      },
+      "Buttons": {
+        "Go": "Go"
+      }
+    },
+    "Deposit": {
+      "Heading": "Deposit",
+      "SectionTitle": "Choose deposit payment method",
+      "Method": {
+        "CryptoCapital": "Cryptocurrency",
+        "Card": "Payment card",
+        "Transfer": "Bank transfer",
+        "Crypto": "CryptoCapital"
+      },
+      "LimitInfo": "Your available for payment limit is less than minimally bank transfer sum",
+      "Table": {
+        "Menu": {
+          "Daily": "Daily",
+          "Monthly": "Monthly"
+        },
+        "Heading": "Account limits",
+        "Available": "Available for payment",
+        "Limit": "Limit",
+        "Increase": "Increase"
+      },
+      "CryptoCapital": {
+        "Heading": "Cryptocurrency",
+        "Labels": {
+          "EstimatesAmount": "Estimates Amount"
+        },
+        "Errors": {
+          "Invalid": "Invalid amount"
+        }
+      },
+      "Crypto": {
+        "Heading": "Crypto Capital",
+        "Table": {
+          "CellName": {
+            "Company": "Company name:",
+            "Address": "Address:",
+            "Country": "Country:",
+            "Account": "Beneficiary account:",
+            "Reference": "Reference:"
+          }
+        },
+        "EditForm": {
+          "Heading": "Edit requisites",
+          "Labels": {
+            "Company": "Company name:",
+            "Address": "Address:",
+            "Country": "Country:",
+            "Account": "Beneficiary account:"
+          },
+          "Errors": {
+            "Required": "Field is required"
+          }
+        },
+        "Warning": {
+          "First": "REFERENCE IS MANDATORY AND SHOULD BE ENTERED IN THE INFO FIELD WHEN YOU SEND A PAYMENT CRYPTO CAPITAL",
+          "Second": "PLEASE SEND TNE EXACT AMOUNT IN CURRENCY YOU APPLIED FOR AND MAKE SURE YOUR PAYMENT DETAILS ARE STATED CORRECTLY",
+          "Third": "PAYMENTS FROM THIRD PARTIES WILL NOT BE ACCEPTED AND RETURNED BACK TO THE SEDER"
+        },
+        "Buttons": {
+          "Copy": "Copy",
+          "Edit": "Edit requisites"
+        }
+      },
+      "PaymentCard": {
+        "Heading": "Payment Card",
+        "Labels": {
+          "SelectCard": "Select a card:",
+          "Amount": "Amount",
+          "Estimate": "Estimates Amount"
+        },
+        "Text": {
+          "Agree": "I agree with",
+          "Document": "Very Important Document"
+        },
+        "Errors": {
+          "Invalid": "Invalid amount value",
+          "InvalidGold": "Invalid GOLD amount",
+          "InvalidUsd": "Invalid USD amount",
+          "Minimal": "Minimal amount value is",
+          "Maximum": "Maximum amount value is"
+        }
+      },
+      "BankTransfer": {
+        "Labels": {
+          "Ready": "Due to the specifics of our payment partner’s operations, we cannot guarantee payment processing time. Currently, transaction processing may take 2 to 60 days.",
+          "USDAmount": "Deposit amount",
+          "Country": "Choose your bank country"
+        },
+        "SelectCountryNote": {
+          "FirstText": "If your country is not on the list, if means we are unable to receive a bank transfer for this country. Please check",
+          "Link": "Limits and Commission",
+          "LastText": "tab."
+        },
+        "Table": {
+          "Heading": "PAYMENT DETAILS",
+          "Cell": {
+            "BeneficiaryName": "Beneficiary name:",
+            "BeneficiaryAddress": "Beneficiary address:",
+            "BeneficiaryIBAN": "Beneficiary’s bank account number (IBAN):",
+            "BeneficiaryBankName": "Beneficiary’s Bank name:",
+            "BeneficiaryBankAddress": "Beneficiary’s Bank address:",
+            "BeneficiaryBankSWIFT": "Beneficiary bank SWIFT:",
+            "Reference": "Reference:"
+          },
+          "Text": {
+            "One": "REFERENCE SHOULD BE ENTERED FIRST IN THE NARRATIVE OF THE SENDING BANK'S PAYMENT INSTRUCTIONS, BEFORE ANY OTHER REFERENCES.",
+            "Two": "PLEASE SEND THE EXACT AMOUNT IN CURRENCY YOU APPLIED FOR (EXCLUDING BANK CHARGES) AND MAKE SURE YOUR PAYMENT DETAILS IS STATED CORRECTLY.",
+            "Three": "PAYMENTS FROM THIRD PARTIES WILL NOT BE ACCEPTED AND RETURNED BACK TO THE SENDER. PLEASE NOTE THAT BANK CHARGES FOR PAYMENT RETURN WILL BE DEDUCTED FROM THE AMOUNT.",
+            "Four": "CRYPTO SP.ZO.O is the payment processor for Crypto Capital Corp (Crypto Capital)."
+          }
+        },
+        "Checkbox": "I have double-checked all the risks and acknowledge that GOLDMINT.IO should not be responsible for the outcomes of my actions. It also concerns the risks of losses and lost profits in case of payment delays."
+      },
+      "CardsList": {
+        "SectionTitle": "Card details",
+        "Processed": "Your request is being processed"
+      },
+      "Buttons": {
+        "AddCard": "Add a card",
+        "Continue": "Continue",
+        "Start": "Start",
+        "Proceed": "Proceed",
+        "Download": "Download",
+        "Print": "Print",
+        "Done": "Done"
+      },
+      "Errors": {
+        "Invalid": "Invalid amount value"
+      }
+    },
+    "Withdraw": {
+      "Heading": "Withdraw {{ asset }}",
+      "SectionTitle": "Choose withdrawal payment method",
+      "TFA": {
+        "SectionTitle": "You need to enable 2FA first",
+        "Text": "<span class=\"lead\">Enable 2FA in a few clicks</span>",
+        "Button": "Enable 2FA"
+      },
+      "Method": {
+        "CryptoCapital": "Cryptocurrency",
+        "Card": "Payment card",
+        "Transfer": "Bank transfer",
+        "Crypto": "CryptoCapital",
+        "Errors": {
+          "BalanceLess": "Your balance is less than minimal method limit",
+          "LimitLess": "Your daily limit is less than minimal method limit"
+        }
+      },
+      "Table": {
+        "Menu": {
+          "Daily": "Daily",
+          "Monthly": "Monthly"
+        },
+        "Heading": "Account limits",
+        "Available": "Available for payment",
+        "Limit": "Limit",
+        "Increase": "Increase"
+      },
+      "CryptoCapital": {
+        "Heading": "Cryptocurrency",
+        "Labels": {
+          "Amount": "Amount",
+          "EstimatesAmount": "Estimates Amount"
+        },
+        "Errors": {
+          "Invalid": "Invalid amount"
+        }
+      },
+      "Crypto": {
+        "Heading": "Crypto Capital",
+        "Labels": {
+          "Amount": "Amount",
+          "Number": "Specify your Crypto Capital number"
+        },
+        "Errors": {
+          "Invalid": "Invalid amount",
+          "Required": "Field is required"
+        },
+        "Text": {
+          "FirstText": "Pay attention that each Crypto Capital account in each currency should be verified by GoldMint.io. You can proceed with unverified account as well, but the payment will be processed only after verification of your Crypto Capital account.",
+          "SecondText": "Please note that if the withdrawal currency differs from the currency of your Crypto Capital account? conversion fees may be applied."
+        },
+        "Checkbox": "I have read, understood and agree with above mentioned policies.",
+        "Message": {
+          "PopUp": {
+            "Heading": "Attention",
+            "Text": "How to verify a Crypto Capital account?<br><br>1. Take a screenshot of your Crypto Capital account with clearly visible account number. A separate screenshot is required for each Crypto Capital account.<br><br>2. Provide this screenshot to our support team via <b>support@goldmint.io</b>"
+          },
+          "AccountAdded": "Account has been added",
+          "Remove": "Do you want to remove account?",
+          "AccountRemoved": "Account has been removed",
+          "Sent": "Request has been sent"
+        },
+        "Buttons": {
+          "Proceed": "Proceed"
+        }
+      },
+      "PaymentCard": {
+        "Heading": "Payment Card",
+        "Labels": {
+          "SelectCard": "Select a card:",
+          "Amount": "Amount",
+          "Estimate": "Estimates Amount",
+          "2FA": "Two-factor authentication code"
+        },
+        "Text": {
+          "Agree": "I am agree with",
+          "Document": "Very Important Document"
+        },
+        "Errors": {
+          "Invalid": "Invalid amount value",
+          "InvalidGold": "Invalid GOLD amount",
+          "InvalidUsd": "Invalid USD amount",
+          "Minimal": "Minimal amount value is",
+          "Maximum": "Maximum amount value is",
+          "Length": "Code should be 6-digits length"
+        }
+      },
+      "BankTransfer": {
+        "Heading": "Bank transfer",
+        "Labels": {
+          "BankAccount": "Bank account",
+          "Amount": "Amount",
+          "Fee": "Fee:"
+        },
+        "AddForm": {
+          "Heading": "Add account",
+          "Labels": {
+            "Description": "Description",
+            "NameAccount": "Name on account",
+            "IBAN": "IBAN",
+            "BankName": "Bank name",
+            "BIC": "BIC",
+            "Address": "Address"
+          },
+          "Placeholder": {
+            "Description": "Unique description used to identify this bank account",
+            "NameOnAccount": "The name on this bank account must match this account",
+            "Address": "The physical address of your bank's branch, including the country"
+          },
+          "Buttons": {
+            "Save": "Save bank account",
+            "Back": "Back"
+          }
+        },
+        "RemoveForm": {
+          "Heading": "Remove account",
+          "Labels": {
+            "BankAccount": "Bank account"
+          },
+          "Buttons": {
+            "Remove": "Remove bank account",
+            "Back": "Back"
+          }
+        },
+        "Buttons": {
+          "Add": "Add account",
+          "Remove": "Remove account",
+          "Send": "Send request"
+        }
+      },
+      "CardsList": {
+        "SectionTitle": "Card details",
+        "Processed": "Your request is being processed"
+      },
+      "Buttons": {
+        "AddCard": "Add a card",
+        "Continue": "Continue",
+        "Start": "Start",
+        "Proceed": "Proceed",
+        "Download": "Download",
+        "Print": "Print",
+        "Done": "Done"
+      }
+    },
+    "History": {
+      "Heading": "History",
+      "SectionTitle": "Transactions",
+      "Table": {
+        "Columns": {
+          "Date": "Date",
+          "Amount": "Amount",
+          "Balance": "Balance",
+          "Destination": "Destination",
+          "Type": "Type",
+          "Fee": "Fee",
+          "FromAmount": "From amount",
+          "ToAmount": "To amount",
+          "Comment": "Comment"
+        },
+        "Status": {
+          "Pending": "Transaction is pending",
+          "Ok": "Transaction is successful",
+          "Failed": "Transaction is failed"
+        },
+        "Link": "Link",
+        "EmptyMessage": "No data"
+      },
+      "Types": {
+        "withdraw": "Withdraw",
+        "deposit": "Deposit",
+        "goldbuy": "GOLD buying",
+        "goldsell": "GOLD selling",
+        "hwtransfer": "Transfer"
+      }
+    },
+    "Login": {
+      "SectionTitles": {
+        "Login": "Sign in",
+        "Social": "Sign in via Social Network"
+      },
+      "Labels": {
+        "Username": "Email or Username",
+        "Password": "Password",
+        "TFACode": "Two-factor authentication code"
+      },
+      "LoginDPARequired": {
+        "Heading": "Data Processing Agreement",
+        "Text": {
+          "First": "In order to use Goldmint application you should sign data processing agreement we have sent to your email.",
+          "Second": "If you have signed an agreement, please note that in particular cases processing could take a while. Please be patient, wait a few minutes and try to sign in. ",
+          "Third": "If you have problems with signing this agreement, please contact our support team via ",
+          "Support": "support@goldmint.io"
+        }
+      },
+      "LoginDPASigned": {
+        "Heading": "Data Processing Agreement",
+        "Text": {
+          "First": "We are processing your document. Please wait a while.",
+          "Second": "If you have problems with signing this agreement, please contact our support team via ",
+          "Support": "support@goldmint.io"
+        }
+      },
+      "Errors": {
+        "Username": {
+          "required": "Email or Username is required",
+          "minlength": "Email or Username is too short",
+          "maxlength": "Email or Username is too long"
+        },
+        "Password": {
+          "required": "Password is required",
+          "minlength": "The password is too short",
+          "maxlength": "The password is too long",
+          "pairNotFound": "User/password pair not found"
+        },
+        "AccountBlocked": "Your account is blocked. For unblocking sign in using recaptcha.",
+        "TFACode": {
+          "pattern": "Only 6-digits numeric code is allowed"
+        }
+      },
+      "Buttons": {
+        "LogIn": "Sign in",
+        "LogInViaSocial": "Sign in via {{ provider }}",
+        "Back": "Back"
+      },
+      "Links": {
+        "RegisterAccount": "Register new account",
+        "ForgotPassword": "Forgot your password?"
+      }
+    },
+    "ResetPassword": {
+      "Heading": {
+        "Reset": "Reset password",
+        "Recovery": {
+          "FirstLine": "Password recovery",
+          "SecondLine": "email sent"
+        },
+        "Change": "Change password"
+      },
+      "Labels": {
+        "Reset": "Reset",
+        "EnterEmail": "Enter Your Email Address",
+        "Recovery": "Recovery",
+        "Provide": "Provide a new password for your account",
+        "NewPass": "New password",
+        "ConfirmPass": "Confirm password"
+      },
+      "Text": {
+        "Reset": "To reset your password, enter the email address you use to sign in to GOLDMINT.IO. It can be your email address, an email address you use with one of the social networks, or any email address associated with your account.",
+        "Recovery": {
+          "FirstLine": "We've sent you an email containing a password recovery link. You will be able to reset your password by clicking the link within next 24 hours. Please click on the button in your email.",
+          "SecondLine": "If you don't see the email, be sure to check your spam folder."
+        }
+      },
+      "Errors": {
+        "Email": "Email is required",
+        "RepeatPass": "Repeat new password, please"
+      },
+      "Buttons": {
+        "Submit": "Submit",
+        "Back": "Back to the site"
+      }
+    },
+    "Register": {
+      "SectionTitles": {
+        "Register": "Register",
+        "Social": "Sign in via Social Network"
+      },
+      "Labels": {
+        "Username": "Email or Username",
+        "Email": "Email",
+        "Password": "Password",
+        "Confirm": "Confirm password"
+      },
+      "Paused": "New accounts registration is temporary stopped",
+      "Errors": {
+        "Username": {
+          "required": "Email or Username is required",
+          "minlength": "Should be at least 3 symbols length"
+        },
+        "Email": {
+          "required": "Email is required",
+          "pattern": "Should be a valid email address, at least 5 symbols length"
+        },
+        "Password": {
+          "required": "Password is required",
+          "minlength": "Should be at least 6 symbols length",
+          "maxlength": "Should be up to 128 symbols length",
+          "pattern": "Should contain uppercase letters, lowercase letters and digits",
+          "weak": "Password is too weak",
+          "weakChecking": "Checking password...",
+          "notMatch": "Passwords does not match"
+        }
+      },
+      "Buttons": {
+        "Register": "Register",
+        "RegisterViaSocial": "Sign in via {{ provider }}"
+      },
+      "Links": "Already own an account? Sign in",
+      "SuccessPage":  {
+        "Title": "Registered",
+        "Content": "We have sent you an email with information handling the agreement. Please check your email and sign the agreement."
+      },
+      "EmailConfirmedPage":  {
+        "Title": "Email confirmation",
+        "ContentProcessing": "Checking email confirmation.",
+		"ContentSuccess": "Your email has been successfully confirmed. Now you are free to sign in.",
+		"ContentFailure": "There was an error while email confirmation. Please contact our support team."
+      },
+      "EmailTakenPage":  {
+        "Title": "This email is already taken",
+        "Content": "We are sorry, but email you specified is already taken. Please try another one."
+      },
+      "IAgreeText": "Hereby I grant the company GoldMint PTE LTD the right to keep and handle my personal data."
+    },
+    "2FA": {
+      "SecurityBlock": {
+        "Heading": "Security",
+        "Labels": {
+          "Notice": "Your account security is low",
+          "Recommended": "Recommended!",
+          "NotRecommended": "Not Recommended!"
+        },
+        "Description": {
+          "General": {
+            "One": "Two-Factor Authentication makes your account strongly secure.",
+            "Two": "If you lose your mobile device with enabled 2FA, contact our support team via",
+            "Three": "to solve your problem."
+          },
+          "Setup": "2FA code will be generated by your smartphone app <b>Google Authenticator</b>, available for i0S, Android and Windows phone.",
+          "Keep": {
+            "Text": "Your account will be insecure and can be easily",
+            "Word": "hacked"
+          }
+        },
+        "Buttons": {
+          "Setup": "Setup two-factor authentication",
+          "Keep": "Keep two-factor authentication disabled"
+        }
+      },
+      "SecurityIssueBlock": {
+        "Heading": "Security issue",
+        "Labels": {
+          "Notice": "Your account security is low"
+        },
+        "Description": {
+          "One": {
+            "Text": "We strongly recommend you to",
+            "Link": "Enable Two-Factor Authentication (2FA)"
+          },
+          "Two": {
+            "FirstText": "If your email or password are compromised, it can result in",
+            "StyleText": "loss of your funds or your personal data.",
+            "LastText": "This can be avoided with enabled 2FA."
+          }
+        },
+        "Checkbox": {
+          "One": "I acknowledge and agree that GOLDMINT.IO shall not be liable for the safety of my funds and personal information.",
+          "Two": "I am aware of the risks involved when disabling 2FA."
+        }
+      }
+    },
+    "Settings": {
+      "Heading": "Account Info",
+      "Menu": {
+        "Profile": "Profile",
+        "Verification": "KYC Verification",
+        "TFA": "Two-Factor Authentication",
+        "Cards": "Cards",
+        "SocialNetworks": "Social Networks",
+        "AccountActivity": "Account Activity",
+        "AccountLimits": "Account Limits",
+        "Fees": "Withdraw/Deposit Fees"
+      },
+      "Profile": {
+        "UserIdSection": {
+          "Title": "UserID"
+        },
+		"EmailSection": {
+          "Title": "Email",
+          "Labels": {
+            "PrimaryEmail": "Primary Email Address"
+          },
+          "Buttons": {
+            "Confirm": "Confirm"
+          },
+          "Errors": {
+            "Email": {
+              "required": "Email is required",
+              "email": "Should be a valid email"
+            }
+          }
+        },
+        "PasswordSection": {
+          "Title": "Change Password",
+		  "Texts": {
+			"Changed": "Password successfully changed"
+		  },
+          "Labels": {
+            "CurrentPassword": "Current Password",
+            "NewPassword": "New Password",
+            "NewPasswordRepeat": "Repeat New Password"
+          },
+          "Buttons": {
+            "ChangePassword": "Change password"
+          },
+          "Errors": {
+            "CurrentPassword": {
+			  "invalid": "Invalid password specified"
+            },
+            "NewPassword": {
+              "required": "New password is required",
+              "minlength": "Should be at least 6 symbols length"
+            },
+            "NewPasswordRepeat": {
+              "required": "Repeat new password, please",
+              "equal": "New passwords does not match"
+            }
+          }
+        }
+      },
+      "Cards": {
+        "Heading": "Cards",
+        "Labels": {
+          "VerificationCode": "Verification code:"
+        },
+        "Info": {
+          "Add": "You did not add any card.",
+          "Confirm": "In order to add credit card you have to confirm your person.",
+          "Redirect": "You will be redirected to acquirer page to fill card data.",
+          "InputData": "You have to enter the same card data one more time. You will be redirected to acquirer page.",
+          "Verify": "We have charged test payment. Please check bank statement for exact amount of this payment. In order to verify this card please type this amount below. For example: 1.23",
+          "CardIsReady": "Card verified and ready to use.",
+          "Wrong": "Oops! Something went wrong. Card has not been added."
+        },
+        "Status": {
+          "New": "New",
+          "Failed": "Failed",
+          "Disabled": "Disabled",
+          "Checking": "Checking...",
+          "Confirm": "Confirm",
+          "Verify": "Verify",
+          "Verified": "Verified"
+        }
+      },
+      "KYC": {
+        "AccountType": {
+          "Label": "Account type:",
+          "Types": {
+            "Verified": "Verified",
+            "VerifiedPlus": "Verified+"
+          }
+        },
+        "DefaultSection": {
+          "Title": "Identity verification",
+          "StatusText": "Not verified",
+          "Labels": {
+            "KYCVer": "Advanced verification",
+            "NotSigned": "Not signed",
+            "NotVerified": "Not verified"
+          },
+          "Success": {
+            "Heading": "KYC verification",
+            "Status": "Verification completed",
+            "Description": "Congratulations! KYC verification successfully finished!"
+          },
+          "Text": "Complete verification to withdraw fiat funds and unlock account opportunities",
+          "Note": "Verification procedures is very simple and intuitive. We will only ask you to provide is some personal information and supporting documents.",
+          "Buttons": {
+            "Start": "Start Verification",
+            "Upgrade": "Upgrade Verification",
+            "GetAdvancedVer": "Get advanced verification"
+          }
+        },
+		"WarningSection": {
+          "Title": "Advanced verification",
+		  "Widget": "Not verified",
+          "Notification": {
+            "Unverified": "Unverified accounts cannot make any fiat operations. You will be redirected to identity verification service.",
+            "Documents": "Please use only documents where your name is written with latin characters and exactly matches with name that you provided below in Basis Verification. Otherwise the verification will be failed.",
+            "UsePassportRus": ""
+          },
+		  "TextPending": "We are still checking verification status. In case of problem you will be able to make another verification attempt in 30 minutes.",
+		  "Button": "Get verified"
+        },
+		"AgreementSection": {
+          "Title": "Sign agreement",
+          "Text": "Complete verification by signing Goldmint agreement. Agreement will be sent to your primary email address.",
+		  "TextPending": "Agreement signing is still in progress. Please come back later or try to refresh this page.",
+		  "Widget": "Not signed",
+          "Success": {
+            "Heading": "Terms of sales agreement",
+            "Status": "Agreement is approved",
+            "Description": "Congratulations! Terms of sales verification successfully finished!"
+          },
+          "Buttons": {
+            "Resend": "Send agreement"
+          }
+        },
+        "ToS": {
+          "Heading": "Terms of sales",
+          "Agree": "I agree with",
+          "Link": "terms of sales",
+          "Button": "I agree"
+        },
+        "ProofResidency": {
+          "Heading": "Proof of Residency",
+          "Text": "In order to verify your residency you need to send a request to our support team and attach one of the following documents dated within the past 60 days: gas bill, electric bill, cable bill, property tax bill, oil bill, home telephone bill, bank statement. This document can be in your domestic language.",
+          "Button": "Send a request",
+          "Success": {
+            "Heading": "Proof of residency verification",
+            "Status": "Verification completed",
+            "Description": "Congratulations! Proof of residency verification successfully finished!"
+          }
+        },
+        "FinishedSection": {
+          "Title": "Advanced verification",
+          "StatusText": "Advanced verification completed",
+          "Text": "<span class=\"lead\">Congratulations! Identity verification successfully finished!</span>"
+        },
+        "FormSection": {
+          "Title": "Basic Information",
+          "StatusText": "Basic information filled",
+          "NewAccountText": "<b>NEW ACCOUNT.</b> Please submit the information below to apply for a basic account. Please use your full legal name as it exists on your government identification.",
+          "Important": "<b>IMPORTANT:</b> Once submitted, all the information cannot be changed. Please ensure the spelling is correct.",
+          "ImportantRus": "Use your international passport or driving license.",
+          "notificationForRussian": "Verification is possible using international passport or driving license only for Russian Federation citizens.",
+          "RequiredFields": "Required fields",
+          "CheckWrite": "I carefully filled in the personal data, and I understand that I won't be able to change them in the future.",
+          "Labels": {
+            "FirstName": "First Name",
+            "MiddleName": "Middle Name",
+            "LastName": "Last Name",
+            "BirthMonth": "Birth Month",
+            "BirthDay": "Birth Day",
+            "BirthYear": "Birth Year",
+            "Country": "Country",
+            "State": "State or province",
+            "City": "City",
+            "PostalCode": "Postal or ZIP code",
+            "Street": "Street Address",
+            "Apartment": "Apartment or unit",
+            "Passport": "Passport number (optional)",
+            "Phone": "Phone number"
+          },
+          "Month": {
+            "January": "January",
+            "February": "February",
+            "March": "March",
+            "April": "April",
+            "May": "May",
+            "June": "June",
+            "July": "July",
+            "August": "August",
+            "September": "September",
+            "October": "October",
+            "November": "November",
+            "December": "December"
+          },
+          "Placeholders": {
+            "ChooseCountry": "Choose your Country",
+            "ChooseState": "Choose your State",
+            "ChooseBirthYear": "Choose your Birth Year..."
+          },
+          "Errors": {
+            "FirstName": {
+              "required": "This field is required",
+              "pattern": "Only latin characters allowed",
+              "minLength": "Name should be at least 2 symbols length"
+            },
+            "MiddleName": {
+              "pattern": "Only latin characters allowed"
+            },
+            "LastName": {
+              "required": "This field is required",
+              "pattern": "Only latin characters allowed",
+              "minLength": "Name should be at least 2 symbols length"
+            },
+            "BirthMonth": {
+              "required": "This field is required",
+              "pattern": "Only latin characters allowed"
+            },
+            "BirthDay": {
+              "required": "This field is required"
+            },
+            "BirthYear": {
+              "required": "This field is required"
+            },
+            "Country": {
+              "required": "This field is required"
+            },
+            "Street": {
+              "required": "This field is required",
+              "pattern": "Only latin characters allowed"
+            },
+            "City": {
+              "required": "This field is required",
+              "pattern": "Only latin characters allowed"
+            },
+            "State": {
+              "required": "This field is required",
+              "pattern": "Only latin characters allowed"
+            },
+            "PostalCode": {
+              "required": "This field is required",
+              "pattern": "Only numbers and latin characters allowed"
+            },
+            "PhoneNumber": {
+              "required": "This field is required",
+              "pattern": "Invalid number format"
+            }
+          },
+          "Buttons": {
+            "Submit": "Submit"
+          }
+        }
+      },
+      "TFA": {
+        "SecretKeySection": {
+          "Title": "Two-factor authentication",
+          "TitleWidget": {
+            "Enabled": "Enabled",
+            "Disabled": "Disabled"
+          },
+          "WarningText": "<p>Two-factor authentication (2FA) greatly increases security by requiring both your password and another form of authentication. Goldmint implements 2FA utilizing Google Authenticator. To enable this feature simply download <a href=\"https://support.google.com/accounts/answer/1066447\" target=\"_blank\">Google Authenticator</a> on your mobile device and scan the CPCode. Once you have linked the Authenticator with Goldmint, enter the 6 digit code provided. </p>",
+          "Text": "<p><b>Please back up your secret key.</b> Resetting two-factor authentication requires opening a support ticket and may take up to 7 days.</p>",
+          "KeyLabel": "Secret key:",
+          "CodeLabel": "Authenticator Code",
+          "CodeHelpText": "Input your 6-digit authenticator code",
+		  "DisableWarning": "If you want to turn off 2FA, input your account password and the six-digit code provided by the Google Authenticator app below, then click \"Disable 2FA\". Your account will be insecure and can be easily hacked.",
+          "Steps": {
+            "One": "1. Backup secret key",
+            "Two": "2. Install application",
+            "Three": "3. Scan QR-code",
+            "Four": "4. Type current code"
+          },
+          "Notification": "Please check time on your device where you run Google Authenticator. It must be set correctly. Otherwise 2FA code can be invalid.",
+          "Errors": {
+            "pattern": "Only 6-digits numeric code is allowed",
+            "InvalidCode": "Invalid dode"
+          },
+          "Buttons": {
+            "Enable": "Enable 2FA",
+            "Disable": "Disable 2FA"
+          }
+        }
+      },
+      "Social": {
+        "NetworksSection": {
+          "Title": "Social Networks",
+          "Text": "You can sign in into app.goldmint.io with your Social Network account",
+          "Buttons": {
+            "Connect": "Connect",
+            "Connected": "Connected"
+          }
+        }
+      },
+      "Activity": {
+        "SectionTitle": "Account activity events",
+        "TitleWidget": {
+          "Label": "Date"
+        },
+        "ActivityTypes": {
+          "auth": "Authentication",
+          "password": "User password",
+          "settings": "Settings",
+          "deposit": "Deposit",
+          "withdraw": "Withdraw",
+          "exchange": "Assets exchange",
+          "creditcard": "Credit card"
+        }
+      },
+      "Limits": {
+        "Heading": "Get an overview of your account opportunities",
+        "Buttons": {
+          "Deposit": "Deposit",
+          "Withdraw": "Withdraw"
+        },
+        "AccountTypes": {
+          "Heading": "Account types",
+          "Labels": {
+            "Basic": "BASIC",
+            "Verified": "VERIFIED"
+          },
+          "Text": {
+            "Basic": "Buy and sale Bitcoins in a few clicks using your Visa or Master Card.",
+            "Verified": "Extend your limits and enable more payment options by verifying your identity."
+          },
+          "AccountType": "Your account type"
+        },
+        "TotalLimits": {
+          "Heading": "TOTAL ACCOUNT LIMITS",
+          "SubTitle": {
+            "deposit": "Deposit",
+            "withdraw": "Withdraw"
+          },
+          "Labels": {
+            "Daily": "Daily",
+            "Monthly": "Monthly"
+          }
+        },
+        "PaymentLimits": {
+          "Heading": "PAYMENT METHODS LIMITS",
+          "Text": "Please note that each payment method has It’s own limits, BUT cumulative amount of payment method limits should not exceed total amount limits of your account type",
+          "Labels": {
+            "PaymentCard": "Payment card",
+            "BankTransfer": "Bank transfer",
+            "CryptoCapital": "Cryptocurrency",
+            "Commission": "Commission",
+            "NoCommission": "No commission"
+          }
+        }
+      },
+      "Fees": {
+        "Heading": "Withdraw/Deposit Fees",
+        "CurrencyType": {
+          "Fiat": "Fiat money",
+          "Crypto": "Cryptocurrency"
+        },
+        "Table": {
+          "Head": {
+            "Currency": "Currency",
+            "PaymentMethod": "Payment method",
+            "Deposit": "Deposit",
+            "Withdrawal": "Withdrawal"
+          },
+          "Method": {
+            "VISA": "VISA",
+            "MasterCard": "MasterCard",
+            "BankTransfer": "Bank Transfer",
+            "Card": "Card",
+            "SEPA": "SEPA",
+            "CryptoCapital": "CryptoCapital"
+          }
+        }
+      }
+    },
+    "Transparency": {
+      "Heading": "Transparency",
+      "Issued": "Total issued:",
+      "Burnt": "Total burnt:",
+      "Circulation": "Total in circulation:",
+      "Link": "Link",
+      "Table": {
+        "Heading": "Documents",
+        "TableCell": {
+          "Date": "Date",
+          "Amount": "Amount",
+          "Document": "Document",
+          "Comment": "Comment"
+        }
+      },
+      "TableInfo": {
+        "Headings": {
+          "Assets": "Assets",
+          "Liabilities": "Liabilities",
+          "Exchange": "Money at broker/exchange",
+          "Storage": "Physical GOLD in the storage",
+          "DataProvided": "Data provided",
+          "Report": "The latest auditor's report",
+          "MoneyInBanks": "Money in banks",
+          "Distribution": "GOLD Cryptoassets in distribution"
+        },
+        "TableCell": {
+          "Borrowings": "Borrowings",
+          "Capital": "Capital",
+          "Profits": "Undistributed profits"
+        }
+      }
+    },
+    "LegalSecurity": {
+      "Heading": "Legal & Security",
+      "Label": "1. Documents",
+      "Links": {
+        "Terms": "Terms of sale",
+        "Privacy": "Privacy policy",
+        "KYCPolicy": "KYC Policy"
+      }
+    },
+    "PaymentCardBlock": {
+      "Labels": {
+        "Amount": "You pay:",
+        "Estimates": "You receive:",
+        "Checkbox": "Hereby I, the Cardholder, acknowledge and accept all the information as (directly or in a form of a links) follows below:",
+        "TimerLabel": "Remaining time to confirm the payment:"
+      },
+      "Button": "Proceed to payment",
+      "Table": {
+        "Caption": {
+          "Billing": "Billing descriptor",
+          "ConsumerPolicy": "Consumer data privacy policy",
+          "ConsumerInformation": "Customer Service contact information",
+          "CyberBridge": "CyberBridge OÜ",
+          "DeliveryPolicy": "Delivery policy",
+          "Description": "Description of the service offered",
+          "Domicile": "Domicile & Principal place of business",
+          "GoldCoin": "GoldCoin Term of Sales",
+          "Legal": "Legal information",
+          "Reccuring": "Reccuring rules",
+          "ReturnPolicy": "Return/Refund/Cancellation policy",
+          "Security": "Security capabilities and policy for transmission of payment card details",
+          "Currency": "Transaction currency",
+          "Method": "Transaction method"
+        },
+        "Information": {
+          "Billing": "Goldmint",
+          "ConsumerPolicy": "https://app.goldmint.io/#/legal-security/privacy",
+          "ConsumerInformation": {
+            "Facebook": "https://www.facebook.com/goldmint.io/",
+            "Telegram": "https://t.me/goldmintio",
+            "Support": "support@goldmint.io"
+          },
+          "CyberBridge": "a company registered in Estonia on 05.12.2017, reg.number 14383967, address: Harju maakond, Tallinn-Narva mnt 7-353, 10117, Estonia",
+          "DeliveryPolicy": "none, due to digital nature of services",
+          "Description": "https://old.goldmint.io/tokens",
+          "Domicile": "(at the checkout page) - Estonia",
+          "GoldCoin": "https://www.goldmint.io/media/documents/Gold_Coin_Terms_of_sale.pdf",
+          "Legal": "https://old.goldmint.io/legal",
+          "Reccuring": "no recurring payments are fulfilled by CyberBridge OU",
+          "ReturnPolicy": {
+            "Text": "CyberBridge OU buys GOLD at exchange right at the moment of the receipt of fiat money from the User and carries all corresponding costs and expenses, therefore such purchase transaction cannot be cancelled. Nevertheless, the User may sell the GoldCoin back to CyberBridge OU at the tariffs as follows",
+            "Link": "https://app.goldmint.io/#/sell"
+          },
+          "Security": "as defined by the Payment services provider",
+          "Currency": "USD, EUR",
+          "Method": "card payment"
+        }
+      }
+    },
+    "Wallet": {
+      "Heading": "Wallet",
+      "Items": {
+        "GetWallet": "Get Lite Wallet"
+      }
+    },
+    "ErrorPage": {
+      "404": {
+        "Heading": "Error 404. Page not found",
+        "SectionTitle": "Use the menu to navigate the site"
+      }
+    }
+  },
+  "BUTTONS": {
+    "Ok": "OK",
+    "Cancel": "Cancel",
+    "Close": "Close",
+    "AddCard": "Add card",
+    "Remove": "Remove",
+    "Refresh": "Refresh",
+    "Proceed": "Proceed",
+    "ConfirmCard": "Confirm card",
+    "VerifyCard": "Verify card",
+    "Verification": "Verification",
+    "Back": "Back",
+    "Next": "Next",
+    "Save": "Save",
+    "BackToCard": "Back to Cards list",
+    "GoToCard": "Go to Cards list",
+    "Deposit": "Deposit",
+    "Withdraw": "Withdraw"
+  },
+  "ERRORS": {
+    "Registration": {
+      "AccountEmailTaken": "This email address is already taken"
+    },
+    "Login": {
+      "AccountNotFound": "User/password pair not found",
+      "AccountLocked": "Too many unsuccessful attempts. Account is locked, try to sign in later",
+      "AccountEmailNotConfirmed": "Your email address is not confirmed yet"
+    },
+    "TFA": {
+      "InvalidCode": "Invalid code"
+    },
+    "Trading": "Trading Not Allowed",
+    "Limit": {
+      "Min": "Minimal amount value is",
+      "Max": "Maximum amount value is"
+    }
+  },
+  "APIErrors": {
+    "102": "You have exceeded request frequency (One request for 30 minutes). Please try later",
+    "1001": "Too many unsuccessful attempts. Account is locked, try to sign in later",
+    "1002": "Your email address is not confirmed yet",
+    "1010": "You have exceeded request frequency (One request for 30 minutes). Please try later",
+    "1012": "Your previously blockchain operation is still pending",
+    "default": "Sorry, somethings went wrong (error code {{ errorCode }})",
+    "notFound": {
+      "title": "Connection error",
+      "message": "Goldmint server does not respond. Please try again in few minutes."
+    }
+  },
+  "MessageBox": {
+    "RequestProgress": "Your request is in progress now!",
+    "GoldSell": "GOLD to sell: {{ goldAmount }} GOLD <br> You will get: $ {{ fiatAmount }} ($ {{ feeAmount }} fee) <br> GOLD/USD: $ {{ goldRate }}",
+    "GoldBuy": "GOLD to buy: {{ goldAmount }} GOLD <br> GOLD/USD: $ {{ goldRate }}",
+    "GoldTransfer": "Send to: {{ ToAddress }} <br> Send from: {{ FromAddress }} <br> Amount: {{ amount }} GOLD",
+    "EthDeposit": "ETH amount: {{ coinAmount }} ETH <br> Estimates Amount: {{ goldAmount }} GOLD<br> ETH/USD: {{ ethRate }}",
+    "EthWithdraw": "GOLD amount: {{ coinAmount }} GOLD <br> Estimates Amount: {{ goldAmount }} ETH<br> ETH/USD: {{ ethRate }}",
+    "PasswordChanged": "Password successfully changed",
+    "InvalidCode": "Invalid code",
+    "ConnectionError": {
+      "Title": "Connection error",
+      "Message": "Seems like your internet connection is lost.<br>Please check it and try again."
+    },
+    "Cards": {
+      "Remove": "Remove the card?",
+      "Removed": "Your card has been removed",
+      "WrongID": "Wrong card ID",
+      "InvalidCode": "Invalid code",
+      "InvalidFormat": "Invalid code format. Only digits are allowed."
+    },
+    "MetaMask": {
+      "Heading": "To continue you'll need to have Metamask",
+      "Text": "MetaMask is a bridge that allows you to visit the distributed web of tomorrow in your browser today. It allows you to run Ethereum dApps right in your browser without running a full Ethereum node. Please, install the MetaMask add-on in Chrome, Firefox or Opera browser. Get <a href=\"https://metamask.io\" target=\"_blank\">Metamask</a>"
+    },
+    "LiteWallet": {
+      "Heading": "To continue you'll need to have Lite Wallet",
+      "Text": "Goldmint Lite Wallet is provided for token holders to safely and securely store, send or receive MINT or GOLD tokens. It allows you to have multiple wallets which will provide the user with multiple places to store MINT/GOLD. Get"
+    },
+    "LoginToMM": {
+      "HeadingBuy": "BUY GOLD",
+      "HeadingSell": "SELL GOLD",
+      "HeadingTransfer": "TRANSFER GOLD",
+      "HeadingMigration": "TOKEN MIGRATION",
+      "Text": "Please login to your account or approve access to the Ethereum blockchain"
+    },
+    "LoginToLiteWallet": {
+      "Heading": "TOKEN MIGRATION",
+      "Text": "Please login to your account"
+    },
+    "InvalidNetwork": "You must use {{ network }} network",
+    "logOut": "Are you sure you want to log out?",
+    "SomethingWrong": "Something went wrong.",
+    "DepositLimit": "Deposit limit reached"
+  }
+}

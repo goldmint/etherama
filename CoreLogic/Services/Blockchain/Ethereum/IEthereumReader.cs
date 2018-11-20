@@ -1,0 +1,29 @@
+﻿using System.Numerics;
+using System.Threading.Tasks;
+using Etherama.CoreLogic.Services.Blockchain.Ethereum.Models;
+
+namespace Etherama.CoreLogic.Services.Blockchain.Ethereum {
+
+	public interface IEthereumReader {
+
+		/// <summary>
+		/// Get latest block number on the logs provider side
+		/// </summary>
+		Task<BigInteger> GetLogsLatestBlockNumber();
+
+		/// <summary>
+		/// Check chain transaction by it's ID
+		/// </summary>
+		Task<TransactionInfo> CheckTransaction(string txid, int confirmationsRequired);
+
+		/// <summary>
+		/// Get current gas price
+		/// </summary>
+		Task<BigInteger> GetCurrentGasPrice();
+
+
+
+	    Task<decimal> GetEtheramaTokenPrice(string contactAddress);
+
+	}
+}
