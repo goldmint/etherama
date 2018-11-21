@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Etherama.Common;
 using Etherama.DAL;
 using Etherama.DAL.Models;
-using Etherama.CoreLogic.Services.RuntimeConfig;
 using Microsoft.EntityFrameworkCore;
 
 namespace Etherama.CoreLogic {
@@ -46,12 +45,12 @@ namespace Etherama.CoreLogic {
 		/// <summary>
 		/// User's tier
 		/// </summary>
-		public static UserTier GetTier(Etherama.DAL.Models.Identity.User user, RuntimeConfig rc) {
+		public static UserTier GetTier(Etherama.DAL.Models.Identity.User user) {
 			var tier = UserTier.Tier0;
 
 			var hasPersData = HasFilledPersonalData(user?.UserVerification);
 			var hasKyc = HasKycVerification(user?.UserVerification);
-			var hasProvedResidence = HasProvedResidence(user?.UserVerification, rc.Tier2ResidenceRequried);
+			var hasProvedResidence = HasProvedResidence(user?.UserVerification, true);
 			var hasAgreement = HasTosSigned(user?.UserVerification);
 
 			if (hasPersData) tier = UserTier.Tier1;

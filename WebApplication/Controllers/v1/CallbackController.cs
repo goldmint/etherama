@@ -1,5 +1,4 @@
-﻿using Etherama.CoreLogic.Services.Google.Impl;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -39,62 +38,44 @@ namespace Etherama.WebApplication.Controllers.v1 {
 			return LocalRedirect("/");
 		}
 
-		/// <summary>
-		/// Callback from ShuftiPro service. This is not user redirect url
-		/// </summary>
-		[AnonymousAccess]
-		[HttpPost, Route("shuftipro", Name = "CallbackShuftiPro")]
-		[ApiExplorerSettings(IgnoreApi = true)]
-		public async Task<IActionResult> ShuftiPro() {
+		///// <summary>
+		///// Callback from ShuftiPro service. This is not user redirect url
+		///// </summary>
+		//[AnonymousAccess]
+		//[HttpPost, Route("shuftipro", Name = "CallbackShuftiPro")]
+		//[ApiExplorerSettings(IgnoreApi = true)]
+		//public async Task<IActionResult> ShuftiPro() {
 
-			//if (secret == AppConfig.Services.ShuftiPro.CallbackSecret) {
+		//	//if (secret == AppConfig.Services.ShuftiPro.CallbackSecret) {
 
-				var check = await KycExternalProvider.OnServiceCallback(HttpContext.Request);
-				if (check.IsFinalStatus) {
+		//		var check = await KycExternalProvider.OnServiceCallback(HttpContext.Request);
+		//		if (check.IsFinalStatus) {
 
-					var ticket = await (
-						from t in DbContext.KycShuftiProTicket
-						where t.ReferenceId == check.TicketId && t.TimeResponded == null
-						select t
-					)
-						.Include(tickt => tickt.User)
-						.ThenInclude(user => user.UserVerification)
-						.FirstOrDefaultAsync()
-					;
+		//			var ticket = await (
+		//				from t in DbContext.KycShuftiProTicket
+		//				where t.ReferenceId == check.TicketId && t.TimeResponded == null
+		//				select t
+		//			)
+		//				.Include(tickt => tickt.User)
+		//				.ThenInclude(user => user.UserVerification)
+		//				.FirstOrDefaultAsync()
+		//			;
 
-					if (ticket != null) {
+		//			if (ticket != null) {
 
-						var userVerified = check.OverallStatus == CoreLogic.Services.KYC.VerificationStatus.Verified;
+		//				var userVerified = check.OverallStatus == CoreLogic.Services.KYC.VerificationStatus.Verified;
 
-						ticket.IsVerified = userVerified;
-						ticket.CallbackStatusCode = check.ServiceStatus;
-						ticket.CallbackMessage = check.ServiceMessage;
-						ticket.TimeResponded = DateTime.UtcNow;
+		//				ticket.IsVerified = userVerified;
+		//				ticket.CallbackStatusCode = check.ServiceStatus;
+		//				ticket.CallbackMessage = check.ServiceMessage;
+		//				ticket.TimeResponded = DateTime.UtcNow;
 
-						await DbContext.SaveChangesAsync();
+		//				await DbContext.SaveChangesAsync();
+		//			}
+		//		}
+		//	//}
 
-						if (GoogleSheets != null && ticket?.User?.UserVerification != null) {
-							try {
-								await GoogleSheets.InsertUser(
-									new UserInfoCreate() {
-										UserId = ticket.UserId,
-										UserName = ticket.User.UserName,
-										FirstName = ticket.User.UserVerification.FirstName,
-										LastName = ticket.User.UserVerification.LastName,
-										Country = ticket.User.UserVerification.Country,
-										Birthday = ticket.User.UserVerification.DoB?.ToString("yyyy MMMM dd"),
-									}
-								);
-							}
-							catch (Exception e) {
-								Logger.Error(e, "Failed to persist user's verification in Google Sheets");
-							}
-						}
-					}
-				}
-			//}
-
-			return Ok();
-		}
+		//	return Ok();
+		//}
 	}
 }

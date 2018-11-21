@@ -166,35 +166,35 @@ namespace Etherama.WebApplication.Core.Tokens {
 			return (new JwtSecurityTokenHandler()).WriteToken(token);
 		}
 
-		/// <summary>
-		/// Make a token for Zendesk SSO flow
-		/// </summary>
-		public static string CreateZendeskSsoToken(AppConfig appConfig, User user) {
-			var now = DateTime.UtcNow;
-			var uniqueness = UniqueId(appConfig.Auth.Jwt.Secret);
+		///// <summary>
+		///// Make a token for Zendesk SSO flow
+		///// </summary>
+		//public static string CreateZendeskSsoToken(AppConfig appConfig, User user) {
+		//	var now = DateTime.UtcNow;
+		//	var uniqueness = UniqueId(appConfig.Auth.Jwt.Secret);
 
-			var claims = new[] {
-				new Claim(JwtRegisteredClaimNames.Jti, uniqueness),
-				new Claim(JwtRegisteredClaimNames.Iat, ((DateTimeOffset)now).ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64),
-				new Claim("email", user.NormalizedEmail.ToLower()),
-				new Claim("name", user.UserName),
-				new Claim("external_id", user.UserName + "@" + appConfig.Auth.Jwt.Issuer),
-				new Claim("role", "user"),
-			};
+		//	var claims = new[] {
+		//		new Claim(JwtRegisteredClaimNames.Jti, uniqueness),
+		//		new Claim(JwtRegisteredClaimNames.Iat, ((DateTimeOffset)now).ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64),
+		//		new Claim("email", user.NormalizedEmail.ToLower()),
+		//		new Claim("name", user.UserName),
+		//		new Claim("external_id", user.UserName + "@" + appConfig.Auth.Jwt.Issuer),
+		//		new Claim("role", "user"),
+		//	};
 
-			var creds = new SigningCredentials(
-				CreateJwtSecurityKey(appConfig.Auth.ZendeskSso.JwtSecret), 
-				SecurityAlgorithms.HmacSha256
-			);
+		//	var creds = new SigningCredentials(
+		//		CreateJwtSecurityKey(appConfig.Auth.ZendeskSso.JwtSecret), 
+		//		SecurityAlgorithms.HmacSha256
+		//	);
 
-			var token = new JwtSecurityToken(
-				issuer: appConfig.Auth.Jwt.Issuer,
-				claims: claims,
-				signingCredentials: creds
-			);
+		//	var token = new JwtSecurityToken(
+		//		issuer: appConfig.Auth.Jwt.Issuer,
+		//		claims: claims,
+		//		signingCredentials: creds
+		//	);
 
-			return (new JwtSecurityTokenHandler()).WriteToken(token);
-		}
+		//	return (new JwtSecurityTokenHandler()).WriteToken(token);
+		//}
 
 		// ---
 

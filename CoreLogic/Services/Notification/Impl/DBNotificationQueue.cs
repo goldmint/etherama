@@ -21,10 +21,8 @@ namespace Etherama.CoreLogic.Services.Notification.Impl {
 			return await Enqueue(notification, DateTime.UtcNow);
 		}
 
-		public async Task<bool> Enqueue(BaseNotification notification, DateTime timeToSend) {
-
-            
-			return true;
+		public Task<bool> Enqueue(BaseNotification notification, DateTime timeToSend) {
+			return Task.FromResult(true);
 		}
 	}
 }

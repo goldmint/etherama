@@ -1,4 +1,5 @@
-﻿using Etherama.CoreLogic.Services.RuntimeConfig.Impl;
+﻿using Etherama.Common;
+using Etherama.WebApplication.Core.Response;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -8,11 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using NLog;
 using NLog.Extensions.Logging;
 using System;
-using Etherama.CoreLogic.Services.RuntimeConfig;
 using System.IO;
 using System.Text;
-using Etherama.Common;
-using Etherama.WebApplication.Core.Response;
 
 namespace Etherama.WebApplication {
 
@@ -21,7 +19,6 @@ namespace Etherama.WebApplication {
 		private readonly IHostingEnvironment _environment;
 		private readonly IConfiguration _configuration;
 		private readonly AppConfig _appConfig;
-		private readonly RuntimeConfigHolder _runtimeConfigHolder;
 
 		// ---
 
@@ -36,7 +33,7 @@ namespace Etherama.WebApplication {
 			try {
 		
 				_configuration = new ConfigurationBuilder()
-				    .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
+				    .SetBasePath(curDir)
                     .AddJsonFile("appsettings.json", optional: false)
 					.AddJsonFile($"appsettings.{_environment.EnvironmentName}.json", optional: false)
 					.Build()
@@ -56,24 +53,12 @@ namespace Etherama.WebApplication {
 			var logger = LogManager.LogFactory.GetCurrentClassLogger();
 			logger.Info("Launched");
 
-			// runtime config
-			_runtimeConfigHolder = new RuntimeConfigHolder(LogManager.LogFactory);
-
-			// custom db connection
-			var dbCustomConnection = Environment.GetEnvironmentVariable("ASPNETCORE_DBCONNECTION");
-			if (!string.IsNullOrWhiteSpace(dbCustomConnection)) {
-				_appConfig.ConnectionStrings.Default = dbCustomConnection;
-				logger.Info($"Using custom db connection: {dbCustomConnection}");
-			}
 		}
 
-		public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime, IRuntimeConfigLoader runtimeConfigLoader) {
+		public void Configure(IApplicationBuilder app, IApplicationLifetime applicationLifetime) {
 
 			applicationLifetime.ApplicationStopping.Register(OnServerStopRequested);
 			applicationLifetime.ApplicationStopped.Register(OnServerStopped);
-
-			// config loader
-			_runtimeConfigHolder.SetLoader(runtimeConfigLoader);
 
 			// setup ms logger
 			app.ApplicationServices.GetRequiredService<Microsoft.Extensions.Logging.ILoggerFactory>().AddNLog();

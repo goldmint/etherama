@@ -41,47 +41,6 @@
 		/// </summary>
 		RateLimit = 102,
 		
-		/// <summary>
-		/// Currently trading is not allowed
-		/// </summary>
-		TradingNotAllowed = 103,
-
-		/// <summary>
-		/// Exchange value requested is out of limits
-		/// </summary>
-		TradingExchangeLimit = 104,
-
-	    /// <summary>
-	    /// Duplicate migration request
-	    /// </summary>
-	    MigrationDuplicateRequest = 106,
-
-
-        /* [501..599] PromoCodes errors */
-        /// <summary>
-        /// User did not enter promocode
-        /// </summary>
-        PromoCodeNotEnter = 501,
-
-        /// <summary>
-        /// PromoCode not found
-        /// </summary>
-        PromoCodeNotFound = 502,
-
-        /// <summary>
-        /// PromoCode has expired
-        /// </summary>
-        PromoCodeExpired = 503,
-
-        /// <summary>
-        /// PromoCode already used
-        /// </summary>
-        PromoCodeIsUsed = 504,
-
-        /// <summary>
-        /// PromoCode limit exceeded
-        /// </summary>
-        PromoCodeLimitExceeded = 505,
 
         /* [1000..1999] Account errors */
 
@@ -110,42 +69,6 @@
 		/// </summary>
 		AccountEmailTaken = 1004,
 	
-		/*
-		/// <summary>
-		/// -
-		/// </summary>
-		- = 1005,
-
-		/// <summary>
-		/// -
-		/// </summary>
-		- = 1006,
-
-		/// <summary>
-		/// -
-		/// </summary>
-		- = 1007,
-
-		/// <summary>
-		/// -
-		/// </summary>
-		- = 1008,
-
-		/// <summary>
-		/// TFA must be enabled
-		/// </summary>
-		AccountTfaDisabled = 1009,
-
-		/// <summary>
-		/// User has pending operation. One of: buying, selling, deposit, withdraw, transfer, etc.
-		/// </summary>
-		AccountPendingBlockchainOperation = 1010,
-		*/
-
-		/// <summary>
-		/// DPA is not signed
-		/// </summary>
-		AccountDpaNotSigned = 1011,
 	}
 
 	public static class APIErrorCodeExtensions {
