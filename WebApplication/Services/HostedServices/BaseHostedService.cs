@@ -9,48 +9,44 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NLog;
 
-namespace Etherama.WebApplication.Services.HostedServices
-{
-    public abstract class BaseHostedService : IHostedService, IDisposable
-    {
-        protected AppConfig AppConfig { get; }
-        protected ILogger Logger { get; }
-        protected ApplicationDbContext DbContext { get; }
-        protected IEthereumReader EthereumObserver { get; }
+namespace Etherama.WebApplication.Services.HostedServices {
+	public abstract class BaseHostedService : IHostedService, IDisposable {
+		protected AppConfig AppConfig { get; }
+		protected ILogger Logger { get; }
+		protected ApplicationDbContext DbContext { get; }
+		protected IEthereumReader EthereumObserver { get; }
 
-        protected abstract TimeSpan Period { get; }
+		protected abstract TimeSpan Period { get; }
 
-        private Timer _timer;
+		private Timer _timer;
 
-        protected BaseHostedService(IServiceProvider services)
-        {
-            Logger = services.GetLoggerFor(this.GetType());
-            AppConfig = services.GetRequiredService<AppConfig>();
-            DbContext = services.GetRequiredService<ApplicationDbContext>();
-            EthereumObserver = services.GetRequiredService<IEthereumReader>();
-        }
+		protected BaseHostedService(IServiceProvider services) {
+			Logger = services.GetLoggerFor(this.GetType());
+			AppConfig = services.GetRequiredService<AppConfig>();
+			DbContext = services.GetRequiredService<ApplicationDbContext>();
+			EthereumObserver = services.GetRequiredService<IEthereumReader>();
+		}
 
-        public async Task StartAsync(CancellationToken cancellationToken)
-        {
-            await OnInit();
+		public async Task StartAsync(CancellationToken cancellationToken) {
+			await OnInit();
 
-            _timer = new Timer(DoWork, null, TimeSpan.Zero, Period);
-        }
+			_timer = new Timer(DoWork, null, TimeSpan.Zero, Period);
+		}
 
-        public async Task StopAsync(CancellationToken cancellationToken)
-        {
-            _timer?.Change(Timeout.Infinite, 0);
-        }
+		public Task StopAsync(CancellationToken cancellationToken) {
+			_timer?.Change(Timeout.Infinite, 0);
+			return Task.CompletedTask;
+		}
 
+		protected abstract void DoWork(object state);
 
-        protected abstract void DoWork(object state);
+		protected virtual Task OnInit() {
+			return Task.CompletedTask;
+		}
 
-        protected virtual async Task OnInit() { }
+		public void Dispose() {
+			_timer?.Dispose();
+		}
 
-        public void Dispose()
-        {
-            _timer?.Dispose();
-        }
-
-    }
+	}
 }

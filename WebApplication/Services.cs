@@ -1,19 +1,17 @@
 ﻿using Etherama.Common;
 using Etherama.CoreLogic.Services.Blockchain.Ethereum;
 using Etherama.CoreLogic.Services.Blockchain.Ethereum.Impl;
-using Etherama.CoreLogic.Services.Google.Impl;
-using Etherama.CoreLogic.Services.KYC;
-using Etherama.CoreLogic.Services.KYC.Impl;
 using Etherama.CoreLogic.Services.Localization;
 using Etherama.CoreLogic.Services.Localization.Impl;
-using Etherama.CoreLogic.Services.Mutex;
-using Etherama.CoreLogic.Services.Mutex.Impl;
 using Etherama.CoreLogic.Services.Notification;
 using Etherama.CoreLogic.Services.Notification.Impl;
-using Etherama.CoreLogic.Services.RuntimeConfig;
-using Etherama.CoreLogic.Services.RuntimeConfig.Impl;
 using Etherama.DAL;
 using Etherama.DAL.Models.Identity;
+using Etherama.WebApplication.Core;
+using Etherama.WebApplication.Core.Policies;
+using Etherama.WebApplication.Core.Tokens;
+using Etherama.WebApplication.Services.HostedServices;
+using Etherama.WebApplication.Services.OAuth.Impl;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -21,15 +19,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using NLog;
 using System;
 using System.Linq;
-using Etherama.WebApplication.Core;
-using Etherama.WebApplication.Core.Policies;
-using Etherama.WebApplication.Core.Tokens;
-using Etherama.WebApplication.Services.HostedServices;
-using Etherama.WebApplication.Services.OAuth.Impl;
-using Microsoft.Extensions.Hosting;
 
 namespace Etherama.WebApplication {
 
@@ -66,10 +59,6 @@ namespace Etherama.WebApplication {
 					myopts.UseRelationalNulls(true);
 				});
 			});
-
-            // runtime config
-            services.AddSingleton(_runtimeConfigHolder);
-			services.AddSingleton<IRuntimeConfigLoader, DbRuntimeConfigLoader>();
 
 			// identity
 			var idbld = services
@@ -150,8 +139,6 @@ namespace Etherama.WebApplication {
 			services.AddSingleton<IAuthorizationHandler, RequireAccessRights.Handler>();
 			services.AddScoped<GoogleProvider>();
 
-		    services.AddSingleton<IHostedService, TokenStatisticsHarvester>();
-
 			// tokens
 			services.Configure<DataProtectionTokenProviderOptions>(opts => {
 				opts.Name = "Default";
@@ -175,10 +162,9 @@ namespace Etherama.WebApplication {
 			// http context
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-			// mutex
-			services.AddScoped<IMutexHolder, DBMutexHolder>();
+			//// mutex
+			//services.AddScoped<IMutexHolder, DBMutexHolder>();
             
-
 			// notifications
 			services.AddScoped<INotificationQueue, DBNotificationQueue>();
 
@@ -186,27 +172,23 @@ namespace Etherama.WebApplication {
 			services.AddSingleton<ITemplateProvider, TemplateProvider>();
 
 			// kyc
-			if (_environment.IsProduction()) {
-				services.AddScoped<IKycProvider>(fac => {
-					return new ShuftiProKycProvider(opts => {
-						opts.ClientId = _appConfig.Services.ShuftiPro.ClientId;
-						opts.ClientSecret = _appConfig.Services.ShuftiPro.ClientSecret;
-					}, LogManager.LogFactory);
-				});
-			}
-			else {
-				services.AddScoped<IKycProvider, DebugKycProvider>();
-			}
-
+			//if (_environment.IsProduction()) {
+			//	services.AddScoped<IKycProvider>(fac => {
+			//		return new ShuftiProKycProvider(opts => {
+			//			opts.ClientId = _appConfig.Services.ShuftiPro.ClientId;
+			//			opts.ClientSecret = _appConfig.Services.ShuftiPro.ClientSecret;
+			//		}, LogManager.LogFactory);
+			//	});
+			//}
+			//else {
+			//	services.AddScoped<IKycProvider, DebugKycProvider>();
+			//}
 
 			// ethereum reader
 			services.AddSingleton<IEthereumReader, EthereumReader>();
 
-
-			// google sheets
-			if (_appConfig.Services.GoogleSheets != null) {
-				services.AddSingleton(new Sheets(_appConfig, LogManager.LogFactory));
-			}
+			// workers
+			services.AddSingleton<IHostedService, TokenStatisticsHarvester>();
 
 			return services.BuildServiceProvider();
 		}
@@ -214,8 +196,6 @@ namespace Etherama.WebApplication {
 		public void RunServices() {
 			var logger = LogManager.LogFactory.GetCurrentClassLogger();
 			logger.Info("Run services");
-
-			_runtimeConfigHolder.Reload().Wait();
 		}
 
 		public void StopServices() {

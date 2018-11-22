@@ -1,0 +1,167 @@
+@import 'functions'
+@import 'variables'
+
+.header
+  background-color: $color-black
+  color: $color-white
+  position: relative
+  width: 100%
+  min-height: $header-height
+  display: flex
+  flex-direction: column
+  justify-content: center
+  padding-top: 2px
+
+  > .container
+    height: 100%
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+
+  &__row
+    @include make-row()
+    height: 100%
+    align-items: center
+    flex-wrap: nowrap
+
+
+.rate
+  text-transform: uppercase
+  font-weight: 400
+  font-size: rem(18px)
+
+  &__value
+    color: $color-gold
+
+
+.balance
+  font-weight: 400
+  font-size: rem(14px)
+
+  &__label
+    display: inline-block
+    line-height: rem(20px)
+    margin-right: 14px
+
+  &__metamask
+    display: inline-block
+    max-width: rem(40px)
+    line-height: rem(20px)
+    vertical-align: bottom
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+
+  &__item
+    display: inline-block
+    line-height: rem(20px)
+    text-transform: uppercase
+    &:not(:last-child)
+      margin-right: 20px
+
+  &__value
+    color: $color-gold
+    display: inline-block
+    line-height: rem(20px)
+
+  &__exchange
+    color: $color-gray-1
+    display: inline-block
+    line-height: rem(20px)
+
+
+.auth-info
+  display: flex
+  align-items: center
+  font-weight: 500
+  font-size: rem(14px)
+  line-height: rem(19px)
+  // padding: 0 rem(5px)
+
+  a:not(.btn)
+    color: $color-brand
+    transition: $transition-link
+    text-decoration: none
+  //   border-bottom: rem(1px) solid transparent
+
+    &:hover
+      color: $color-brand-hover
+      text-decoration: none
+  //     border-bottom-color: $color-brand-hover
+
+  // @todo: make generic header dropdown styles for usermenu and language switcher (language-switcher-block.component.sass)
+  .language
+    font-size: rem(14px)
+
+    &__select
+      .dropdown-toggle
+        text-transform: none
+        letter-spacing: 0
+
+      .dropdown-menu
+        font-size: rem(14px)
+
+.add-server-btn
+  background: $color-brand
+  margin: 0 10px
+  color: $color-white
+
+.language__select
+  .add-server-btn
+    a
+      color: $color-black
+      &:hover
+        background: $color-brand-hover
+        color: $color-black
+
+.modal-show
+  display: block
+  background-color: rgba(28,28,28,.75)
+
+.modal
+  .form-group
+    margin-bottom: 1.25rem !important
+
+.mobile-menu-icon
+  color: $color-brand
+
+#mobile-menu-container
+  position: absolute
+  justify-content: space-between
+  flex-direction: column
+  display: flex
+  overflow: auto
+  width: 100%
+  top: 100%
+  height: calc(100vh - 100%)
+  background: black
+  z-index: 100
+
+  .nav
+    display: block
+    .nav-item
+      border: none
+      .nav-link
+        background-color: black
+        color: $color-brand
+        justify-content: flex-start
+        font-size: 1rem
+
+  .mobile-account-info
+    .dropdown-toggle
+      font-size: 1rem
+
+  .nav-item.active
+    a
+      color: $color-brand-active !important
+
+  .nav-link
+    border: none
+
+  .nav-link.active, .nav-link:hover
+    color: $color-brand-active !important
+    border: none
+
+@media only screen and (max-width: 576px)
+  .rate
+    font-size: 1rem

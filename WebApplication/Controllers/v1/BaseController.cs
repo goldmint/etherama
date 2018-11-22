@@ -1,11 +1,9 @@
 ﻿using Etherama.Common;
 using Etherama.CoreLogic.Services.Blockchain.Ethereum;
-using Etherama.CoreLogic.Services.Google.Impl;
 using Etherama.CoreLogic.Services.KYC;
 using Etherama.CoreLogic.Services.Localization;
 using Etherama.CoreLogic.Services.Mutex;
 using Etherama.CoreLogic.Services.Notification;
-using Etherama.CoreLogic.Services.RuntimeConfig.Impl;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,55 +21,48 @@ using Etherama.DAL;
 
 namespace Etherama.WebApplication.Controllers.v1 {
 
-	public abstract class BaseController : Controller
-	{
+	public abstract class BaseController : Controller {
 
 		protected AppConfig AppConfig { get; private set; }
 		protected IHostingEnvironment HostingEnvironment { get; private set; }
 		protected ILogger Logger { get; private set; }
 		protected ApplicationDbContext DbContext { get; private set; }
-        protected IMutexHolder MutexHolder { get; private set; }
+		//protected IMutexHolder MutexHolder { get; private set; }
 		protected SignInManager<DAL.Models.Identity.User> SignInManager { get; private set; }
 		protected UserManager<DAL.Models.Identity.User> UserManager { get; private set; }
-		protected IKycProvider KycExternalProvider { get; private set; }
+		//protected IKycProvider KycExternalProvider { get; private set; }
 		protected INotificationQueue EmailQueue { get; private set; }
 		protected ITemplateProvider TemplateProvider { get; private set; }
 		protected IEthereumReader EthereumObserver { get; private set; }
-		protected RuntimeConfigHolder RuntimeConfigHolder { get; private set; }
-		protected Sheets GoogleSheets { get; private set; }
 
 		protected BaseController() { }
 
 		[NonAction]
-		private void InitServices(IServiceProvider services)
-		{
+		private void InitServices(IServiceProvider services) {
+
 			Logger = services.GetLoggerFor(this.GetType());
 			AppConfig = services.GetRequiredService<AppConfig>();
 			HostingEnvironment = services.GetRequiredService<IHostingEnvironment>();
 			DbContext = services.GetRequiredService<ApplicationDbContext>();
-            MutexHolder = services.GetRequiredService<IMutexHolder>();
+			//MutexHolder = services.GetRequiredService<IMutexHolder>();
 			SignInManager = services.GetRequiredService<SignInManager<DAL.Models.Identity.User>>();
 			UserManager = services.GetRequiredService<UserManager<DAL.Models.Identity.User>>();
-			KycExternalProvider = services.GetRequiredService<IKycProvider>();
+			//KycExternalProvider = services.GetRequiredService<IKycProvider>();
 			EmailQueue = services.GetRequiredService<INotificationQueue>();
 			TemplateProvider = services.GetRequiredService<ITemplateProvider>();
 			EthereumObserver = services.GetRequiredService<IEthereumReader>();
-			RuntimeConfigHolder = services.GetRequiredService<RuntimeConfigHolder>();
-			GoogleSheets = services.GetService<Sheets>();
 		}
 
 		// ---
 
 		[NonAction]
-		public override void OnActionExecuted(ActionExecutedContext context)
-		{
+		public override void OnActionExecuted(ActionExecutedContext context) {
 			InitServices(context?.HttpContext?.RequestServices);
 			base.OnActionExecuted(context);
 		}
 
 		[NonAction]
-		public override void OnActionExecuting(ActionExecutingContext context)
-		{
+		public override void OnActionExecuting(ActionExecutingContext context) {
 			base.OnActionExecuting(context);
 		}
 
@@ -86,7 +77,7 @@ namespace Etherama.WebApplication.Controllers.v1 {
 		[NonAction]
 		public string MakeAppLink(JwtAudience audience, string fragment) {
 
-			var appUri = (string) null;
+			var appUri = (string)null;
 			if (audience == JwtAudience.Cabinet) {
 				appUri = AppConfig.Apps.Cabinet.Url;
 			}
@@ -132,22 +123,20 @@ namespace Etherama.WebApplication.Controllers.v1 {
 		}
 
 
-	    [NonAction]
-	    protected async Task<DAL.Models.Identity.User> GetUserFromDb()
-	    {
-	        if (IsUserAuthenticated())
-	        {
-	            var name = UserManager.NormalizeKey(HttpContext.User.Identity.Name);
-	            return await DbContext.Users
-	                    .Include(_ => _.UserOptions)
-	                    .AsTracking()
-	                    .FirstAsync(user => user.NormalizedUserName == name)
-	                ;
-	        }
-	        return null;
-	    }
+		[NonAction]
+		protected async Task<DAL.Models.Identity.User> GetUserFromDb() {
+			if (IsUserAuthenticated()) {
+				var name = UserManager.NormalizeKey(HttpContext.User.Identity.Name);
+				return await DbContext.Users
+						.Include(_ => _.UserOptions)
+						.AsTracking()
+						.FirstAsync(user => user.NormalizedUserName == name)
+					;
+			}
+			return null;
+		}
 
-        [NonAction]
+		[NonAction]
 		protected UserAgentInfo GetUserAgentInfo() {
 
 			var ip = HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
@@ -179,8 +168,8 @@ namespace Etherama.WebApplication.Controllers.v1 {
 		[NonAction]
 		protected Locale GetUserLocale() {
 			if (
-				HttpContext.Request.Headers.TryGetValue("GM-LOCALE", out var localeHeader) && 
-				!string.IsNullOrWhiteSpace(localeHeader.ToString()) && 
+				HttpContext.Request.Headers.TryGetValue("GM-LOCALE", out var localeHeader) &&
+				!string.IsNullOrWhiteSpace(localeHeader.ToString()) &&
 				Enum.TryParse(localeHeader.ToString(), true, out Locale localeEnum)
 			) {
 				return localeEnum;
@@ -188,13 +177,10 @@ namespace Etherama.WebApplication.Controllers.v1 {
 			return Locale.En;
 		}
 
-	    [NonAction]
-	    protected async Task<UserTier> GetUserTier()
-	    {
-	        var rcfg = RuntimeConfigHolder.Clone();
-
-	        var user = await GetUserFromDb();
-	        return CoreLogic.User.GetTier(user, rcfg);
-        }
-    }
+		[NonAction]
+		protected async Task<UserTier> GetUserTier() {
+			var user = await GetUserFromDb();
+			return CoreLogic.User.GetTier(user);
+		}
+	}
 }

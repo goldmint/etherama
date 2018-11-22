@@ -1,7 +1,6 @@
 ﻿using Etherama.Common;
-using Etherama.CoreLogic.Services.Google.Impl;
+using Etherama.Common.Extensions;
 using Etherama.DAL;
-using Etherama.DAL.Models;
 using Etherama.DAL.Models.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -11,7 +10,6 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Etherama.Common.Extensions;
 
 namespace Etherama.WebApplication.Core {
 
@@ -25,7 +23,6 @@ namespace Etherama.WebApplication.Core {
 			var logger = services.GetLoggerFor(typeof(UserAccount));
 			var dbContext = services.GetRequiredService<ApplicationDbContext>();
 			var userManager = services.GetRequiredService<UserManager<User>>();
-			var googleSheets = services.GetService<Sheets>();
 
 			var ret = new CreateUserAccountResult() {
 			};
@@ -58,7 +55,8 @@ namespace Etherama.WebApplication.Core {
 				var result = (IdentityResult)null;
 				if (password != null) {
 					result = await userManager.CreateAsync(newUser, password);
-				} else {
+				}
+				else {
 					result = await userManager.CreateAsync(newUser);
 				}
 
@@ -79,24 +77,6 @@ namespace Etherama.WebApplication.Core {
 						await dbContext.SaveChangesAsync();
 
 						logger.Info($"User account {newUser.Id} prepared and saved");
-
-						if (googleSheets != null) {
-							try {
-								await googleSheets.InsertUser(
-									new UserInfoCreate() {
-										UserId = newUser.Id,
-										UserName = newUser.UserName,
-										FirstName = "-",
-										LastName = "-",
-										Country = "-",
-										Birthday = "-",
-									}
-								);
-							}
-							catch (Exception e) {
-								logger.Error(e, "Failed to persist user account creation in Google Sheets");
-							}
-						}
 					}
 					catch { }
 				}
@@ -115,7 +95,8 @@ namespace Etherama.WebApplication.Core {
 						}
 					}
 				}
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				logger?.Error(e, "Failed to create user account");
 			}
 
@@ -168,7 +149,7 @@ namespace Etherama.WebApplication.Core {
 				default: throw new NotImplementedException("Audience is not implemented");
 			}
 		}
-		
+
 		/// <summary>
 		/// Current access stamp
 		/// </summary>

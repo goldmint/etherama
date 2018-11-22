@@ -1,0 +1,97 @@
+{
+  "HEADER": {
+
+  },
+  "PAGES": {
+    "Home": {
+      "Masternode": {
+        "Heading": "В настоящее время Вы можете запустить masternode",
+        "Description": "В настоящее время Вы имеете достаточно токенов для запуска Masternode! <br/>Вы получите <b>{{ percent }}% комиссии</b> от каждого реферала, который совершит покупку по Вашей реферальной ссылке!",
+        "MasternodeLink": "Ваша уникальная ссылка masternode:"
+      }
+    },
+    "Buy": {
+      "Heading": "Купить",
+      "Buttons": {
+        "Buy": "Купить"
+      },
+      "Labels": {
+        "TypeNumber": "Введите действительное число.",
+        "Result": "Примерно {{ amount }} MNTP.",
+        "Fee": "Оценочная комиссия",
+        "TokenPrice": "Средняя цена токена",
+        "CurrentPrice": "Текущая цена покупки  1 токена:",
+        "MaxPurchase": "Вы можете купить максимум {{ max }} токенов"
+      },
+      "Errors": {
+        "InvalidBalance": "У вас недостаточно средств.",
+        "MaxPurchase": "Вы можете купить максимум {{ max }} MNTP"
+      }
+    },
+    "Sell": {
+      "Heading": "Продать",
+      "Buttons": {
+        "Sell": "Продать"
+      },
+      "Labels": {
+        "TypeNumber": "Введите действительное число.",
+        "Result": "Примерно {{ amount }} ETH.",
+        "Fee": "Оценочная комиссия",
+        "TokenPrice": "Средняя цена токена",
+        "CurrentPrice": "Текущая цена покупки  1 токена:"
+      },
+      "Errors": {
+        "InvalidBalance": "У вас недостаточно средств.",
+        "Limits": "Минимальное количество - {{ min }}. Максимальное количество - {{ max }}."
+      }
+    },
+    "Holdings": {
+      "Heading": "Активы",
+      "BlockHeading": {
+        "Global": "Глобально",
+        "Wallet": "Кошелек",
+        "Actions": "Действия"
+      },
+      "Labels": {
+        "Tokens": "Токены",
+        "Dividends": "Бонусы"
+      },
+      "Text": {
+        "InContract": "в контракте",
+        "InCirculation": "<b>токенов</b> в обращении"
+      },
+      "Buttons": {
+        "Reinvest": "Реинвестировать бонусы",
+        "Withdraw": "Вывод бонусов",
+        "View": "Посмотреть на Etherscan"
+      }
+    },
+    "PromoBonus": {
+      "Labels": {
+        "BigBonus": "BIG BANK",
+        "QuickBonus": "QUICK BANK",
+        "QuickBlocksToWin": "Количество блоков для выиграша QUICK promo: <b>{{ value }}</b> блоков",
+        "BigBlocksToWin": "Количество блоков для получения BIG promo: <b>{{ value }}</b> блоков"
+      },
+      "Info": "Вы выиграете промо-бонус, если ваша транзакция покупки будет <b>больше чем {{ value }} токенов</b> и станет первой в конкретном блоке!"
+    }
+  },
+  "MESSAGE": {
+    "MetaMask": {
+      "Heading": "Чтобы продолжить, Вам понадобится Metamask",
+      "Text": "MetaMask - это мост, который позволяет вам посещать распределенную сеть будущего в вашем браузере сегодня. Он позволяет запускать Ethereum dApps прямо в вашем браузере без запуска полного узла Ethereum. Пожалуйста, установите расширение MetaMask в браузере Chrome, Firefox или Opera. Узнать о <a href=\"https://metamask.io\" target=\"_blank\">Metamask</a>"
+    },
+    "LoginToMM": {
+      "HeadingBuy": "КУПИТЬ ТОКЕНЫ",
+      "HeadingSell": "ПРОДАТЬ ТОКЕНЫ",
+      "Text": "Войдите в свой аккаунт или разрешите доступ к Ethereum blockchain"
+    },
+    "SentTransaction": {
+      "Heading": "Транзакция в процессе:",
+      "Hash": "Хэш вашей транзакции:",
+      "Link": "Просмотр транзакции на EtherScan"
+    },
+    "ConnectingMM": "Подключение к MetaMask...",
+    "InvalidNetwork": "Вы должны использовать {{ networkName }} сеть"
+  }
+}

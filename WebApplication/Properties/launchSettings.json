@@ -11,18 +11,17 @@
     "IIS Express": {
       "commandName": "Project",
       "environmentVariables": {
-        "DEBUG_CUSTOM_IP": "93.159.234.98",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "http://localhost:8000/"
     },
     "WebApplication": {
       "commandName": "Project",
-      "launchBrowser": true,
+      "workingDirectory": "D:\\dev\\gm\\private\\etherama\\app-settings",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:62229/"
+      "applicationUrl": "http://localhost:8000/"
     }
   }
 }

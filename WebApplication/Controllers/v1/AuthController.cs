@@ -19,93 +19,93 @@ namespace Etherama.WebApplication.Controllers.v1 {
 	[Route("api/v1/auth")]
 	public class AuthController : BaseController {
 
-		/// <summary>
-		/// Sign in with username/email and password
-		/// </summary>
-		[AnonymousAccess]
-		[HttpPost, Route("authenticate")]
-		[ProducesResponseType(typeof(AuthenticateView), 200)]
-		public async Task<APIResponse> Authenticate([FromBody] AuthenticateModel model) {
+		///// <summary>
+		///// Sign in with username/email and password
+		///// </summary>
+		//[AnonymousAccess]
+		//[HttpPost, Route("authenticate")]
+		//[ProducesResponseType(typeof(AuthenticateView), 200)]
+		//public async Task<APIResponse> Authenticate([FromBody] AuthenticateModel model) {
 
-			var notFoundDesc = "Account not found";
+		//	var notFoundDesc = "Account not found";
 
-			// validate
-			if (BaseValidableModel.IsInvalid(model, out var errFields)) {
-				return APIResponse.BadRequest(APIErrorCode.AccountNotFound, notFoundDesc);
-			}
+		//	// validate
+		//	if (BaseValidableModel.IsInvalid(model, out var errFields)) {
+		//		return APIResponse.BadRequest(APIErrorCode.AccountNotFound, notFoundDesc);
+		//	}
 
-			var agent = GetUserAgentInfo();
-			var userLocale = GetUserLocale();
+		//	var agent = GetUserAgentInfo();
+		//	var userLocale = GetUserLocale();
 
-			var user = await UserManager.FindByNameAsync(model.Username) ?? await UserManager.FindByEmailAsync(model.Username);
-			if (user != null) {
+		//	var user = await UserManager.FindByNameAsync(model.Username) ?? await UserManager.FindByEmailAsync(model.Username);
+		//	if (user != null) {
 
-				bool isLockedOut = false;
+		//		bool isLockedOut = false;
 
-				// locked out
-				if (user.LockoutEnd != null && user.LockoutEnd.Value.UtcDateTime > DateTime.UtcNow) {
-					//if (!await Core.Recaptcha.Verify(AppConfig.Services.Recaptcha.SecretKey, model.Captcha, agent.Ip)) {
-					//	return APIResponse.BadRequest(APIErrorCode.AccountLocked, "Too many unsuccessful attempts. Account is locked, try to sign in later");
-					//}
+		//		// locked out
+		//		if (user.LockoutEnd != null && user.LockoutEnd.Value.UtcDateTime > DateTime.UtcNow) {
+		//			//if (!await Core.Recaptcha.Verify(AppConfig.Services.Recaptcha.SecretKey, model.Captcha, agent.Ip)) {
+		//			//	return APIResponse.BadRequest(APIErrorCode.AccountLocked, "Too many unsuccessful attempts. Account is locked, try to sign in later");
+		//			//}
 
-					// unlock before this check
-					isLockedOut = true;
-					user.LockoutEnd = null;
-				}
+		//			// unlock before this check
+		//			isLockedOut = true;
+		//			user.LockoutEnd = null;
+		//		}
 
-				// get audience
-				JwtAudience audience = JwtAudience.Cabinet;
-				if (!string.IsNullOrWhiteSpace(model.Audience)) {
-					if (Enum.TryParse(model.Audience, true, out JwtAudience aud)) {
-						audience = aud;
-					}
-				}
+		//		// get audience
+		//		JwtAudience audience = JwtAudience.Cabinet;
+		//		if (!string.IsNullOrWhiteSpace(model.Audience)) {
+		//			if (Enum.TryParse(model.Audience, true, out JwtAudience aud)) {
+		//				audience = aud;
+		//			}
+		//		}
 
 
-				var sres = OnSignInResultCheck(
-					services: HttpContext.RequestServices,
-					result: await SignInManager.CheckPasswordSignInAsync(user, model.Password, lockoutOnFailure: true),
-					audience: audience,
-					user: user,
-					tfaRequired: user.TwoFactorEnabled
-				);
-				if (sres != null) {
+		//		var sres = OnSignInResultCheck(
+		//			services: HttpContext.RequestServices,
+		//			result: await SignInManager.CheckPasswordSignInAsync(user, model.Password, lockoutOnFailure: true),
+		//			audience: audience,
+		//			user: user,
+		//			tfaRequired: user.TwoFactorEnabled
+		//		);
+		//		if (sres != null) {
 
-					// successful result
-					if (sres.GetHttpStatusCode() == System.Net.HttpStatusCode.OK && sres.GetErrorCode() == null) {
+		//			// successful result
+		//			if (sres.GetHttpStatusCode() == System.Net.HttpStatusCode.OK && sres.GetErrorCode() == null) {
 						
-						// notification
-						await EmailComposer.FromTemplate(await TemplateProvider.GetEmailTemplate(EmailTemplate.SignedIn, userLocale))
-							.ReplaceBodyTag("IP", agent.Ip)
-							.Initiator(agent.Ip, agent.Agent, DateTime.UtcNow)
-							.Send(user.Email, user.UserName, EmailQueue)
-						;
+		//				// notification
+		//				await EmailComposer.FromTemplate(await TemplateProvider.GetEmailTemplate(EmailTemplate.SignedIn, userLocale))
+		//					.ReplaceBodyTag("IP", agent.Ip)
+		//					.Initiator(agent.Ip, agent.Agent, DateTime.UtcNow)
+		//					.Send(user.Email, user.UserName, EmailQueue)
+		//				;
 
-						// activity
-						var userActivity = CoreLogic.User.CreateUserActivity(
-							user: user,
-							type: Common.UserActivityType.Auth,
-							comment: "Signed in with password",
-							ip: agent.Ip,
-							agent: agent.Agent,
-							locale: userLocale
-						);
-						DbContext.UserActivity.Add(userActivity);
-						await DbContext.SaveChangesAsync();
-					}
+		//				// activity
+		//				var userActivity = CoreLogic.User.CreateUserActivity(
+		//					user: user,
+		//					type: Common.UserActivityType.Auth,
+		//					comment: "Signed in with password",
+		//					ip: agent.Ip,
+		//					agent: agent.Agent,
+		//					locale: userLocale
+		//				);
+		//				DbContext.UserActivity.Add(userActivity);
+		//				await DbContext.SaveChangesAsync();
+		//			}
 
-					return sres;
-				}
+		//			return sres;
+		//		}
 
-				// was locked before
-				if (isLockedOut) {
-					await UserManager.SetLockoutEndDateAsync(user, (DateTimeOffset) DateTime.UtcNow.AddMinutes(60));
-					return APIResponse.BadRequest(APIErrorCode.AccountLocked, "Too many unsuccessful attempts. Account is locked, try to sign in later");
-				}
-			}
+		//		// was locked before
+		//		if (isLockedOut) {
+		//			await UserManager.SetLockoutEndDateAsync(user, (DateTimeOffset) DateTime.UtcNow.AddMinutes(60));
+		//			return APIResponse.BadRequest(APIErrorCode.AccountLocked, "Too many unsuccessful attempts. Account is locked, try to sign in later");
+		//		}
+		//	}
 				
-			return APIResponse.BadRequest(APIErrorCode.AccountNotFound, notFoundDesc);
-		}
+		//	return APIResponse.BadRequest(APIErrorCode.AccountNotFound, notFoundDesc);
+		//}
 
 		/// <summary>
 		/// Complete two factor auth
@@ -200,40 +200,40 @@ namespace Etherama.WebApplication.Controllers.v1 {
 		}
 
 
-		/// <summary>
-		/// DPA check
-		/// </summary>
-		[AnonymousAccess]
-		[HttpPost, Route("dpaCheck")]
-		[ProducesResponseType(typeof(AuthenticateView), 200)]
-		public async Task<APIResponse> DpaCheck([FromBody] DpaCheckModel model) {
+		///// <summary>
+		///// DPA check
+		///// </summary>
+		//[AnonymousAccess]
+		//[HttpPost, Route("dpaCheck")]
+		//[ProducesResponseType(typeof(AuthenticateView), 200)]
+		//public async Task<APIResponse> DpaCheck([FromBody] DpaCheckModel model) {
 
-			// validate
-			if (BaseValidableModel.IsInvalid(model, out var errFields)) {
-				return APIResponse.BadRequest(errFields);
-			}
+		//	// validate
+		//	if (BaseValidableModel.IsInvalid(model, out var errFields)) {
+		//		return APIResponse.BadRequest(errFields);
+		//	}
 
-			var audience = JwtAudience.Cabinet;
-			var user = (DAL.Models.Identity.User)null;
-			var agent = GetUserAgentInfo();
-			var userLocale = GetUserLocale();
+		//	var audience = JwtAudience.Cabinet;
+		//	var user = (DAL.Models.Identity.User)null;
+		//	var agent = GetUserAgentInfo();
+		//	var userLocale = GetUserLocale();
 
-			// check token
-			if (!await JWT.IsValid(
-				    appConfig: AppConfig,
-				    jwtToken: model.Token,
-				    expectedAudience: audience,
-				    expectedArea: Common.JwtArea.Dpa,
-				    validStamp: async (jwt, id) => {
-					    user = await UserManager.FindByNameAsync(id);
-						return UserAccount.CurrentJwtSalt(user, audience);
-				    }
-			    ) || user == null) {
-				return APIResponse.BadRequest(nameof(model.Token), "Invalid token");
-			}
+		//	// check token
+		//	if (!await JWT.IsValid(
+		//		    appConfig: AppConfig,
+		//		    jwtToken: model.Token,
+		//		    expectedAudience: audience,
+		//		    expectedArea: Common.JwtArea.Dpa,
+		//		    validStamp: async (jwt, id) => {
+		//			    user = await UserManager.FindByNameAsync(id);
+		//				return UserAccount.CurrentJwtSalt(user, audience);
+		//		    }
+		//	    ) || user == null) {
+		//		return APIResponse.BadRequest(nameof(model.Token), "Invalid token");
+		//	}
 
-			return APIResponse.BadRequest(APIErrorCode.AccountDpaNotSigned, "DPA is not signed yet");
-		}
+		//	return APIResponse.BadRequest(APIErrorCode.AccountDpaNotSigned, "DPA is not signed yet");
+		//}
 
 #if DEBUG
 
