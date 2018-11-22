@@ -4,7 +4,7 @@ namespace Etherama.Common.Extensions {
 
 	public static class NumericExtensions {
 
-		public static decimal FromEther(this BigInteger v) {
+		public static decimal FromWei(this BigInteger v) {
 			return (decimal) v / (decimal)BigInteger.Pow(10, TokensPrecision.Ethereum);
 		}
 

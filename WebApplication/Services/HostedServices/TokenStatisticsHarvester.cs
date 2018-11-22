@@ -28,9 +28,12 @@ namespace Etherama.WebApplication.Services.HostedServices
         {
             foreach (var token in _tokenList)
             {
-                var price = await EthereumObserver.GetEtheramaTokenPrice(token.EtheramaContractAddress);
+                var price = await EthereumObserver.GetTokenPrice(token.EtheramaContractAddress);
+                var buyCount = await EthereumObserver.GetBuyCount(token.EtheramaContractAddress);
+                var sellCount = await EthereumObserver.GetSellCount(token.EtheramaContractAddress);
+                var bonusPerShare = await EthereumObserver.GetBonusPerShare(token.EtheramaContractAddress);
 
-                var tokenStat = new TokenStatistics { Date = DateTime.Now, PriceEth = price, TokenId = token.Id };
+                var tokenStat = new TokenStatistics { Date = DateTime.Now, PriceEth = price, BuyCount = buyCount, SellCount = sellCount, ShareReward = bonusPerShare, TokenId = token.Id };
 
                 await DbContext.TokenStatistics.AddAsync(tokenStat);
             }

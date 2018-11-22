@@ -82,17 +82,32 @@ namespace Etherama.CoreLogic.Services.Blockchain.Ethereum.Impl {
 		}
 
 
-	    public async Task<decimal> GetEtheramaTokenPrice(string contactAddress)
+	    public async Task<decimal> GetTokenPrice(string contactAddress)
 	    {
-	        var val = await Web3Utils.GetViewFunctionResult<BigInteger>(contactAddress,
-	            AppConfig.Services.Ethereum.EtheramaContractAbi,
-	            AppConfig.Services.Ethereum.EtheramaTokenPriceFucntionName);
+	        var val = await Web3Utils.GetViewFunctionResult<BigInteger>(contactAddress, AppConfig.Services.Ethereum.EtheramaContractAbi, AppConfig.Services.Ethereum.EtheramaTokenPriceFunctionName);
 
-
-	        return val.FromEther();
+	        return val.FromWei();
 	    }
 
+	    public async Task<long> GetBuyCount(string contactAddress)
+	    {
+	        var val = await Web3Utils.GetViewFunctionResult<BigInteger>(contactAddress, AppConfig.Services.Ethereum.EtheramaContractAbi, AppConfig.Services.Ethereum.EtheramaTokenBuyCountFunctionName);
 
+	        return (long)val;
+	    }
 
-	}
+	    public async Task<long> GetSellCount(string contactAddress)
+	    {
+	        var val = await Web3Utils.GetViewFunctionResult<BigInteger>(contactAddress, AppConfig.Services.Ethereum.EtheramaContractAbi, AppConfig.Services.Ethereum.EtheramaTokenSellCountFunctionName);
+
+	        return (long)val;
+        }
+
+        public async Task<decimal> GetBonusPerShare(string contactAddress)
+	    {
+	        var val = await Web3Utils.GetViewFunctionResult<BigInteger>(contactAddress, AppConfig.Services.Ethereum.EtheramaContractAbi, AppConfig.Services.Ethereum.EtheramaBonusPerShareFunctionName);
+
+	        return val.FromWei();
+	    }
+    }
 }

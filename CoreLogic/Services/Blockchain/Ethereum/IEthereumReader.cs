@@ -23,7 +23,11 @@ namespace Etherama.CoreLogic.Services.Blockchain.Ethereum {
 
 
 
-	    Task<decimal> GetEtheramaTokenPrice(string contactAddress);
+	    Task<decimal> GetTokenPrice(string contactAddress);
+	    Task<long> GetBuyCount(string contactAddress);
+	    Task<long> GetSellCount(string contactAddress);
+	    Task<decimal> GetBonusPerShare(string contactAddress);
 
-	}
+
+    }
 }

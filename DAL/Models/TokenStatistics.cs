@@ -17,6 +17,15 @@ namespace Etherama.DAL.Models
         [Column("price_eth")]
         public decimal PriceEth { get; set; }
 
+        [Column("buy_count")]
+        public long BuyCount { get; set; }
+
+        [Column("sell_count")]
+        public long SellCount { get; set; }
+
+        [Column("share_reward")]
+        public decimal ShareReward { get; set; }
+
         [ForeignKey(nameof(TokenId))]
         public virtual Token Token { get; set; }
     }

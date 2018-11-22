@@ -122,8 +122,12 @@
 			public class EthereumSection {
 
 				public string EtheramaContractAbi { get; set; } = "";
-                public string EtheramaTokenPriceFucntionName { get; set; } = "";
+			    public string EtheramaCommonDataAbi { get; set; } = "";
 
+                public string EtheramaTokenPriceFunctionName { get; set; } = "";
+			    public string EtheramaTokenBuyCountFunctionName { get; set; } = "";
+			    public string EtheramaTokenSellCountFunctionName { get; set; } = "";
+			    public string EtheramaBonusPerShareFunctionName { get; set; } = "";
 
                 public string EtherscanTxView { get; set; } = "";
 				public string Provider { get; set; } = "";
