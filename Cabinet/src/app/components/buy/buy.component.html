@@ -1,0 +1,96 @@
+<div class="pt-2">
+    <div class="text-center">
+        <div class="buy-sell__title-block">
+            <svg width="50" height="50">
+                <use xlink:href="#gold-buy"></use>
+            </svg>
+            <div class="buy-sell__title">{{ "PAGES.Buy.Heading" | translate }}</div>
+        </div>
+
+        <div class="mt-3">{{ "PAGES.Buy.Labels.CurrentPrice" | translate }}<br>{{ +buyPrice | noexp:18 }} eth/token</div>
+    </div>
+
+    <div class="mt-1">
+        <form #form="ngForm">
+            <div>
+                <div class="from-row form-group m-0">
+                    <div class="d-flex align-items-center">
+                        <div class="form-currency">
+                            <svg class="icon" width="30" height="30">
+                                <use xlink:href="#etherium"></use>
+                            </svg>
+                        </div>
+                        <input type="text" class="form-control m-0" name="eth-input" id="eth-input" placeholder="0.01"
+                               #ethInput="ngModel"
+                               ngModel
+                               autocomplete="off"
+                               (input)="changeValue($event, true)"
+                               [value]="eth"
+                               required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="percent-btn-cont mt-2">
+              <button class="percent-btn" (click)="setCoinBalance(0.25)">25%</button>
+              <button class="percent-btn" (click)="setCoinBalance(0.5)">50%</button>
+              <button class="percent-btn" (click)="setCoinBalance(0.75)">75%</button>
+              <button class="percent-btn" (click)="setCoinBalance(1)">100%</button>
+            </div>
+
+            <div class="my-3">
+                <div *ngIf="!ethAddress">
+                  <div class="estimate-info">{{ "PAGES.Buy.Labels.Fee" | translate }}  {{ estimateFee | noexp:18 }} ETH</div>
+                  <div class="estimate-info">{{ "PAGES.Buy.Labels.TokenPrice" | translate }}  {{ averageTokenPrice | noexp:18 }} ETH/MNTP</div>
+                </div>
+
+                <div *ngIf="ethAddress">
+                  <span *ngIf="eth && (!errors.maxPurchase && !errors.invalidBalance && !errors.ethLimit)">
+                    <div class="estimate-info">{{ "PAGES.Buy.Labels.Fee" | translate }}  {{ estimateFee | noexp:18 }} ETH</div>
+                    <div class="estimate-info">{{ "PAGES.Buy.Labels.TokenPrice" | translate }}  {{ averageTokenPrice | noexp:18 }} ETH/MNTP</div>
+                  </span>
+                  <div *ngIf="errors.invalidBalance">{{ "PAGES.Buy.Errors.InvalidBalance" | translate }}</div>
+                  <div class="c-red" *ngIf="errors.maxPurchase">{{ "PAGES.Buy.Errors.MaxPurchase" | translate:{max: maxPurchase | noexp:-1} }}</div>
+                  <div *ngIf="!errors.invalidBalance && errors.ethLimit">
+                    {{ "PAGES.Buy.Errors.Limits" | translate:{ min: ethLimits.min, max: ethLimits.max } }}
+                  </div>
+                  <div *ngIf="!eth">{{ "PAGES.Buy.Labels.TypeNumber" | translate }}</div>
+                </div>
+            </div>
+
+            <div>
+              <div class="from-row form-group m-0">
+                <div class="d-flex align-items-center">
+                  <div class="form-currency">
+                    <svg class="icon" width="30" height="30">
+                      <use xlink:href="#gold-icon"></use>
+                    </svg>
+                  </div>
+                  <input type="text" class="form-control m-0" name="mntp-input" id="mntp-input" placeholder="0.01"
+                         #mntpInput="ngModel"
+                         ngModel
+                         autocomplete="off"
+                         (input)="changeValue($event, false)"
+                         [value]="mntp"
+                         required>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-3 text-center">
+              <div *ngIf="!errors.invalidBalance && errors.tokenLimit">
+                {{ "PAGES.Buy.Errors.Limits" | translate:{ min: tokenLimits.min, max: tokenLimits.max } }}
+              </div>
+            </div>
+
+            <div class="text-center mt-3">
+                <div class="d-inline-block position-relative">
+                    <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="!+eth || !+mntp || errors.invalidBalance || errors.maxPurchase || errors.ethLimit || errors.tokenLimit || loading || isTyping || isInvalidNetwork">
+                        {{ "PAGES.Buy.Buttons.Buy" | translate }}
+                    </button>
+                    <img *ngIf="loading" alt="Processing..." width="17" height="17" class="form-loader absolute" src="assets/img/loader-gold-bg-white.gif">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

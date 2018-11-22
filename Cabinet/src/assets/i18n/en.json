@@ -1,0 +1,130 @@
+{
+  "HEADER": {
+    "Buttons": {
+      "Add": "Add Token Request"
+    }
+  },
+  "PAGES": {
+    "Home": {
+      "Masternode": {
+        "Heading": "You are currently running a masternode",
+        "Description": "You are currently holding enough tokens to run a Masternode! <br/>You receive <b>{{ percent }}% of the fee</b> someone would otherwise pay into the contract when buying in!",
+        "MasternodeLink": "Your unique masternode link is:"
+      }
+    },
+    "Buy": {
+      "Heading": "Buy",
+      "Buttons": {
+        "Buy": "Buy"
+      },
+      "Labels": {
+        "TypeNumber": "Type a valid number.",
+        "Result": "Approximately {{ amount }} MNTP.",
+        "Fee": "Estimated fee",
+        "TokenPrice": "Average token price",
+        "CurrentPrice": "Current buy price for 1 token:",
+        "MaxPurchase": "You can buy maximum {{ max }} tokens"
+      },
+      "Errors": {
+        "InvalidBalance": "You don't have enough money.",
+        "MaxPurchase": "You are allowed to buy max {{ max }} MNTP",
+        "Limits": "Minimal value is {{ min }}. Maximum value is {{ max }}."
+      }
+    },
+    "Sell": {
+      "Heading": "Sell",
+      "Buttons": {
+        "Sell": "Sell"
+      },
+      "Labels": {
+        "TypeNumber": "Type a valid number.",
+        "Result": "Approximately {{ amount }} ETH.",
+        "Fee": "Estimated fee",
+        "TokenPrice": "Average token price",
+        "CurrentPrice": "Current sell price for 1 token:"
+      },
+      "Errors": {
+        "InvalidBalance": "You don't have enough money",
+        "Limits": "Minimal value is {{ min }}. Maximum value is {{ max }}."
+      }
+    },
+    "Holdings": {
+      "Heading": "Holdings",
+      "BlockHeading": {
+        "Global": "Global",
+        "Wallet": "Wallet",
+        "Actions": "Actions"
+      },
+      "Labels": {
+        "Tokens": "Tokens",
+        "Dividends": "Bonus"
+      },
+      "Text": {
+        "InContract": "in contract",
+        "InCirculation": "<b>tokens</b> in circulation"
+      },
+      "Buttons": {
+        "Reinvest": "Reinvest bonus",
+        "Withdraw": "Withdraw bonus",
+        "View": "View Etherscan"
+      }
+    },
+    "PromoBonus": {
+      "Labels": {
+        "BigBonus": "BIG BANK",
+        "QuickBonus": "QUICK BANK",
+        "QuickBlocksToWin": "Amount of blocks to win QUICK promo: <b>{{ value }}</b> blocks",
+        "BigBlocksToWin": "Amount of blocks to win BIG promo: <b>{{ value }}</b> blocks"
+      },
+      "Info": "You're gonna win a promo bonus if your buy transaction for <b>more than {{ value }} tokens</b> is the first in a particular block!"
+    },
+    "AddToken": {
+      "Heading": "Add token request",
+      "Labels": {
+        "Name": "Your company name",
+        "Ticker": "Token ticker",
+        "Price": "Start price",
+        "CreateLabel": "Would you like to create a new token or use your existing one?",
+        "Create": "Create a new token for me",
+        "Exist": "I'd like use me ERC20 token",
+        "Contract": "Token contract address",
+        "Supply": "Total supply"
+      },
+      "Placeholders": {
+        "Name": "Goldmint",
+        "Ticker": "MNTP",
+        "Price": "0.01",
+        "Contract": "0x0160ae697a3538668cdb4698d3b89c7f36ad990d",
+        "Supply": "10000000000"
+      },
+      "Buttons": {
+        "Cancel": "Cancel",
+        "Back": "Back",
+        "Next": "Next",
+        "AddToken": "Add token"
+      },
+      "Errors": {
+        "Required": "Field is required",
+        "Pattern": "Field must contains digits and latin letters"
+      }
+    }
+  },
+  "MESSAGE": {
+    "MetaMask": {
+      "Heading": "To continue you'll need to have Metamask",
+      "Text": "MetaMask is a bridge that allows you to visit the distributed web of tomorrow in your browser today. It allows you to run Ethereum dApps right in your browser without running a full Ethereum node. Please, install the MetaMask add-on in Chrome, Firefox or Opera browser. Get <a href=\"https://metamask.io\" target=\"_blank\">Metamask</a>"
+    },
+    "LoginToMM": {
+      "HeadingBuy": "BUY TOKEN",
+      "HeadingSell": "SELL TOKEN",
+      "Text": "Please login to your account or approve access to the Ethereum blockchain"
+    },
+    "SentTransaction": {
+      "Heading": "Transaction in Process:",
+      "Hash": "Your transaction hash is:",
+      "Link": "View your transaction on EtherScan"
+    },
+    "ConnectingMM": "Connecting to MetaMask...",
+    "InvalidNetwork": "You must use {{ networkName }} network"
+  }
+}
