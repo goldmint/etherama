@@ -10,6 +10,7 @@
   "profiles": {
     "IIS Express": {
       "commandName": "Project",
+      "workingDirectory": "C:\\_PROJECTS\\gm-private-data\\etherama\\app-settings",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

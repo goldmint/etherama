@@ -84,28 +84,28 @@ namespace Etherama.CoreLogic.Services.Blockchain.Ethereum.Impl {
 
 	    public async Task<decimal> GetTokenPrice(string contactAddress)
 	    {
-	        var val = await Web3Utils.GetViewFunctionResult<BigInteger>(contactAddress, AppConfig.Services.Ethereum.EtheramaContractAbi, AppConfig.Services.Ethereum.EtheramaTokenPriceFunctionName);
+	        var val = await Web3Utils.GetViewFunctionResult<BigInteger>(contactAddress, AppConfig.Services.Ethereum.EtheramaContractAbi, AppConfig.Services.Ethereum.TokenPriceFunctionName);
 
 	        return val.FromWei();
 	    }
 
 	    public async Task<long> GetBuyCount(string contactAddress)
 	    {
-	        var val = await Web3Utils.GetViewFunctionResult<BigInteger>(contactAddress, AppConfig.Services.Ethereum.EtheramaContractAbi, AppConfig.Services.Ethereum.EtheramaTokenBuyCountFunctionName);
+	        var val = await Web3Utils.GetViewFunctionResult<BigInteger>(contactAddress, AppConfig.Services.Ethereum.EtheramaContractAbi, AppConfig.Services.Ethereum.TokenBuyCountFunctionName);
 
 	        return (long)val;
 	    }
 
 	    public async Task<long> GetSellCount(string contactAddress)
 	    {
-	        var val = await Web3Utils.GetViewFunctionResult<BigInteger>(contactAddress, AppConfig.Services.Ethereum.EtheramaContractAbi, AppConfig.Services.Ethereum.EtheramaTokenSellCountFunctionName);
+	        var val = await Web3Utils.GetViewFunctionResult<BigInteger>(contactAddress, AppConfig.Services.Ethereum.EtheramaContractAbi, AppConfig.Services.Ethereum.TokenSellCountFunctionName);
 
 	        return (long)val;
         }
 
         public async Task<decimal> GetBonusPerShare(string contactAddress)
 	    {
-	        var val = await Web3Utils.GetViewFunctionResult<BigInteger>(contactAddress, AppConfig.Services.Ethereum.EtheramaContractAbi, AppConfig.Services.Ethereum.EtheramaBonusPerShareFunctionName);
+	        var val = await Web3Utils.GetViewFunctionResult<BigInteger>(contactAddress, AppConfig.Services.Ethereum.EtheramaContractAbi, AppConfig.Services.Ethereum.BonusPerShareFunctionName);
 
 	        return val.FromWei();
 	    }
