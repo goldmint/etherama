@@ -1,16 +1,16 @@
-import {ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, HostBinding, OnInit} from '@angular/core';
+import {BigNumber} from "bignumber.js";
 import {EthereumService} from "../../services/ethereum.service";
 import {Subject} from "rxjs/Subject";
-import {environment} from "../../../environments/environment";
-import {BigNumber} from "bignumber.js";
 import {MessageBoxService} from "../../services/message-box.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.sass']
+  selector: 'app-trade',
+  templateUrl: './trade.component.html',
+  styleUrls: ['./trade.component.sass']
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class TradeComponent implements OnInit {
 
   @HostBinding('class') class = 'page';
 
@@ -47,11 +47,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
 
     this.ethService.getObservableTokenBalance().takeUntil(this.destroy$).subscribe((balance) => {
-        if (balance !== null && (this.tokenBalance === null || !this.tokenBalance.eq(balance))) {
-          this.tokenBalance = balance;
-          this.ethService.passTokenBalance.next(balance);
-          this.checkCurrentUserRefAvailable();
-        }
+      if (balance !== null && (this.tokenBalance === null || !this.tokenBalance.eq(balance))) {
+        this.tokenBalance = balance;
+        this.ethService.passTokenBalance.next(balance);
+        this.checkCurrentUserRefAvailable();
+      }
     });
 
     this.ethService.getObservableEthAddress().takeUntil(this.destroy$).subscribe(ethAddr => {
@@ -84,10 +84,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   checkCurrentUserRefAvailable() {
-    if (this.ethAddress && this.ethService._contractInfura) {
+    if (this.ethService._contractInfura) {
       this.ethService._contractInfura.isCurrentUserRefAvailable((err, res) => {
         this.isUserRefAvailable = res;
-        this.uniqueMasternodeLink = `${window.location.origin}/#/home?ref=${this.ethAddress}`
+        this.uniqueMasternodeLink = `${window.location.href}?ref=${this.ethAddress}`;
+        this.cdRef.markForCheck();
       });
       this.ethService._contractInfura.getRefBonusPercent((err, res) => {
         this.refBonusPercent = +res / Math.pow(10, 18);

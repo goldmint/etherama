@@ -1,14 +1,14 @@
-import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {EthereumService} from "../../services/ethereum.service";
+import {ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {EthereumService} from "../../../services/ethereum.service";
 import {Subject} from "rxjs/Subject";
 import * as Web3 from "web3";
 import {BigNumber} from "bignumber.js";
 import {Subscription} from "rxjs/Subscription";
-import {MessageBoxService} from "../../services/message-box.service";
+import {MessageBoxService} from "../../../services/message-box.service";
 import {TranslateService} from "@ngx-translate/core";
-import {environment} from "../../../environments/environment";
-import {UserService} from "../../services/user.service";
-import {APIService} from "../../services/api.service";
+import {environment} from "../../../../environments/environment";
+import {UserService} from "../../../services/user.service";
+import {APIService} from "../../../services/api.service";
 import {Observable} from "rxjs/Observable";
 
 @Component({
@@ -58,6 +58,7 @@ export class BuyComponent implements OnInit, OnDestroy {
 
   constructor(
     private ethService: EthereumService,
+    private cdRef: ChangeDetectorRef,
     private messageBox: MessageBoxService,
     private translate: TranslateService,
     private userService: UserService,
@@ -136,6 +137,7 @@ export class BuyComponent implements OnInit, OnDestroy {
         } else {
           this.isInvalidNetwork = false;
         }
+
       }
     });
   }

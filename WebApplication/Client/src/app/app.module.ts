@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { AppRouting } from './app.routing';
 
 import { APIHttpInterceptor } from './common/api/api-http.interceptor';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -17,7 +18,7 @@ registerLocaleData(localeRu);
 import {
   BsDropdownModule,
   ModalModule,
-  ButtonsModule
+  ButtonsModule, CollapseModule
 } from 'ngx-bootstrap';
 
 import { HeaderBlockComponent } from './blocks/header-block/header-block.component';
@@ -31,16 +32,20 @@ import {APIService} from "./services/api.service";
 import {NotFoundPageComponent} from "./components/not-found-page/not-found-page.component";
 import {LanguageSwitcherBlockComponent} from "./blocks/language-switcher-block/language-switcher-block.component";
 import {UserService} from "./services/user.service";
-import {BuyComponent} from "./components/buy/buy.component";
-import {SellComponent} from "./components/sell/sell.component";
+import {BuyComponent} from "./components/trade/buy/buy.component";
+import {SellComponent} from "./components/trade/sell/sell.component";
 import {HomeComponent} from "./components/home/home.component";
 import {SubstrPipe} from "./pipes/substr.pipe";
 import {NoexpPipe} from "./pipes/noexp.pipe";
-import { PromoBonusComponent } from './components/promo-bonus/promo-bonus.component';
+import { PromoBonusComponent } from './components/trade/promo-bonus/promo-bonus.component';
 import { AddTokenComponent } from './components/add-token/add-token.component';
 import { TimerComponent } from './common/timer/timer.component';
-import { StatisticChartsComponent } from './components/statistic-charts/statistic-charts.component';
+import { StatisticChartsComponent } from './components/trade/statistic-charts/statistic-charts.component';
 import { BuySellModalComponent } from './common/buy-sell-modal/buy-sell-modal.component';
+import { AboutComponent } from './components/about/about.component';
+import { FaqComponent } from './components/faq/faq.component';
+import { MarketComponent } from './components/market/market.component';
+import { TradeComponent } from './components/trade/trade.component';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -56,7 +61,9 @@ export function createTranslateLoader(http: HttpClient) {
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     ButtonsModule.forRoot(),
+    CollapseModule.forRoot(),
     HttpClientModule,
+    NgxDatatableModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -82,7 +89,11 @@ export function createTranslateLoader(http: HttpClient) {
     AddTokenComponent,
     TimerComponent,
     StatisticChartsComponent,
-    BuySellModalComponent
+    BuySellModalComponent,
+    AboutComponent,
+    FaqComponent,
+    MarketComponent,
+    TradeComponent
   ],
   exports: [],
   providers: [

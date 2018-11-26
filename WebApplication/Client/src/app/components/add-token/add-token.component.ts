@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, HostBinding, OnInit, ViewChild} from '@angular/core';
 import {AddToken} from "../../models/add-token";
 
 @Component({
@@ -24,7 +24,9 @@ export class AddTokenComponent implements OnInit {
   public lastStep: number = Object.keys(this.controlsMap).length;
   public invalidField: boolean = true;
 
-  constructor() { }
+  constructor(
+    private cdRef: ChangeDetectorRef
+  ) { }
 
   ngOnInit() { }
 

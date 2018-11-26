@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-timer',
@@ -13,7 +13,9 @@ export class TimerComponent implements OnInit, AfterViewInit, OnDestroy {
   private deadline;
   private interval;
 
-  constructor() {}
+  constructor(
+    private cdRef: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     this.deadline = new Date(this.expiresTime);
@@ -37,6 +39,7 @@ export class TimerComponent implements OnInit, AfterViewInit, OnDestroy {
   initializeClock() {
     this.updateClock();
     this.interval = setInterval(this.updateClock.bind(this), 1000);
+    this.cdRef.detectChanges();
   }
 
   updateClock() {
@@ -49,6 +52,7 @@ export class TimerComponent implements OnInit, AfterViewInit, OnDestroy {
     if (t.total <= 0) {
       clearInterval(this.interval);
     }
+    this.cdRef.detectChanges();
   }
 
   ngAfterViewInit() {

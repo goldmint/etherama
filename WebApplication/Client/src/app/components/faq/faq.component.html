@@ -1,0 +1,32 @@
+<!-- host: .page -->
+
+<h1 class="page__heading">{{ "PAGES.FAQ.Heading" | translate }}</h1>
+
+<section class="page__section section">
+  <h2 class="section__title">{{ "PAGES.FAQ.Heading" | translate }}</h2>
+
+  <div class="progress-linear progress-linear--tiny" *ngIf="false">
+    <div class="container"></div>
+  </div>
+
+  <div class="section__content py-4">
+
+    <div class="collapse-container" *ngFor="let a of ngForArray; index as i">
+      <div class="collapse-heading" [ngClass]="{'open': !collapse['item'+i]}" (click)="collapse['item'+i] = !collapse['item'+i]">
+        <div class="font-weight-500 lead" [innerHTML]="'PAGES.FAQ.Answers.'+ (i+1) +'th.Heading' | translate"></div>
+        <div class="collapse-arrow">
+          <svg class="icon" width="20" height="20">
+            <use xlink:href="#next"></use>
+          </svg>
+        </div>
+      </div>
+
+      <div class="collapse-content">
+        <div class="card card-block card-header" [collapse]="collapse['item'+i]">
+          <div [innerHTML]="'PAGES.FAQ.Answers.'+ (i+1) +'th.Text' | translate"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

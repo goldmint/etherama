@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {EthereumService} from "../../services/ethereum.service";
+import {EthereumService} from "../../../services/ethereum.service";
 import {Subject} from "rxjs/Subject";
 
 @Component({

@@ -81,7 +81,7 @@ export class EthereumService {
   public getSuccessSellRequestLink$ = new Subject();
 
   constructor(
-    private _userService: UserService,
+    private userService: UserService,
     private _http: HttpClient
   ) {
     interval(500).subscribe(this.checkWeb3.bind(this));

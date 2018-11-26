@@ -1,13 +1,13 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {EthereumService} from "../../services/ethereum.service";
+import {EthereumService} from "../../../services/ethereum.service";
 import {Subject} from "rxjs/Subject";
 import * as Web3 from "web3";
 import {BigNumber} from "bignumber.js";
 import {Subscription} from "rxjs/Subscription";
-import {environment} from "../../../environments/environment";
+import {environment} from "../../../../environments/environment";
 import {TranslateService} from "@ngx-translate/core";
-import {MessageBoxService} from "../../services/message-box.service";
-import {UserService} from "../../services/user.service";
+import {MessageBoxService} from "../../../services/message-box.service";
+import {UserService} from "../../../services/user.service";
 import {Observable} from "rxjs/Observable";
 
 @Component({

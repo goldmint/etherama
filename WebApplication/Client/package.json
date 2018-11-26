@@ -27,6 +27,7 @@
     "@biesbjerg/ngx-translate-po-http-loader": "^2.0.1",
     "@ngx-translate/core": "^9.1.1",
     "@ngx-translate/http-loader": "^2.0.1",
+    "@swimlane/ngx-datatable": "^11.1.7",
     "@types/crypto-js": "^3.1.39",
     "anychart": "^8.3.0",
     "bignumber": "^1.1.0",

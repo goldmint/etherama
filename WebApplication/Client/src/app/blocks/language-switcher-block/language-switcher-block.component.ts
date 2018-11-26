@@ -9,7 +9,6 @@ import {UserService} from "../../services/user.service";
   templateUrl: './language-switcher-block.component.html',
   styleUrls: ['./language-switcher-block.component.sass'],
   encapsulation: ViewEncapsulation.None,
-  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LanguageSwitcherBlockComponent implements OnInit {
 
