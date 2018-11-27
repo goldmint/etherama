@@ -1,7 +1,5 @@
 <div class="text-center promo-bonus-container my-5 my-lg-0">
 
-  <!--<div class="my-4" [innerHTML]="'PAGES.PromoBonus.Info' | translate:{value: promoMinTokenPurchase}"></div>-->
-
   <div class="promo-bonus-info-container mb-3 justify-content-between">
     <div class="position-relative mb-3 promo-bonus-info-block col-12 col-sm-6">
       <div class="mb-2"><b>{{ "PAGES.PromoBonus.Labels.BigBonus" | translate }}</b></div>
@@ -17,10 +15,10 @@
         <div class="fz-13">(ETH)</div>
       </div>
 
-      <div class="mt-2">
-        <app-timer [time]="timeEnd"></app-timer>
+      <div class="mt-2 c-red" [innerHTML]="'PAGES.PromoBonus.Labels.BigBlocksToWin' |  translate:{value: bigWinPromoBonus}"></div>
+      <div class="mt-2" *ngIf="bigBankTimer">
+        <app-timer [time]="bigBankTimer"></app-timer>
       </div>
-      <!--<div class="mt-2 c-red" [innerHTML]="'PAGES.PromoBonus.Labels.QuickBlocksToWin' |  translate:{value: quickWinPromoBonus}"></div>-->
     </div>
 
     <div class="position-relative promo-bonus-info-block col-12 col-sm-6">
@@ -37,10 +35,10 @@
         <div class="fz-13">(ETH)</div>
       </div>
 
-      <div class="mt-2">
-        <app-timer [time]="timeEnd"></app-timer>
+      <div class="mt-2 c-red" [innerHTML]="'PAGES.PromoBonus.Labels.QuickBlocksToWin' |  translate:{value: quickWinPromoBonus}"></div>
+      <div class="mt-2" *ngIf="quickBankTimer">
+        <app-timer [time]="quickBankTimer"></app-timer>
       </div>
-      <!--<div class="mt-2 c-red" [innerHTML]="'PAGES.PromoBonus.Labels.BigBlocksToWin' |  translate:{value: bigWinPromoBonus}"></div>-->
     </div>
   </div>
 </div>

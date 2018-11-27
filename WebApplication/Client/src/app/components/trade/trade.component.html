@@ -18,10 +18,10 @@
       </div>
 
       <div class="total-info-block">
-        <div><b>Lookup exp. date:</b> {{ date | date:'d.M.yyyy' }}</div>
+        <div><b>Lookup exp. date:</b> <span *ngIf="tillExpiration">{{ expirationTime?.expiration * 1000 | date:'d.M.yyyy' }} ({{ tillExpiration | date:'d.M.yyyy H:mm:ss' }})</span></div>
         <div><b>ETH in contract:</b> {{ +totalData.totalEth | noexp }} ETH</div>
         <div><b>Tokens in contract:</b> {{ +totalData.totalTokens | noexp }} MNTP</div>
-        <div><b>Total token suplay:</b> 10,000,000</div>
+        <div><b>Total token supply:</b> {{ tokenSupply | number }}</div>
       </div>
 
       <div class="text-justify">

@@ -70,21 +70,49 @@
                          autocomplete="off"
                          (input)="changeValue($event, false)"
                          [value]="eth"
+                         readonly
                          required>
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <div *ngIf="!errors.invalidBalance && errors.ethLimit">
+                  {{ "PAGES.Sell.Errors.Limits" | translate:{ min: ethLimits.min, max: ethLimits.max } }}
                 </div>
               </div>
             </div>
 
-            <div class="mt-3">
-                <div *ngIf="!errors.invalidBalance && errors.ethLimit">
-                  {{ "PAGES.Sell.Errors.Limits" | translate:{ min: ethLimits.min, max: ethLimits.max } }}
+            <div>
+              <div class="from-row form-group m-0">
+                <label for="min-return-input">Min return</label>
+                <div class="d-flex align-items-center">
+                  <div class="form-currency">
+                    <svg class="icon" width="30" height="30">
+                      <use xlink:href="#return"></use>
+                    </svg>
+                  </div>
+                  <input type="text" class="form-control m-0" name="min-return-input" id="min-return-input" placeholder="0.01"
+                         #minreturnInput="ngModel"
+                         ngModel
+                         autocomplete="off"
+                         (input)="changeMinReturn($event)"
+                         [value]="minReturn"
+                         [disabled]="loading"
+                         required>
                 </div>
+              </div>
+
+              <div class="mt-3 text-center">
+                <div *ngIf="isMinReturnError">
+                  {{ "PAGES.Buy.Errors.minReturn" | translate:{ max: +substrValue(eth * minReturnPercent) } }}
+                </div>
+              </div>
             </div>
 
             <div class="text-center mt-3">
                 <div class="d-inline-block position-relative">
                     <button type="button" class="btn btn-primary" (click)="onSubmit()"
-                            [disabled]="!+mntp || !+eth || errors.invalidBalance || errors.tokenLimit || errors.ethLimit || loading || isTyping || isInvalidNetwork">
+                            [disabled]="!+mntp || !+eth || errors.invalidBalance || errors.tokenLimit || errors.ethLimit || loading || isTyping || isInvalidNetwork || isMinReturnError">
                         {{ "PAGES.Sell.Buttons.Sell" | translate }}
                     </button>
                     <img *ngIf="loading" alt="Processing..." width="17" height="17" class="form-loader absolute" src="assets/img/loader-gold-bg-white.gif">

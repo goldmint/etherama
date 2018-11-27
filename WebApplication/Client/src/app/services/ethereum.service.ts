@@ -13,7 +13,6 @@ import {Subject} from "rxjs/Subject";
 export class EthereumService {
 
   private _infuraUrl = environment.infuraUrl;
-  private _gasPriceLink = environment.gasPriceLink;
   private _etherscanGetABIUrl = environment.etherscanGetABIUrl;
 
   private mintoramaContractAddress = environment.mintoramaContractAddress;
@@ -58,11 +57,11 @@ export class EthereumService {
   private _obsWinQUICKPromoBonusSubject = new BehaviorSubject(null);
   private _obsWinQUICKPromoBonus = this._obsWinQUICKPromoBonusSubject.asObservable();
 
-  private _obsPromoMinTokenPurchaseSubject = new BehaviorSubject(null);
-  private _obsPromoMinTokenPurchase = this._obsPromoMinTokenPurchaseSubject.asObservable();
+  private _obsTotalTokenSupplySubject = new BehaviorSubject(null);
+  private _obsTotalTokenSupply = this._obsTotalTokenSupplySubject.asObservable();
 
-  private _obsGasPriceSubject = new Subject();
-  private _obsGasPrice = this._obsGasPriceSubject.asObservable();
+  private _obsExpirationTimeSubject = new BehaviorSubject(null);
+  private _obsExpirationTime = this._obsExpirationTimeSubject.asObservable();
 
   private _obsNetworkSubject = new BehaviorSubject<Number>(null);
   private _obsNetwork: Observable<Number> = this._obsNetworkSubject.asObservable();
@@ -153,6 +152,7 @@ export class EthereumService {
     this.update1TokenPrice();
     this.updateTotalData();
     this.updatePromoBonus();
+    this.updateTotalTokenSupply();
   }
 
   private emitAddress(ethAddress: string) {
@@ -167,15 +167,10 @@ export class EthereumService {
     this.updatePromoBonus();
     this.updateWinBIGPromoBonus();
     this.updateWinQUICKPromoBonus();
-    this.getPromoMinTokenPurchase();
     this.getTokenDealRange();
     this.getEthDealRange();
-  }
-
-  private getGasPrice() {
-    this._http.get(this._gasPriceLink).subscribe(data => {
-      this._obsGasPriceSubject.next(data['fast']);
-    });
+    this.updateTotalTokenSupply();
+    this.getExpirationTime();
   }
 
   private updateTokenBalance(addr: string) {
@@ -274,12 +269,27 @@ export class EthereumService {
     }
   }
 
-  private getPromoMinTokenPurchase() {
+  private updateTotalTokenSupply() {
     if (!this._contractInfura) {
-      this._obsPromoMinTokenPurchaseSubject.next(null);
+      this._obsTotalTokenSupplySubject.next(null);
     } else {
-      this._contractInfura.getPromoMinTokenPurchase((err, res) => {
-        this._obsPromoMinTokenPurchaseSubject.next(new BigNumber(res.toString()).div(new BigNumber(10).pow(18)));
+      this._contractInfura.getTotalTokenSupply((err, res) => {
+        this._obsTotalTokenSupplySubject.next(new BigNumber(res.toString()).div(new BigNumber(10).pow(18)));
+      });
+    }
+  }
+
+  private getExpirationTime() {
+    if (!this._contractInfura) {
+      this._obsExpirationTimeSubject.next(null);
+    } else {
+      this._contractInfura.getExpirationTime((err, res) => {
+        let time: any = {};
+        time.expiration = +res;
+        this._contractInfura.getRemainingTimeTillExpiration((err, res) => {
+          time.tillExpiration = +res;
+          this._obsExpirationTimeSubject.next(time);
+        });
       });
     }
   }
@@ -340,8 +350,12 @@ export class EthereumService {
     return this._obsWinQUICKPromoBonus;
   }
 
-  public getObservablePromoMinTokenPurchase(): Observable<any> {
-    return this._obsPromoMinTokenPurchase;
+  public getObservableTotalTokenSupply(): Observable<any> {
+    return this._obsTotalTokenSupply;
+  }
+
+  public getObservableExpirationTime(): Observable<any> {
+    return this._obsExpirationTime;
   }
 
   public getObservableEthDealRange(): Observable<any> {
@@ -356,21 +370,16 @@ export class EthereumService {
     return this._obsNetwork;
   }
 
-  public getObservableGasPrice(): Observable<any> {
-    this.getGasPrice();
-    return this._obsGasPrice;
-  }
-
-  public buy(refAddress: string, fromAddr: string, amount: string, gasPrice: number) {
-    this._contractMetamask.buy(refAddress, { from: fromAddr, value: amount, gas: 400000, gasPrice: gasPrice }, (err, res) => {
+  public buy(refAddress: string, fromAddr: string, amount: string, minReturn: string, gasPrice: number) {
+    this._contractMetamask.buy(refAddress, minReturn, { from: fromAddr, value: amount, gas: 600000, gasPrice: gasPrice }, (err, res) => {
       this.getSuccessBuyRequestLink$.next(res);
     });
   }
 
-  public sell(fromAddr: string, amount: string, gasPrice: number) {
-    this._contractMntp.approve(this.mintoramaContractAddress, amount, { from: fromAddr, value: 0, gas: 400000, gasPrice: gasPrice }, (err, res) => {
+  public sell(fromAddr: string, amount: string, minReturn: string, gasPrice: number) {
+    this._contractMntp.approve(this.mintoramaContractAddress, amount, { from: fromAddr, value: 0, gas: 600000, gasPrice: gasPrice }, (err, res) => {
       res && setTimeout(() => {
-        this._contractMetamask.sell(amount, { from: fromAddr, value: 0, gas: 400000, gasPrice: gasPrice }, (err, res) => {
+        this._contractMetamask.sell(amount, minReturn, { from: fromAddr, value: 0, gas: 600000, gasPrice: gasPrice }, (err, res) => {
           this.getSuccessSellRequestLink$.next(res);
         });
       }, 1000);

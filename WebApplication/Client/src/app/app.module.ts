@@ -34,7 +34,6 @@ import {LanguageSwitcherBlockComponent} from "./blocks/language-switcher-block/l
 import {UserService} from "./services/user.service";
 import {BuyComponent} from "./components/trade/buy/buy.component";
 import {SellComponent} from "./components/trade/sell/sell.component";
-import {HomeComponent} from "./components/home/home.component";
 import {SubstrPipe} from "./pipes/substr.pipe";
 import {NoexpPipe} from "./pipes/noexp.pipe";
 import { PromoBonusComponent } from './components/trade/promo-bonus/promo-bonus.component';
@@ -80,7 +79,6 @@ export function createTranslateLoader(http: HttpClient) {
     MessageBoxComponent,
     SpriteComponent,
     NotFoundPageComponent,
-    HomeComponent,
     BuyComponent,
     SellComponent,
     SubstrPipe,

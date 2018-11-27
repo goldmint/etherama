@@ -33,7 +33,8 @@
       "Errors": {
         "InvalidBalance": "You don't have enough money.",
         "MaxPurchase": "You are allowed to buy max {{ max }} MNTP",
-        "Limits": "Minimal value is {{ min }}. Maximum value is {{ max }}."
+        "Limits": "Minimal value is {{ min }}. Maximum value is {{ max }}.",
+        "minReturn": "Minimum value must be greater than 0. Maximum value is {{ max }}."
       }
     },
     "Sell": {
@@ -57,8 +58,8 @@
       "Labels": {
         "BigBonus": "BIG BANK",
         "QuickBonus": "QUICK BANK",
-        "QuickBlocksToWin": "Amount of blocks to win QUICK promo: <b>{{ value }}</b> blocks",
-        "BigBlocksToWin": "Amount of blocks to win BIG promo: <b>{{ value }}</b> blocks"
+        "QuickBlocksToWin": "Amount of blocks to win QUICK BANK: <b>{{ value }}</b> blocks",
+        "BigBlocksToWin": "Amount of blocks to win BIG BANK: <b>{{ value }}</b> blocks"
       },
       "Info": "You're gonna win a promo bonus if your buy transaction for <b>more than {{ value }} tokens</b> is the first in a particular block!"
     },

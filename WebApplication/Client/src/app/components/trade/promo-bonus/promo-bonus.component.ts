@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {EthereumService} from "../../../services/ethereum.service";
 import {Subject} from "rxjs/Subject";
 
@@ -15,13 +15,15 @@ export class PromoBonusComponent implements OnInit, OnDestroy {
   }
   public bigWinPromoBonus: number = 0;
   public quickWinPromoBonus: number = 0;
-  public promoMinTokenPurchase: number = 0;
-
-  public timeEnd = new Date().getTime() + 3600000;
+  public bigBankTimer;
+  public quickBankTimer;
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private ethService: EthereumService) { }
+  constructor(
+    private ethService: EthereumService,
+    private cdRef: ChangeDetectorRef
+  ) { }
 
   ngOnInit() {
     this.ethService.getObservablePromoBonus().takeUntil(this.destroy$).subscribe(bonus => {
@@ -35,15 +37,19 @@ export class PromoBonusComponent implements OnInit, OnDestroy {
     });
 
     this.ethService.getObservableWinBIGPromoBonus().takeUntil(this.destroy$).subscribe(bonus => {
-      bonus && (this.bigWinPromoBonus = bonus);
+      if (bonus) {
+        this.bigWinPromoBonus = bonus;
+        this.bigBankTimer = new Date().getTime() + (this.bigWinPromoBonus * 15000);
+        this.cdRef.markForCheck();
+      }
     });
 
     this.ethService.getObservableWinQUICKPromoBonus().takeUntil(this.destroy$).subscribe(bonus => {
-      bonus && (this.quickWinPromoBonus = bonus);
-    });
-
-    this.ethService.getObservablePromoMinTokenPurchase().takeUntil(this.destroy$).subscribe(value => {
-      value && (this.promoMinTokenPurchase = value);
+      if (bonus) {
+        this.quickWinPromoBonus = bonus;
+        this.quickBankTimer = new Date().getTime() + (this.quickWinPromoBonus * 15000);
+        this.cdRef.markForCheck();
+      }
     });
   }
 

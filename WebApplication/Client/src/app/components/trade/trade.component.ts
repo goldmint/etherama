@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, HostBinding, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
 import {BigNumber} from "bignumber.js";
 import {EthereumService} from "../../services/ethereum.service";
 import {Subject} from "rxjs/Subject";
@@ -10,7 +10,7 @@ import {environment} from "../../../environments/environment";
   templateUrl: './trade.component.html',
   styleUrls: ['./trade.component.sass']
 })
-export class TradeComponent implements OnInit {
+export class TradeComponent implements OnInit, OnDestroy {
 
   @HostBinding('class') class = 'page';
 
@@ -22,6 +22,7 @@ export class TradeComponent implements OnInit {
   public uniqueMasternodeLink: string;
 
   public userReward: BigNumber | any = 0;
+  public tokenSupply: BigNumber | any = 0;
   public totalData: any = {
     totalEth: 0,
     totalTokens: 0
@@ -29,6 +30,11 @@ export class TradeComponent implements OnInit {
   public etherscanContractUrl = environment.etherscanContractUrl;
   public isDataLoaded: boolean = false;
   public date = new Date();
+  public expirationTime = {
+    expiration: '-',
+    tillExpiration: '-'
+  };
+  public tillExpiration: number = null;
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -51,13 +57,13 @@ export class TradeComponent implements OnInit {
         this.tokenBalance = balance;
         this.ethService.passTokenBalance.next(balance);
         this.checkCurrentUserRefAvailable();
+        this.cdRef.markForCheck();
       }
     });
 
     this.ethService.getObservableEthAddress().takeUntil(this.destroy$).subscribe(ethAddr => {
       if (this.ethAddress && !ethAddr) {
         this.isUserRefAvailable = false;
-        this.cdRef.markForCheck();
       }
 
       if (ethAddr && this.ethService._contractInfura) {
@@ -67,10 +73,26 @@ export class TradeComponent implements OnInit {
 
       this.ethAddress = ethAddr;
       this.ethService.passEthAddress.next(ethAddr);
+      this.cdRef.markForCheck();
     });
 
     this.ethService.getObservableUserReward().takeUntil(this.destroy$).subscribe(reward => {
       reward && (this.userReward = reward);
+      this.cdRef.markForCheck();
+    });
+
+    this.ethService.getObservableTotalTokenSupply().takeUntil(this.destroy$).subscribe(supply => {
+      supply && (this.tokenSupply = +supply);
+      this.cdRef.markForCheck();
+    });
+
+    this.ethService.getObservableExpirationTime().takeUntil(this.destroy$).subscribe(time => {
+      if (time) {
+        this.expirationTime.expiration = time.expiration;
+        this.expirationTime.tillExpiration = time.tillExpiration;
+        this.tillExpiration = new Date().getTime() + time.tillExpiration * 1000;
+        this.cdRef.markForCheck();
+      }
     });
 
     this.ethService.getObservableTotalData().takeUntil(this.destroy$).subscribe(total => {
@@ -90,8 +112,10 @@ export class TradeComponent implements OnInit {
         this.uniqueMasternodeLink = `${window.location.href}?ref=${this.ethAddress}`;
         this.cdRef.markForCheck();
       });
+
       this.ethService._contractInfura.getRefBonusPercent((err, res) => {
         this.refBonusPercent = +res / Math.pow(10, 18);
+        this.cdRef.markForCheck();
       });
     }
   }
@@ -99,9 +123,6 @@ export class TradeComponent implements OnInit {
   openBuySellModal() {
     this.messageBox.buySell();
   }
-  // reinvest() {
-  //   this.ethService._contractMetamask.reinvest((err, res) => { });
-  // }
 
   withdraw() {
     this.ethService._contractMetamask.withdraw((err, res) => { });

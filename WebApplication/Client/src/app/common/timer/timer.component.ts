@@ -1,11 +1,20 @@
-import {AfterViewInit, ChangeDetectorRef, Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  SimpleChanges
+} from '@angular/core';
 
 @Component({
   selector: 'app-timer',
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.sass']
 })
-export class TimerComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TimerComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
 
   @Input('time') expiresTime;
 
@@ -19,6 +28,15 @@ export class TimerComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.deadline = new Date(this.expiresTime);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes.firstChange) {
+      this.deadline = new Date(this.expiresTime);
+
+      clearInterval(this.interval);
+      this.interval && this.initializeClock();
+    }
   }
 
   getTimeRemaining() {
@@ -58,7 +76,7 @@ export class TimerComponent implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     setTimeout(() => {
       this.initializeClock();
-    }, 0)
+    }, 0);
   }
 
   ngOnDestroy() {

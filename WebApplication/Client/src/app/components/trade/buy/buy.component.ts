@@ -50,19 +50,20 @@ export class BuyComponent implements OnInit, OnDestroy {
     min: 0,
     max: 0
   };
+  public minReturn: number;
+  public isMinReturnError: boolean = false;
 
+  private minReturnPercent = 0.95;
   private web3: Web3 = new Web3();
   private destroy$: Subject<boolean> = new Subject<boolean>();
-  private subGetGas: Subscription;
-  private gasLimit: number = 400000;
+  private gasLimit: number = 600000;
 
   constructor(
     private ethService: EthereumService,
     private cdRef: ChangeDetectorRef,
     private messageBox: MessageBoxService,
     private translate: TranslateService,
-    private userService: UserService,
-    private apiService: APIService
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -90,8 +91,8 @@ export class BuyComponent implements OnInit, OnDestroy {
 
     this.ethService.passEthBalance.takeUntil(this.destroy$).subscribe(eth => {
       if (eth) {
-        this.apiService.getGasPrice().subscribe(data => {
-          let gas = (data['fast'] * Math.pow(10, 9) * this.gasLimit) / Math.pow(10, 18);
+        this.ethService._contractInfura.getMaxGasPrice((err, res) => {
+          let gas = (+res * this.gasLimit) / Math.pow(10, 18);
           this.ethBalance = +this.substrValue(+eth - gas);
           this.eth = +this.substrValue(+eth - gas);
 
@@ -152,20 +153,33 @@ export class BuyComponent implements OnInit, OnDestroy {
     this.checkErrors(fromEth, +event.target.value);
   }
 
+  changeMinReturn(event) {
+    event.target.value = this.substrValue(event.target.value);
+    this.minReturn = +event.target.value;
+
+    this.isMinReturnError = this.minReturn > this.mntp * this.minReturnPercent || this.minReturn <= 0;
+    this.cdRef.markForCheck();
+  }
+
   setCoinBalance(percent) {
-    let max = +this.maxPurchase < this.ethLimits.max ? +this.maxPurchase : this.ethLimits.max;
-    let value = this.isBalanceBetter ? this.substrValue(max * percent) : this.substrValue(+this.ethBalance * percent);
+    // let max = +this.maxPurchase < this.ethLimits.max ? +this.maxPurchase : this.ethLimits.max;
+    // let value = this.isBalanceBetter ? this.substrValue(max * percent) : this.substrValue(+this.ethBalance * percent);
+
+    let value = this.substrValue(+this.ethBalance * percent);
     this.checkErrors(true, value);
 
-    if (this.ethAddress && +value != this.eth) {
-      if (this.isBalanceBetter) {
-        this.mntp = +value;
-        !this.errors.ethLimit && this.estimateBuyOrder(this.mntp, false, false);
-      } else {
-        this.eth = +value;
-        !this.errors.ethLimit && this.estimateBuyOrder(this.eth, true, false);
-      }
-    }
+    this.eth = +value;
+    !this.errors.ethLimit && this.estimateBuyOrder(this.eth, true, false);
+
+    // if (this.ethAddress && +value != this.eth) {
+    //   if (this.isBalanceBetter) {
+    //     this.mntp = +value;
+    //     !this.errors.ethLimit && this.estimateBuyOrder(this.mntp, false, false);
+    //   } else {
+    //     this.eth = +value;
+    //     !this.errors.ethLimit && this.estimateBuyOrder(this.eth, true, false);
+    //   }
+    // }
   }
 
   substrValue(value) {
@@ -191,7 +205,7 @@ export class BuyComponent implements OnInit, OnDestroy {
           this.estimateFee = +new BigNumber(res[1].toString()).div(new BigNumber(10).pow(18));
           this.averageTokenPrice = +new BigNumber(res[2].toString()).div(new BigNumber(10).pow(18));
 
-          isFirstLoad && (this.isBalanceBetter = estimate > this.maxPurchase || amount > this.ethLimits.max);
+          // isFirstLoad && (this.isBalanceBetter = estimate > this.maxPurchase || amount > this.ethLimits.max);
 
           if (fromEth) {
             this.mntp = +this.substrValue(estimate);
@@ -202,8 +216,12 @@ export class BuyComponent implements OnInit, OnDestroy {
               this.errors.invalidBalance = true;
             }
           }
+
+          this.minReturn = +this.substrValue(this.mntp * this.minReturnPercent);
+
           this.ethAddress && (this.errors.maxPurchase = this.mntp > this.maxPurchase);
-          this.loading = false;
+          this.loading = this.isMinReturnError = false;
+          this.cdRef.markForCheck();
         });
       }
     });
@@ -217,6 +235,8 @@ export class BuyComponent implements OnInit, OnDestroy {
 
     this.errors.tokenLimit = !fromEth && this.ethAddress && value > 0 &&
       (value < this.tokenLimits.min || value > this.tokenLimits.max);
+
+    this.cdRef.markForCheck();
   }
 
   initTransactionHashModal() {
@@ -227,7 +247,7 @@ export class BuyComponent implements OnInit, OnDestroy {
             <div class="text-center">
               <div class="font-weight-500 mb-2">${phrases.Heading}</div>
               <div>${phrases.Hash}</div>
-              <div class="mb-2 modal-tx-hash">${hash}</div>
+              <div class="mb-2 modal-tx-hash overflow-ellipsis">${hash}</div>
               <a href="${this.etherscanUrl}${hash}" target="_blank">${phrases.Link}</a>
             </div>
           `);
@@ -259,19 +279,17 @@ export class BuyComponent implements OnInit, OnDestroy {
     });
     let refAddress = queryParams['ref'] ? queryParams['ref'] : '0x0';
 
-    this.subGetGas && this.subGetGas.unsubscribe();
-    this.subGetGas = this.ethService.getObservableGasPrice().subscribe((price) => {
-      if (price !== null) {
+    this.ethService._contractInfura.getMaxGasPrice((err, res) => {
+      if (+res) {
         const amount = this.web3['toWei'](this.eth);
-        this.ethService.buy(refAddress ,this.ethAddress, amount, +price * Math.pow(10, 9));
-        this.subGetGas && this.subGetGas.unsubscribe();
+        const minReturn = this.web3['toWei'](this.minReturn);
+        this.ethService.buy(refAddress, this.ethAddress, amount, minReturn, +res);
       }
     });
   }
 
   ngOnDestroy() {
     this.destroy$.next(true);
-    this.subGetGas && this.subGetGas.unsubscribe();
   }
 
 }
