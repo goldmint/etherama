@@ -25,7 +25,7 @@ namespace Etherama.Common.WebRequest {
 		private ILogger _logger;
 		private CancellationTokenSource _cancellationTokenSource;
 
-		public Request(ILogger logger) {
+		public Request(ILogger logger = null) {
 			_logger = logger;
 			_hdrAccept = new List<MediaTypeWithQualityHeaderValue>();
 			_cancellationTokenSource = new CancellationTokenSource();

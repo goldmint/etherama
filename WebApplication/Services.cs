@@ -186,11 +186,13 @@ namespace Etherama.WebApplication {
 
 			// ethereum reader
 			services.AddSingleton<IEthereumReader, EthereumReader>();
+			services.AddSingleton<IEthereumWriter, EthereumWriter>();
 
 			// workers
 			services.AddSingleton<IHostedService, TokenStatisticsHarvester>();
+		    services.AddSingleton<IHostedService, MaxGasPriceUpdater>();
 
-			return services.BuildServiceProvider();
+            return services.BuildServiceProvider();
 		}
 
 		public void RunServices() {

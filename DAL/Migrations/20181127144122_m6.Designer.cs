@@ -12,9 +12,10 @@ using System;
 namespace Etherama.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181127144122_m6")]
+    partial class m6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -486,21 +487,11 @@ namespace Etherama.DAL.Migrations
                         .HasColumnName("etherama_contract_address")
                         .HasMaxLength(43);
 
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnName("full_name")
-                        .HasMaxLength(128);
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnName("is_deleted");
 
                     b.Property<bool>("IsEnabled")
                         .HasColumnName("is_enabled");
-
-                    b.Property<string>("Ticker")
-                        .IsRequired()
-                        .HasColumnName("ticker")
-                        .HasMaxLength(16);
 
                     b.Property<DateTime>("TimeCreated")
                         .HasColumnName("time_created");

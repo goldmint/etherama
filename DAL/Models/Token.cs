@@ -14,6 +14,12 @@ namespace Etherama.DAL.Models
         [Column("etherama_contract_address"), Required, MaxLength(43)]
         public string EtheramaContractAddress { get; set; }
 
+        [Column("full_name"), Required, MaxLength(128)]
+        public string FullName { get; set; }
+
+        [Column("ticker"), Required, MaxLength(16)]
+        public string Ticker { get; set; }
+
         [Column("description"), Required, MaxLength(1024)]
         public string Description { get; set; }
 

@@ -21,12 +21,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants>RELEASE;NETCOREAPP2_0</DefineConstants>
     <Optimize>true</Optimize>
-    <DocumentationFile>bin\Release\netcoreapp2.0\Goldmint.WebApplication.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netcoreapp2.0\Etherama.WebApplication.xml</DocumentationFile>
     <NoWarn>1701;1702;1705;CS1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netcoreapp2.0\Goldmint.WebApplication.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netcoreapp2.0\Etherama.WebApplication.xml</DocumentationFile>
     <NoWarn>1701;1702;1705;CS1591</NoWarn>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>

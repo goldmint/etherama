@@ -10,10 +10,11 @@ namespace Etherama.WebApplication.Services.HostedServices
     public class TokenStatisticsHarvester : BaseHostedService
     {
         protected override TimeSpan Period => TimeSpan.FromDays(1);
+        private List<Token> _tokenList;
+
 
         public TokenStatisticsHarvester(IServiceProvider services) : base(services) { }
 
-        private List<Token> _tokenList;
 
 
         protected override async Task OnInit()
@@ -21,7 +22,6 @@ namespace Etherama.WebApplication.Services.HostedServices
             await base.OnInit();
 
             _tokenList = await DbContext.Tokens.Where(x => x.IsEnabled && !x.IsDeleted).ToListAsync();
-
         }
 
         protected override async void DoWork(object state)
@@ -32,8 +32,9 @@ namespace Etherama.WebApplication.Services.HostedServices
                 var buyCount = await EthereumObserver.GetBuyCount(token.EtheramaContractAddress);
                 var sellCount = await EthereumObserver.GetSellCount(token.EtheramaContractAddress);
                 var bonusPerShare = await EthereumObserver.GetBonusPerShare(token.EtheramaContractAddress);
+                var blockNum = await EthereumObserver.GetLogsLatestBlockNumber();
 
-                var tokenStat = new TokenStatistics { Date = DateTime.Now, PriceEth = price, BuyCount = buyCount, SellCount = sellCount, ShareReward = bonusPerShare, TokenId = token.Id };
+                var tokenStat = new TokenStatistics { Date = DateTime.Now, PriceEth = price, BuyCount = buyCount, SellCount = sellCount, ShareReward = bonusPerShare, BlockNum = blockNum, TokenId = token.Id };
 
                 await DbContext.TokenStatistics.AddAsync(tokenStat);
             }

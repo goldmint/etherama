@@ -17,18 +17,18 @@ namespace Etherama.Common
     {
         private readonly string ERC20_ABI = "[{\"constant\":false,\"inputs\":[{\"name\":\"spender\",\"type\":\"address\"},{\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"approve\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalSupply\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"from\",\"type\":\"address\"},{\"name\":\"to\",\"type\":\"address\"},{\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transferFrom\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"who\",\"type\":\"address\"}],\"name\":\"balanceOf\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"to\",\"type\":\"address\"},{\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"transfer\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"name\":\"spender\",\"type\":\"address\"},{\"name\":\"value\",\"type\":\"uint256\"},{\"name\":\"extraData\",\"type\":\"bytes\"}],\"name\":\"approveAndCall\",\"outputs\":[{\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"owner\",\"type\":\"address\"},{\"name\":\"spender\",\"type\":\"address\"}],\"name\":\"allowance\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"spender\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Approval\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"value\",\"type\":\"uint256\"}],\"name\":\"Transfer\",\"type\":\"event\"}]";
 
-        private readonly Web3 _web3;
+        public Web3 Web3 { get; }
 
         public UnitConversion Convert => Web3.Convert;
 
         public Web3Utils(IClient provider)
         {
-            _web3 = new Web3(provider);
+            Web3 = new Web3(provider);
         }
 
         public Web3Utils(string url)
         {
-            _web3 = new Web3(url);
+            Web3 = new Web3(url);
         }
 
         public string GetAddressFromPrivateKey(string privateKey)
@@ -38,24 +38,24 @@ namespace Etherama.Common
 
         public async Task<double> GetEthBalance(string address, ulong? blockNumber = null)
         {
-            _web3.Eth.DefaultBlock.SetValue(BlockParameter.BlockParameterType.latest);
+            Web3.Eth.DefaultBlock.SetValue(BlockParameter.BlockParameterType.latest);
 
-            if (blockNumber.HasValue) _web3.Eth.DefaultBlock = new BlockParameter(blockNumber.Value);
+            if (blockNumber.HasValue) Web3.Eth.DefaultBlock = new BlockParameter(blockNumber.Value);
 
-            var balanceWei = (await _web3.Eth.GetBalance.SendRequestAsync(address)).Value;
+            var balanceWei = (await Web3.Eth.GetBalance.SendRequestAsync(address)).Value;
 
             return (double)Web3.Convert.FromWei(balanceWei);
         }
 
         public async Task<double> GetTokenBalance(string tokenAddress, string ofAddress, ulong? blockNumber = null)
         {
-            _web3.Eth.DefaultBlock.SetValue(BlockParameter.BlockParameterType.latest);
+            Web3.Eth.DefaultBlock.SetValue(BlockParameter.BlockParameterType.latest);
 
             if (string.IsNullOrEmpty(tokenAddress)) return await GetEthBalance(ofAddress, blockNumber);
 
-            if (blockNumber.HasValue) _web3.Eth.DefaultBlock = new BlockParameter(blockNumber.Value);
+            if (blockNumber.HasValue) Web3.Eth.DefaultBlock = new BlockParameter(blockNumber.Value);
 
-            var contract = _web3.Eth.GetContract(ERC20_ABI, tokenAddress);
+            var contract = Web3.Eth.GetContract(ERC20_ABI, tokenAddress);
             var func = contract.GetFunction("balanceOf");
 
             var balanceWei = await func.CallAsync<BigInteger>(ofAddress);
@@ -72,22 +72,22 @@ namespace Etherama.Common
 
             if (balanceWei < amountWei) throw new CustomException($"Token [{tokenAddress}] balance of the address [{fromAddress}] is less than required: {balanceWei} > {amountWei}");
 
-            var contract = _web3.Eth.GetContract(ERC20_ABI, tokenAddress);
+            var contract = Web3.Eth.GetContract(ERC20_ABI, tokenAddress);
             var func = contract.GetFunction("transfer");
 
             var requiredGas = await func.EstimateGasAsync(toAddress, amountWei);
-            var gasPrice = await _web3.Eth.GasPrice.SendRequestAsync();
+            var gasPrice = await Web3.Eth.GasPrice.SendRequestAsync();
             var gasWei = requiredGas.Value * gasPrice.Value;
 
             var ethBalance = Convert.ToWei(await GetEthBalance(fromAddress));
 
             if (ethBalance > gasWei) throw new CustomException($"The address [{fromAddress}] doesn't contain enough gas to make a transfer transaction");
 
-            var txCount = await _web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(fromAddress);
+            var txCount = await Web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(fromAddress);
 
             var encoded = Web3.OfflineTransactionSigner.SignTransaction(fromPrivateKey, tokenAddress, 0, txCount.Value, gasPrice.Value, requiredGas.Value, func.GetData(fromAddress, amountWei));
 
-            var txid = await _web3.Eth.Transactions.SendRawTransaction.SendRequestAsync("0x" + encoded);
+            var txid = await Web3.Eth.Transactions.SendRawTransaction.SendRequestAsync("0x" + encoded);
 
             return txid;
         }
@@ -101,7 +101,7 @@ namespace Etherama.Common
 
             var fromAddress = GetAddressFromPrivateKey(fromPrivateKey);
 
-            var gasPrice = (double)(await _web3.Eth.GasPrice.SendRequestAsync()).Value;
+            var gasPrice = (double)(await Web3.Eth.GasPrice.SendRequestAsync()).Value;
             var gasLimit = 21000;
             var gasWei = gasPrice * gasLimit;
 
@@ -113,11 +113,11 @@ namespace Etherama.Common
 
             if (balanceWei < amountWei + gasWei) throw new CustomException($"ETH balance of the address [{fromAddress}] is less than required: {balanceWei} > {amountWei}");
 
-            var txCount = await _web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(fromAddress);
+            var txCount = await Web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(fromAddress);
 
             var encoded = Web3.OfflineTransactionSigner.SignTransaction(fromPrivateKey, toAddress, new BigInteger(amountWei.Value), txCount.Value, new BigInteger(gasPrice), new BigInteger(gasLimit));
 
-            var txid = await _web3.Eth.Transactions.SendRawTransaction.SendRequestAsync("0x" + encoded);
+            var txid = await Web3.Eth.Transactions.SendRawTransaction.SendRequestAsync("0x" + encoded);
 
             return txid;
         }
@@ -126,7 +126,7 @@ namespace Etherama.Common
         {
             try
             {
-                return await _web3.Eth.TransactionManager.TransactionReceiptService.PollForReceiptAsync(txid, new CancellationTokenSource(1000));
+                return await Web3.Eth.TransactionManager.TransactionReceiptService.PollForReceiptAsync(txid, new CancellationTokenSource(1000));
             }
             catch
             {
@@ -137,17 +137,36 @@ namespace Etherama.Common
 
         public async Task<T> GetViewFunctionResult<T>(string contractAddress, string contactAbi, string functionName, params object[] functionParams)
         {
-            _web3.Eth.DefaultBlock.SetValue(BlockParameter.BlockParameterType.latest);
+            Web3.Eth.DefaultBlock.SetValue(BlockParameter.BlockParameterType.latest);
 
-            var contract = _web3.Eth.GetContract(contactAbi, contractAddress);
+            var contract = Web3.Eth.GetContract(contactAbi, contractAddress);
             var func = contract.GetFunction(functionName);
 
             return await func.CallAsync<T>(functionParams);
         }
 
+        public async Task<string> SendTransaction(string contractAddress, string contactAbi, string functionName, string pivateKey, BigInteger gasLimit, BigInteger gasPrice, BigInteger value, params object[] functionParams)
+        {
+            var contract = Web3.Eth.GetContract(contactAbi, contractAddress);
+            
+            var data = contract.GetFunction(functionName).GetData(functionParams);
+
+            var txCount = await Web3.Eth.Transactions.GetTransactionCount.SendRequestAsync(GetAddressFromPrivateKey(pivateKey));
+
+
+            var encoded = Web3.OfflineTransactionSigner.SignTransaction(pivateKey, contractAddress,
+                new HexBigInteger(value), txCount.Value, new HexBigInteger(gasPrice), new HexBigInteger(gasLimit), data);
+
+            var transactionInput = "0x" + encoded;
+
+            var txid = await Web3.Eth.Transactions.SendRawTransaction.SendRequestAsync(transactionInput);
+
+            return txid;
+        }
+
         public async Task<BigInteger> GetGasPrice()
         {
-            return (await _web3.Eth.GasPrice.SendRequestAsync()).Value;
+            return (await Web3.Eth.GasPrice.SendRequestAsync()).Value;
         }
     }
 }
