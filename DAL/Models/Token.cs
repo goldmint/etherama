@@ -29,6 +29,9 @@ namespace Etherama.DAL.Models
         [Column("start_price_eth"), Required, MaxLength(1024)]
         public decimal StartPriceEth { get; set; }
 
+        [Column("current_price_eth"), Required, MaxLength(1024)]
+        public decimal CurrentPriceEth { get; set; }
+
         [Column("time_created"), Required]
         public DateTime TimeCreated { get; set; }
 

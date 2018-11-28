@@ -28,6 +28,10 @@ namespace Etherama.WebApplication.Services.HostedServices
         {
             foreach (var token in _tokenList)
             {
+                var lastStat = await DbContext.TokenStatistics.LastOrDefaultAsync(x => x.TokenId == token.Id);
+
+                if (Math.Abs(lastStat?.Date.Subtract(DateTime.Now).Days ?? 1) < 1) continue; 
+
                 var price = await EthereumObserver.GetTokenPrice(token.EtheramaContractAddress);
                 var buyCount = await EthereumObserver.GetBuyCount(token.EtheramaContractAddress);
                 var sellCount = await EthereumObserver.GetSellCount(token.EtheramaContractAddress);
