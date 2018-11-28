@@ -27,6 +27,7 @@ namespace Etherama.WebApplication.Services.HostedServices
             foreach (var token in _tokenList)
             {
                 token.CurrentPriceEth = await EthereumObserver.GetTokenPrice(token.EtheramaContractAddress);
+                token.TimeUpdated = DateTime.Now;
             }
 
             await DbContext.SaveChangesAsync();
