@@ -14,6 +14,7 @@ using NLog;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Etherama.WebApplication.Core.Tokens;
 using Etherama.WebApplication.Models;
 using Etherama.Common.Extensions;
@@ -35,7 +36,9 @@ namespace Etherama.WebApplication.Controllers.v1 {
 		protected ITemplateProvider TemplateProvider { get; private set; }
 		protected IEthereumReader EthereumObserver { get; private set; }
 
-		protected BaseController() { }
+	    protected IMapper Mapper { get; private set; }
+
+        protected BaseController() { }
 
 		[NonAction]
 		private void InitServices(IServiceProvider services) {
@@ -51,7 +54,8 @@ namespace Etherama.WebApplication.Controllers.v1 {
 			EmailQueue = services.GetRequiredService<INotificationQueue>();
 			TemplateProvider = services.GetRequiredService<ITemplateProvider>();
 			EthereumObserver = services.GetRequiredService<IEthereumReader>();
-		}
+		    Mapper = services.GetRequiredService<IMapper>();
+        }
 
 		// ---
 

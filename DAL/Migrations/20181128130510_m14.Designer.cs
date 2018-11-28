@@ -12,9 +12,10 @@ using System;
 namespace Etherama.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181128130510_m14")]
+    partial class m14
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -547,11 +548,6 @@ namespace Etherama.DAL.Migrations
                     b.Property<string>("LogoUrl")
                         .IsRequired()
                         .HasColumnName("logo_url")
-                        .HasMaxLength(1024);
-
-                    b.Property<decimal>("StartPriceEth")
-                        .HasColumnName("start_price_eth")
-                        .HasColumnType("decimal(38, 18)")
                         .HasMaxLength(1024);
 
                     b.Property<string>("Ticker")

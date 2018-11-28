@@ -8,8 +8,8 @@ namespace Etherama.DAL.Models
     [Table("er_token")]
     public class Token : DbBaseEntity
     {
-        [Column("erc20_contract_address"), Required, MaxLength(43)]
-        public string Erc20ContractAddress { get; set; }
+        [Column("token_contract_address"), Required, MaxLength(43)]
+        public string TokenContractAddress { get; set; }
 
         [Column("etherama_contract_address"), Required, MaxLength(43)]
         public string EtheramaContractAddress { get; set; }
@@ -22,6 +22,12 @@ namespace Etherama.DAL.Models
 
         [Column("description"), Required, MaxLength(1024)]
         public string Description { get; set; }
+
+        [Column("logo_url"), Required, MaxLength(1024)]
+        public string LogoUrl { get; set; }
+
+        [Column("start_price_eth"), Required, MaxLength(1024)]
+        public decimal StartPriceEth { get; set; }
 
         [Column("time_created"), Required]
         public DateTime TimeCreated { get; set; }

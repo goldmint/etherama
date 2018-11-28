@@ -2,14 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using ValidationResult = FluentValidation.Results.ValidationResult;
 
-namespace Etherama.WebApplication.Models.API.v1 {
-
-	public class TokenStatisticsModel : BaseValidableModel
-	{
-
-		[Required]
-		public long TokenId { get; set; }
-
+namespace Etherama.WebApplication.Models.API.v1.ViewModels
+{
+	public class TokenStatisticsRequestViewModel : RequestByIdViewModel
+    {
 		[Required]
 		public double DateFrom { get; set; }
 
@@ -17,9 +13,9 @@ namespace Etherama.WebApplication.Models.API.v1 {
 
 		protected override ValidationResult ValidateFields()
 		{
-			var v = new InlineValidator<TokenStatisticsModel>() { CascadeMode = CascadeMode.StopOnFirstFailure };
+		    base.ValidateFields();
 
-			v.RuleFor(_ => _.TokenId).Must(Common.ValidationRules.BeValidId).WithMessage("Invalid token id");
+			var v = new InlineValidator<TokenStatisticsRequestViewModel>() { CascadeMode = CascadeMode.StopOnFirstFailure };
 
 			//v.RuleFor(_ => _.DateFrom).Must(Common.ValidationRules.BeValidDate).WithMessage("Invalid date from");
 

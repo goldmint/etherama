@@ -12,66 +12,15 @@ using System;
 namespace Etherama.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181128103504_m8")]
+    partial class m8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011");
-
-            modelBuilder.Entity("Etherama.DAL.Models.AddTokenRequest", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CompanyName")
-                        .IsRequired()
-                        .HasColumnName("company_name")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("ContactEmail")
-                        .IsRequired()
-                        .HasColumnName("contact_email")
-                        .HasMaxLength(128);
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnName("is_deleted");
-
-                    b.Property<bool>("IsEnabled")
-                        .HasColumnName("is_enabled");
-
-                    b.Property<decimal>("StartPriceEth")
-                        .HasColumnName("start_price_eth")
-                        .HasColumnType("decimal(38, 18)");
-
-                    b.Property<DateTime>("TimeCreated")
-                        .HasColumnName("time_created");
-
-                    b.Property<string>("TokenContractAddress")
-                        .HasColumnName("token_contract_address")
-                        .HasMaxLength(43);
-
-                    b.Property<string>("TokenTicker")
-                        .IsRequired()
-                        .HasColumnName("token_ticker")
-                        .HasMaxLength(128);
-
-                    b.Property<long>("TotalSupply")
-                        .HasColumnName("total_supply");
-
-                    b.Property<string>("WebsiteUrl")
-                        .IsRequired()
-                        .HasColumnName("website_url")
-                        .HasMaxLength(128);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("er_add_token_request");
-                });
 
             modelBuilder.Entity("Etherama.DAL.Models.BannedCountry", b =>
                 {
@@ -528,6 +477,11 @@ namespace Etherama.DAL.Migrations
                         .HasColumnName("description")
                         .HasMaxLength(1024);
 
+                    b.Property<string>("Erc20ContractAddress")
+                        .IsRequired()
+                        .HasColumnName("erc20_contract_address")
+                        .HasMaxLength(43);
+
                     b.Property<string>("EtheramaContractAddress")
                         .IsRequired()
                         .HasColumnName("etherama_contract_address")
@@ -543,16 +497,6 @@ namespace Etherama.DAL.Migrations
 
                     b.Property<bool>("IsEnabled")
                         .HasColumnName("is_enabled");
-
-                    b.Property<string>("LogoUrl")
-                        .IsRequired()
-                        .HasColumnName("logo_url")
-                        .HasMaxLength(1024);
-
-                    b.Property<decimal>("StartPriceEth")
-                        .HasColumnName("start_price_eth")
-                        .HasColumnType("decimal(38, 18)")
-                        .HasMaxLength(1024);
 
                     b.Property<string>("Ticker")
                         .IsRequired()

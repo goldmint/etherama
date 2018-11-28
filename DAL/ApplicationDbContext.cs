@@ -27,8 +27,10 @@ namespace Etherama.DAL {
 		public DbSet<UserLimits> UserLimits { get; set; }
 	    public DbSet<Token> Tokens { get; set; }
 	    public DbSet<TokenStatistics> TokenStatistics { get; set; }
+	    public DbSet<AddTokenRequest> AddTokenRequests { get; set; }
 
-	    public event AsyncCompletedEventHandler OnSaveChanges;
+
+        public event AsyncCompletedEventHandler OnSaveChanges;
 
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
