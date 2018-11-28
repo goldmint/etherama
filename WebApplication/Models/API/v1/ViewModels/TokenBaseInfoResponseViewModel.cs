@@ -1,8 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Etherama.WebApplication.Models.API.v1.ViewModels
 {
@@ -20,9 +16,11 @@ namespace Etherama.WebApplication.Models.API.v1.ViewModels
 
         public string LogoUrl { get; set; }
 
+        public decimal StartPriceEth { get; set; }
+
         public decimal CurrentPriceEth { get; set; }
 
-        public decimal Change24HPercent { get; set; }
+        public decimal PriceChangeLastDayPercent { get; set; }
 
         public decimal TradingVolume24HEth { get; set; }
 

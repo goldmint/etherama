@@ -26,6 +26,16 @@ namespace Etherama.WebApplication.Controllers.v1
 
             (await query.AsNoTracking().ToListAsync()).ForEach(x => list.Add(Mapper.Map<TokenBaseInfoResponseViewModel>(x)));
 
+            foreach (var token in list)
+            {
+                var last7DStatList = await DbContext.TokenStatistics.Where(x => x.TokenId == token.Id && x.Date >= DateTime.Now.AddDays(-7)).ToListAsync();
+
+                var lastStatPrice = last7DStatList.LastOrDefault()?.PriceEth ?? token.StartPriceEth;
+
+                token.PriceChangeLastDayPercent = ((token.CurrentPriceEth - lastStatPrice) / lastStatPrice) * 100;
+                token.PriceStatistics7D = last7DStatList.Select(x => x.PriceEth).ToList();
+            }
+
             return APIResponse.Success(list);
         }
 
