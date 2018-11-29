@@ -3,11 +3,13 @@ import { Observable } from "rxjs/Observable";
 import { interval } from "rxjs/observable/interval";
 import * as Web3 from "web3";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { UserService } from "./user.service";
 import { BigNumber } from 'bignumber.js'
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Subject} from "rxjs/Subject";
+import {MarketData} from "../interfaces/market-data";
+import {Router} from "@angular/router";
+import {CommonService} from "./common.service";
 
 @Injectable()
 export class EthereumService {
@@ -15,11 +17,11 @@ export class EthereumService {
   private _infuraUrl = environment.infuraUrl;
   private _etherscanGetABIUrl = environment.etherscanGetABIUrl;
 
-  private mintoramaContractAddress = environment.mintoramaContractAddress;
-  private mintoramaContractABI = environment.mintoramaContractABI;
+  private etheramaContractAddress /*= environment.mintoramaContractAddress*/;
+  private etheramaContractABI = environment.etheramaContractABI;
 
-  private mntpContractAddress = environment.mntpContractAddress;
-  private tokenABI = environment.tokenABI;
+  private tokenContractAddress/* = environment.mntpContractAddress*/;
+  private tokenContractABI = environment.tokenABI;
 
   private _web3Infura: Web3 = null;
   private _web3Metamask: Web3 = null;
@@ -80,14 +82,31 @@ export class EthereumService {
   public getSuccessSellRequestLink$ = new Subject();
 
   constructor(
-    private userService: UserService,
-    private _http: HttpClient
+    private commonService: CommonService,
+    private _http: HttpClient,
+    private router: Router
   ) {
     interval(500).subscribe(this.checkWeb3.bind(this));
     interval(7500).subscribe(this.checkBalance.bind(this));
     interval(60000).subscribe(this.checkContractData.bind(this));
     interval(10000).subscribe(this.updateWinBIGPromoBonus.bind(this));
     interval(10000).subscribe(this.updateWinQUICKPromoBonus.bind(this));
+
+    this.commonService.passMarketData$.subscribe((data: MarketData) => {
+      if (!data && this.router.url === '/trade') {
+        this.router.navigate(['/market']);
+        return;
+      }
+
+      this._web3Infura = null;
+      this._web3Metamask = null;
+      this._lastAddress = null;
+
+      if (data) {
+        this.etheramaContractAddress = data.etheramaContractAddress;
+        this.tokenContractAddress = data.tokenContractAddress;
+      }
+    });
   }
 
   private getContractABI(address) {
@@ -95,17 +114,17 @@ export class EthereumService {
   }
 
   private checkWeb3() {
-    if (!this._web3Infura) {
+    if (!this._web3Infura && this.etheramaContractAddress) {
       this._web3Infura = new Web3(new Web3.providers.HttpProvider(this._infuraUrl));
 
       if (this._web3Infura['eth']) {
-        this._contractInfura = this._web3Infura['eth'].contract(JSON.parse(this.mintoramaContractABI)).at(this.mintoramaContractAddress);
+        this._contractInfura = this._web3Infura['eth'].contract(JSON.parse(this.etheramaContractABI)).at(this.etheramaContractAddress);
       } else {
         this._web3Infura = null;
       }
     }
 
-    if (!this._web3Metamask && (window.hasOwnProperty('web3') || window.hasOwnProperty('ethereum')) && this.mintoramaContractABI) {
+    if (!this._web3Metamask && (window.hasOwnProperty('web3') || window.hasOwnProperty('ethereum')) && this.tokenContractAddress) {
       let ethereum = window['ethereum'];
 
       if (ethereum) {
@@ -116,8 +135,8 @@ export class EthereumService {
       }
 
       if (this._web3Metamask['eth']) {
-        this._contractMetamask = this._web3Metamask['eth'].contract(JSON.parse(this.mintoramaContractABI)).at(this.mintoramaContractAddress);
-        this._contractMntp = this._web3Metamask.eth.contract(JSON.parse(this.tokenABI)).at(this.mntpContractAddress);
+        this._contractMetamask = this._web3Metamask['eth'].contract(JSON.parse(this.etheramaContractABI)).at(this.etheramaContractAddress);
+        this._contractMntp = this._web3Metamask.eth.contract(JSON.parse(this.tokenContractABI)).at(this.tokenContractAddress);
       } else {
         this._web3Metamask = null;
       }
@@ -295,23 +314,35 @@ export class EthereumService {
   }
 
   private getTokenDealRange() {
-    this._contractInfura.getTokenDealRange((err, res) => {
-      let limit = {
-        min: +new BigNumber(res[0].toString()).div(new BigNumber(10).pow(18)),
-        max: +new BigNumber(res[1].toString()).div(new BigNumber(10).pow(18))
-      }
-      this._obsTokenDealRangeSubject.next(limit);
-    });
+    if (!this._contractInfura) {
+      this._obsTokenDealRangeSubject.next(null);
+    } else {
+      this._contractInfura.getTokenDealRange((err, res) => {
+        let limit = {
+          min: +new BigNumber(res[0].toString()).div(new BigNumber(10).pow(18)),
+          max: +new BigNumber(res[1].toString()).div(new BigNumber(10).pow(18))
+        }
+        this._obsTokenDealRangeSubject.next(limit);
+      });
+    }
   }
 
   private getEthDealRange() {
-    this._contractInfura.getEthDealRange((err, res) => {
-      let limit = {
-        min: +new BigNumber(res[0].toString()).div(new BigNumber(10).pow(18)),
-        max: +new BigNumber(res[1].toString()).div(new BigNumber(10).pow(18))
-      }
-      this._obsEthDealRangeSubject.next(limit);
-    });
+    if (!this._contractInfura) {
+      this._obsEthDealRangeSubject.next(null);
+    } else {
+      this._contractInfura.getEthDealRange((err, res) => {
+        let limit = {
+          min: +new BigNumber(res[0].toString()).div(new BigNumber(10).pow(18)),
+          max: +new BigNumber(res[1].toString()).div(new BigNumber(10).pow(18))
+        }
+        this._obsEthDealRangeSubject.next(limit);
+      });
+    }
+  }
+
+  public isValidAddress(addr: string): boolean {
+    return (new Web3()).isAddress(addr);
   }
 
   public getObservableEthAddress(): Observable<string> {
@@ -377,7 +408,7 @@ export class EthereumService {
   }
 
   public sell(fromAddr: string, amount: string, minReturn: string, gasPrice: number) {
-    this._contractMntp.approve(this.mintoramaContractAddress, amount, { from: fromAddr, value: 0, gas: 600000, gasPrice: gasPrice }, (err, res) => {
+    this._contractMntp.approve(this.etheramaContractAddress, amount, { from: fromAddr, value: 0, gas: 600000, gasPrice: gasPrice }, (err, res) => {
       res && setTimeout(() => {
         this._contractMetamask.sell(amount, minReturn, { from: fromAddr, value: 0, gas: 600000, gasPrice: gasPrice }, (err, res) => {
           this.getSuccessSellRequestLink$.next(res);

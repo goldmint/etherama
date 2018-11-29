@@ -14,11 +14,14 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { registerLocaleData } from '@angular/common';
 import localeRu from '@angular/common/locales/ru';
 registerLocaleData(localeRu);
+import { RECAPTCHA_SETTINGS,
+  RecaptchaModule
+} from 'ng-recaptcha';
 
 import {
   BsDropdownModule,
   ModalModule,
-  ButtonsModule, CollapseModule
+  ButtonsModule, CollapseModule, PopoverModule
 } from 'ngx-bootstrap';
 
 import { HeaderBlockComponent } from './blocks/header-block/header-block.component';
@@ -45,6 +48,9 @@ import { AboutComponent } from './components/about/about.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { MarketComponent } from './components/market/market.component';
 import { TradeComponent } from './components/trade/trade.component';
+import {CommonService} from "./services/common.service";
+import { EthAddressValidatorDirective } from './directives/eth-address-validator.directive';
+import {environment} from "../environments/environment";
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -53,6 +59,7 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   imports: [
     AppRouting,
+    HttpClientModule,
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
@@ -61,8 +68,10 @@ export function createTranslateLoader(http: HttpClient) {
     ModalModule.forRoot(),
     ButtonsModule.forRoot(),
     CollapseModule.forRoot(),
+    RecaptchaModule.forRoot(),
     HttpClientModule,
     NgxDatatableModule,
+    PopoverModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -91,7 +100,8 @@ export function createTranslateLoader(http: HttpClient) {
     AboutComponent,
     FaqComponent,
     MarketComponent,
-    TradeComponent
+    TradeComponent,
+    EthAddressValidatorDirective
   ],
   exports: [],
   providers: [
@@ -99,7 +109,14 @@ export function createTranslateLoader(http: HttpClient) {
     MessageBoxService,
     APIService,
     UserService,
+    CommonService,
     EthereumService,
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: {
+        siteKey: environment.recaptchaSiteKey
+      }
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: APIHttpInterceptor,

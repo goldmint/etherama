@@ -4,6 +4,10 @@ import {EthereumService} from "../../services/ethereum.service";
 import {Subject} from "rxjs/Subject";
 import {MessageBoxService} from "../../services/message-box.service";
 import {environment} from "../../../environments/environment";
+import {UserService} from "../../services/user.service";
+import {CommonService} from "../../services/common.service";
+import {APIService} from "../../services/api.service";
+import {TokenInfo} from "../../interfaces/token-info";
 
 @Component({
   selector: 'app-trade',
@@ -14,6 +18,7 @@ export class TradeComponent implements OnInit, OnDestroy {
 
   @HostBinding('class') class = 'page';
 
+  public etherscanContractUrl = environment.etherscanContractUrl;
   public ethAddress: string = null;
   public ethBalance: BigNumber = null;
   public tokenBalance: BigNumber | any = null;
@@ -27,24 +32,36 @@ export class TradeComponent implements OnInit, OnDestroy {
     totalEth: 0,
     totalTokens: 0
   };
-  public etherscanContractUrl = environment.etherscanContractUrl;
   public isDataLoaded: boolean = false;
-  public date = new Date();
   public expirationTime = {
     expiration: '-',
     tillExpiration: '-'
   };
   public tillExpiration: number = null;
+  public tokenInfo: TokenInfo;
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private ethService: EthereumService,
+    private userService: UserService,
+    private apiService: APIService,
+    private commonService: CommonService,
     private messageBox: MessageBoxService,
     private cdRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
+    this.commonService.passMarketData$.takeUntil(this.destroy$).subscribe(data => {
+      if (data) {
+        this.apiService.getTokenInfo(data.tokenId).subscribe((data: any) => {
+          this.tokenInfo = data.data;
+          this.isDataLoaded = true;
+          this.cdRef.markForCheck();
+        });
+      }
+    });
+
     this.ethService.getObservableEthBalance().takeUntil(this.destroy$).subscribe(balance => {
       if (balance !== null && (this.ethBalance === null || !this.ethBalance.eq(balance))) {
         this.ethBalance = balance;
@@ -99,7 +116,6 @@ export class TradeComponent implements OnInit, OnDestroy {
       if (total) {
         this.totalData.totalEth = total.eth;
         this.totalData.totalTokens = total.tokens;
-        this.isDataLoaded = true;
         this.cdRef.markForCheck();
       }
     });
@@ -126,6 +142,13 @@ export class TradeComponent implements OnInit, OnDestroy {
 
   withdraw() {
     this.ethService._contractMetamask.withdraw((err, res) => { });
+  }
+
+  onCopyData(input) {
+    input.focus();
+    input.setSelectionRange(0, input.value.length);
+    document.execCommand("copy");
+    input.setSelectionRange(0, 0);
   }
 
   ngOnDestroy() {

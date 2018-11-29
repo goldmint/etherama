@@ -26,7 +26,7 @@ export class MessageBoxService {
     };
   }
 
-  private _show(message: string, title: string = 'GoldMint.io', clearQueue: boolean = false,
+  private _show(message: string, title: string = 'Etherama.io', clearQueue: boolean = false,
                messageType: MessageType = MessageType.Alert): any {
 
     let messageBox = new BsModalRef();
