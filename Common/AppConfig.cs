@@ -93,19 +93,27 @@
 			public EthereumSection Ethereum { get; set; } = new EthereumSection();
 			public class EthereumSection {
 
-				public string EtheramaContractAbi { get; set; } = "";
-                public string EtheramaCommonDataAbi { get; set; } = "";
+                public string EtheramaCoreAddress { get; set; } = "";
+                public string SetMaxGasPriceFunctionName { get; set; } = "";
+
+                public string EtheramaContractAbi { get; set; } = "";
+                public string EtheramaCoreAbi { get; set; } = "";
 
                 public string TokenPriceFunctionName { get; set; } = "";
 			    public string TokenBuyCountFunctionName { get; set; } = "";
 			    public string TokenSellCountFunctionName { get; set; } = "";
 			    public string BonusPerShareFunctionName { get; set; } = "";
+			    public string VolumeEthFunctionName { get; set; } = "";
+			    public string VolumeTokenFunctionName { get; set; } = "";
 
 
                 public string EtherscanTxView { get; set; } = "";
 				public string Provider { get; set; } = "";
 				public string LogsProvider { get; set; } = "";
-			}
+
+                public string GasPriceUrl { get; set; } = "";
+                public string ManagerPrivateKey { get; set; } = "";
+            }
 
 			//public WorkersSection Workers { get; set; } = new WorkersSection();
 			//public class WorkersSection {

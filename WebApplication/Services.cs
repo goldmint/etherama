@@ -23,6 +23,7 @@ using Microsoft.Extensions.Hosting;
 using NLog;
 using System;
 using System.Linq;
+using AutoMapper;
 
 namespace Etherama.WebApplication {
 
@@ -184,13 +185,24 @@ namespace Etherama.WebApplication {
 			//	services.AddScoped<IKycProvider, DebugKycProvider>();
 			//}
 
+
 			// ethereum reader
 			services.AddSingleton<IEthereumReader, EthereumReader>();
+			services.AddSingleton<IEthereumWriter, EthereumWriter>();
 
-			// workers
-			services.AddSingleton<IHostedService, TokenStatisticsHarvester>();
 
-			return services.BuildServiceProvider();
+
+            // workers
+#if !DEBUG
+		    services.AddSingleton<IHostedService, TokenPriceObserver>();
+            services.AddSingleton<IHostedService, TokenStatisticsHarvester>();
+		    services.AddSingleton<IHostedService, MaxGasPriceUpdater>();
+#endif
+
+
+            services.AddSingleton(new MapperConfiguration(mc => { mc.AddProfile(new MappingProfile()); }).CreateMapper());
+
+            return services.BuildServiceProvider();
 		}
 
 		public void RunServices() {

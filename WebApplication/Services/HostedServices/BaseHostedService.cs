@@ -9,14 +9,17 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NLog;
 
-namespace Etherama.WebApplication.Services.HostedServices {
-	public abstract class BaseHostedService : IHostedService, IDisposable {
+namespace Etherama.WebApplication.Services.HostedServices
+{
+	public abstract class BaseHostedService : IHostedService, IDisposable
+	{
 		protected AppConfig AppConfig { get; }
 		protected ILogger Logger { get; }
 		protected ApplicationDbContext DbContext { get; }
 		protected IEthereumReader EthereumObserver { get; }
+	    protected IEthereumWriter EthereumWriter { get; }
 
-		protected abstract TimeSpan Period { get; }
+        protected abstract TimeSpan Period { get; }
 
 		private Timer _timer;
 
@@ -25,6 +28,7 @@ namespace Etherama.WebApplication.Services.HostedServices {
 			AppConfig = services.GetRequiredService<AppConfig>();
 			DbContext = services.GetRequiredService<ApplicationDbContext>();
 			EthereumObserver = services.GetRequiredService<IEthereumReader>();
+		    EthereumWriter = services.GetRequiredService<IEthereumWriter>();
 		}
 
 		public async Task StartAsync(CancellationToken cancellationToken) {

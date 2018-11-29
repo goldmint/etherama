@@ -12,9 +12,10 @@ using System;
 namespace Etherama.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181128151506_m16")]
+    partial class m16
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -615,14 +616,6 @@ namespace Etherama.DAL.Migrations
 
                     b.Property<long>("TokenId")
                         .HasColumnName("token_id");
-
-                    b.Property<decimal>("VolumeEth")
-                        .HasColumnName("volume_eth")
-                        .HasColumnType("decimal(38, 18)");
-
-                    b.Property<decimal>("VolumeToken")
-                        .HasColumnName("volume_token")
-                        .HasColumnType("decimal(38, 18)");
 
                     b.HasKey("Id");
 

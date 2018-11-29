@@ -12,9 +12,10 @@ using System;
 namespace Etherama.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181128131220_m15")]
+    partial class m15
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -523,11 +524,6 @@ namespace Etherama.DAL.Migrations
                         .HasColumnName("id")
                         .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("CurrentPriceEth")
-                        .HasColumnName("current_price_eth")
-                        .HasColumnType("decimal(38, 18)")
-                        .HasMaxLength(1024);
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnName("description")
@@ -615,14 +611,6 @@ namespace Etherama.DAL.Migrations
 
                     b.Property<long>("TokenId")
                         .HasColumnName("token_id");
-
-                    b.Property<decimal>("VolumeEth")
-                        .HasColumnName("volume_eth")
-                        .HasColumnType("decimal(38, 18)");
-
-                    b.Property<decimal>("VolumeToken")
-                        .HasColumnName("volume_token")
-                        .HasColumnType("decimal(38, 18)");
 
                     b.HasKey("Id");
 

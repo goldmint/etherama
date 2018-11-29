@@ -21,18 +21,20 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants>RELEASE;NETCOREAPP2_0</DefineConstants>
     <Optimize>true</Optimize>
-    <DocumentationFile>bin\Release\netcoreapp2.0\Goldmint.WebApplication.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netcoreapp2.0\Etherama.WebApplication.xml</DocumentationFile>
     <NoWarn>1701;1702;1705;CS1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netcoreapp2.0\Goldmint.WebApplication.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netcoreapp2.0\Etherama.WebApplication.xml</DocumentationFile>
     <NoWarn>1701;1702;1705;CS1591</NoWarn>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
   
   <ItemGroup>
     <PackageReference Include="AspNetCore.Totp" Version="2.3.0" />
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Google.Apis.Sheets.v4" Version="1.36.1.1412" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.6" PrivateAssets="All" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />

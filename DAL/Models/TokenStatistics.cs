@@ -26,6 +26,15 @@ namespace Etherama.DAL.Models
         [Column("share_reward")]
         public decimal ShareReward { get; set; }
 
+        [Column("volume_eth")]
+        public decimal VolumeEth { get; set; }
+
+        [Column("volume_token")]
+        public decimal VolumeToken { get; set; }
+
+        [Column("block_num")]
+        public long BlockNum { get; set; }
+
         [ForeignKey(nameof(TokenId))]
         public virtual Token Token { get; set; }
     }

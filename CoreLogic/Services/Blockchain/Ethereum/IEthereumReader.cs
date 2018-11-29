@@ -9,7 +9,7 @@ namespace Etherama.CoreLogic.Services.Blockchain.Ethereum {
 		/// <summary>
 		/// Get latest block number on the logs provider side
 		/// </summary>
-		Task<BigInteger> GetLogsLatestBlockNumber();
+		Task<long> GetLogsLatestBlockNumber();
 
 		/// <summary>
 		/// Check chain transaction by it's ID
@@ -17,7 +17,7 @@ namespace Etherama.CoreLogic.Services.Blockchain.Ethereum {
 		Task<TransactionInfo> CheckTransaction(string txid, int confirmationsRequired);
 
 		/// <summary>
-		/// Get current gas price
+		/// Get current gas price in wei
 		/// </summary>
 		Task<BigInteger> GetCurrentGasPrice();
 
@@ -27,6 +27,8 @@ namespace Etherama.CoreLogic.Services.Blockchain.Ethereum {
 	    Task<long> GetBuyCount(string contactAddress);
 	    Task<long> GetSellCount(string contactAddress);
 	    Task<decimal> GetBonusPerShare(string contactAddress);
+	    Task<decimal> GetVolumeEth(string contactAddress);
+	    Task<decimal> GetVolumeToken(string contactAddress);
 
 
     }
