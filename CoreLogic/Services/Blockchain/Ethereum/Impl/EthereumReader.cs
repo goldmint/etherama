@@ -93,30 +93,50 @@ namespace Etherama.CoreLogic.Services.Blockchain.Ethereum.Impl
 
         public async Task<decimal> GetTokenPrice(string contactAddress)
         {
-            var val = await Web3Utils.GetViewFunctionResult<BigInteger>(contactAddress, AppConfig.Services.Ethereum.EtheramaContractAbi, AppConfig.Services.Ethereum.TokenPriceFunctionName);
+            var val = await GetViewFuntionResult(contactAddress, AppConfig.Services.Ethereum.TokenPriceFunctionName);
 
             return val.FromWei();
         }
 
         public async Task<long> GetBuyCount(string contactAddress)
         {
-            var val = await Web3Utils.GetViewFunctionResult<BigInteger>(contactAddress, AppConfig.Services.Ethereum.EtheramaContractAbi, AppConfig.Services.Ethereum.TokenBuyCountFunctionName);
+            var val = await GetViewFuntionResult(contactAddress, AppConfig.Services.Ethereum.TokenBuyCountFunctionName);
 
             return (long)val;
         }
 
         public async Task<long> GetSellCount(string contactAddress)
         {
-            var val = await Web3Utils.GetViewFunctionResult<BigInteger>(contactAddress, AppConfig.Services.Ethereum.EtheramaContractAbi, AppConfig.Services.Ethereum.TokenSellCountFunctionName);
+            var val = await GetViewFuntionResult(contactAddress, AppConfig.Services.Ethereum.TokenSellCountFunctionName);
 
             return (long)val;
         }
 
         public async Task<decimal> GetBonusPerShare(string contactAddress)
         {
-            var val = await Web3Utils.GetViewFunctionResult<BigInteger>(contactAddress, AppConfig.Services.Ethereum.EtheramaContractAbi, AppConfig.Services.Ethereum.BonusPerShareFunctionName);
+            var val = await GetViewFuntionResult(contactAddress, AppConfig.Services.Ethereum.BonusPerShareFunctionName);
 
             return val.FromWei();
+        }
+
+        public async Task<decimal> GetVolumeEth(string contactAddress)
+        {
+            var val = await GetViewFuntionResult(contactAddress, AppConfig.Services.Ethereum.VolumeEthFunctionName);
+
+            return val.FromWei();
+        }
+
+        public async Task<decimal> GetVolumeToken(string contactAddress)
+        {
+            var val = await GetViewFuntionResult(contactAddress, AppConfig.Services.Ethereum.VolumeTokenFunctionName);
+
+            return val.FromWei();
+        }
+
+
+        private async Task<BigInteger> GetViewFuntionResult(string contactAddress, string functionName)
+        {
+            return await Web3Utils.GetViewFunctionResult<BigInteger>(contactAddress, AppConfig.Services.Ethereum.EtheramaContractAbi, functionName);
         }
     }
 }

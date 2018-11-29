@@ -16,7 +16,6 @@ namespace Etherama.WebApplication.Services.HostedServices
         public TokenStatisticsHarvester(IServiceProvider services) : base(services) { }
 
 
-
         protected override async Task OnInit()
         {
             await base.OnInit();
@@ -36,9 +35,12 @@ namespace Etherama.WebApplication.Services.HostedServices
                 var buyCount = await EthereumObserver.GetBuyCount(token.EtheramaContractAddress);
                 var sellCount = await EthereumObserver.GetSellCount(token.EtheramaContractAddress);
                 var bonusPerShare = await EthereumObserver.GetBonusPerShare(token.EtheramaContractAddress);
+                var volumeEth = await EthereumObserver.GetVolumeEth(token.EtheramaContractAddress);
+                var volumeToken = await EthereumObserver.GetVolumeToken(token.EtheramaContractAddress);
                 var blockNum = await EthereumObserver.GetLogsLatestBlockNumber();
 
-                var tokenStat = new TokenStatistics { Date = DateTime.Now, PriceEth = price, BuyCount = buyCount, SellCount = sellCount, ShareReward = bonusPerShare, BlockNum = blockNum, TokenId = token.Id };
+                var tokenStat = new TokenStatistics { Date = DateTime.Now, PriceEth = price, BuyCount = buyCount, SellCount = sellCount,
+                    ShareReward = bonusPerShare, VolumeEth = volumeEth, VolumeToken = volumeToken, BlockNum = blockNum, TokenId = token.Id };
 
                 await DbContext.TokenStatistics.AddAsync(tokenStat);
             }

@@ -103,6 +103,8 @@
 			    public string TokenBuyCountFunctionName { get; set; } = "";
 			    public string TokenSellCountFunctionName { get; set; } = "";
 			    public string BonusPerShareFunctionName { get; set; } = "";
+			    public string VolumeEthFunctionName { get; set; } = "";
+			    public string VolumeTokenFunctionName { get; set; } = "";
 
 
                 public string EtherscanTxView { get; set; } = "";

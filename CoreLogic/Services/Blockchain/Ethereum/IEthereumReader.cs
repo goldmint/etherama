@@ -27,6 +27,8 @@ namespace Etherama.CoreLogic.Services.Blockchain.Ethereum {
 	    Task<long> GetBuyCount(string contactAddress);
 	    Task<long> GetSellCount(string contactAddress);
 	    Task<decimal> GetBonusPerShare(string contactAddress);
+	    Task<decimal> GetVolumeEth(string contactAddress);
+	    Task<decimal> GetVolumeToken(string contactAddress);
 
 
     }
