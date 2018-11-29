@@ -6,7 +6,7 @@
       "FAQ": "FAQ"
     },
     "Buttons": {
-      "Add": "Add Token Request"
+      "Add": "Add token request"
     }
   },
   "PAGES": {
@@ -15,6 +15,33 @@
         "Heading": "You are currently running a masternode",
         "Description": "You are currently holding enough tokens to run a Masternode! <br/>You receive <b>{{ percent }}% of the fee</b> someone would otherwise pay into the contract when buying in!",
         "MasternodeLink": "Your unique masternode link is:"
+      }
+    },
+    "Trade": {
+      "Labels": {
+        "ExpDate": "Lookup exp. date:",
+        "EthContract": "ETH in contract:",
+        "TokensContract": "Tokens in contract:",
+        "TotalSupply": "Total token supply:",
+        "Tokens": "My tokens:",
+        "Bonus": "My bonus:",
+        "RefLink": "My ref link:",
+        "Description": "Project description:",
+        "ClickToCopy": "Click to copy"
+      },
+      "Buttons": {
+        "BuySell": "Buy/Sell token",
+        "Withdraw": "Withdraw bonus",
+        "View": "View Etherscan"
+      }
+    },
+    "Statistics": {
+      "Charts": {
+        "Headings": {
+          "priceEth": "Token price by days",
+          "shareReward": "Collected share bonus by days",
+          "buySellCount": "Total tx amount by days"
+        }
       }
     },
     "Buy": {
@@ -28,7 +55,8 @@
         "Fee": "Estimated fee",
         "TokenPrice": "Average token price",
         "CurrentPrice": "Current buy price for 1 token:",
-        "MaxPurchase": "You can buy maximum {{ max }} tokens"
+        "MaxPurchase": "You can buy maximum {{ max }} tokens",
+        "MinReturn": "Min return"
       },
       "Errors": {
         "InvalidBalance": "You don't have enough money.",
@@ -47,7 +75,8 @@
         "Result": "Approximately {{ amount }} ETH.",
         "Fee": "Estimated fee",
         "TokenPrice": "Average token price",
-        "CurrentPrice": "Current sell price for 1 token:"
+        "CurrentPrice": "Current sell price for 1 token:",
+        "MinReturn": "Min return"
       },
       "Errors": {
         "InvalidBalance": "You don't have enough money",
@@ -67,6 +96,8 @@
       "Heading": "Add token request",
       "Labels": {
         "Name": "Your company name",
+        "Email": "Contact email",
+        "Website": "Your website url",
         "Ticker": "Token ticker",
         "Price": "Start price",
         "CreateLabel": "Would you like to create a new token or use your existing one?",
@@ -90,21 +121,24 @@
       },
       "Errors": {
         "Required": "Field is required",
-        "Pattern": "Field must contains digits and latin letters"
+        "Pattern": "Field must contains digits and latin letters",
+        "Email": "Incorrect email format",
+        "Website": "Incorrect website url format",
+        "Address": "Invalid contract address"
       }
     },
     "Market": {
       "Heading": "Market",
       "Table": {
         "Name": "Name",
-        "24Change": "24H Change",
-        "Price": "Price USD",
-        "24Volume": "24H Volume",
-        "LiquidityDepth": "Liquidity depth",
+        "24HChange": "24H Change",
+        "PriceETH": "Price ETH",
+        "24HVolume": "24H Volume",
+        "Graph": "7D graph",
         "Trade": "Trade"
       },
       "Chart": {
-        "Detail": "Chart"
+        "Detail": "Token price for last 7 days"
       },
       "Placeholder": {
         "Search": "Search..."
@@ -276,6 +310,7 @@
       "Hash": "Your transaction hash is:",
       "Link": "View your transaction on EtherScan"
     },
+    "AddToken": "Token request has been sent",
     "ConnectingMM": "Connecting to MetaMask...",
     "InvalidNetwork": "You must use {{ networkName }} network"
   }

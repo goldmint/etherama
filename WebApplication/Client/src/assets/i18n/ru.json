@@ -1,12 +1,12 @@
 {
   "HEADER": {
     "Menu": {
-      "Market": "Market",
-      "About": "About",
+      "Market": "Маркет",
+      "About": "О нас",
       "FAQ": "FAQ"
     },
     "Buttons": {
-      "Add": "Add Token Request"
+      "Add": "Запрос добавления токена"
     }
   },
   "PAGES": {
@@ -15,6 +15,33 @@
         "Heading": "В настоящее время Вы можете запустить masternode",
         "Description": "В настоящее время Вы имеете достаточно токенов для запуска Masternode! <br/>Вы получите <b>{{ percent }}% комиссии</b> от каждого реферала, который совершит покупку по Вашей реферальной ссылке!",
         "MasternodeLink": "Ваша уникальная ссылка masternode:"
+      }
+    },
+    "Trade": {
+      "Labels": {
+        "ExpDate": "Дата истечения:",
+        "EthContract": "ETH в контракте:",
+        "TokensContract": "Токенов в контракте:",
+        "TotalSupply": "Общее количество токенов:",
+        "Tokens": "Мои токены:",
+        "Bonus": "Мой бонус:",
+        "RefLink": "Моя реф. ссылка:",
+        "Description": "Описание проекта:",
+        "ClickToCopy": "Кликните чтоб скопировать"
+      },
+      "Buttons": {
+        "BuySell": "Купить/Продать токен",
+        "Withdraw": "Вывести бонус",
+        "View": "Посмотреть на Etherscan"
+      }
+    },
+    "Statistics": {
+      "Charts": {
+        "Headings": {
+          "priceEth": "Стоимость токена по дням",
+          "shareReward": "Собранный бонус по дням",
+          "buySellCount": "Общая сумма транзакций по дням"
+        }
       }
     },
     "Buy": {
@@ -28,13 +55,14 @@
         "Fee": "Оценочная комиссия",
         "TokenPrice": "Средняя цена токена",
         "CurrentPrice": "Текущая цена покупки  1 токена:",
-        "MaxPurchase": "Вы можете купить максимум {{ max }} токенов"
+        "MaxPurchase": "Вы можете купить максимум {{ max }} токенов",
+        "MinReturn": "Минимальный возврат"
       },
       "Errors": {
         "InvalidBalance": "У вас недостаточно средств.",
         "MaxPurchase": "Вы можете купить максимум {{ max }} MNTP",
-        "Limits": "Minimal value is {{ min }}. Maximum value is {{ max }}.",
-        "minReturn": "Minimum value must be greater than 0. Maximum value is {{ max }}."
+        "Limits": "Минимальное значение {{ min }}. Максимальное значение {{ max }}.",
+        "minReturn": "Минимальное значение должно быть больше 0. Максимальное значение {{ max }}."
       }
     },
     "Sell": {
@@ -47,7 +75,8 @@
         "Result": "Примерно {{ amount }} ETH.",
         "Fee": "Оценочная комиссия",
         "TokenPrice": "Средняя цена токена",
-        "CurrentPrice": "Текущая цена покупки  1 токена:"
+        "CurrentPrice": "Текущая цена покупки  1 токена:",
+        "MinReturn": "Минимальный возврат"
       },
       "Errors": {
         "InvalidBalance": "У вас недостаточно средств.",
@@ -64,16 +93,18 @@
       "Info": "Вы выиграете промо-бонус, если ваша транзакция покупки будет <b>больше чем {{ value }} токенов</b> и станет первой в конкретном блоке!"
     },
     "AddToken": {
-      "Heading": "Add token request",
+      "Heading": "Запрос добавления токена",
       "Labels": {
-        "Name": "Your company name",
-        "Ticker": "Token ticker",
-        "Price": "Start price",
-        "CreateLabel": "Would you like to create a new token or use your existing one?",
-        "Create": "Create a new token for me",
-        "Exist": "I'd like use me ERC20 token",
-        "Contract": "Token contract address",
-        "Supply": "Total supply"
+        "Name": "Название вашей компании",
+        "Email": "Адрес электронной почты",
+        "Website": "Url адрес вашего сайта",
+        "Ticker": "Тикер токена",
+        "Price": "Начальная цена",
+        "CreateLabel": "Вы хотите создать новый токен или использовать существующий?",
+        "Create": "Создайте для меня новый токен",
+        "Exist": "Я бы хотел использовать ERC20 токен",
+        "Contract": "Адрес контракта токена",
+        "Supply": "Общий объём"
       },
       "Placeholders": {
         "Name": "Goldmint",
@@ -83,35 +114,38 @@
         "Supply": "10000000000"
       },
       "Buttons": {
-        "Cancel": "Cancel",
-        "Back": "Back",
-        "Next": "Next",
-        "AddToken": "Add token"
+        "Cancel": "Отменить",
+        "Back": "Назад",
+        "Next": "Далее",
+        "AddToken": "Добавить токен"
       },
       "Errors": {
-        "Required": "Field is required",
-        "Pattern": "Field must contains digits and latin letters"
+        "Required": "Поле обязательное для заполнения",
+        "Pattern": "Поле должно содержать цифры и латинские буквы",
+        "Email": "Неверный формат электронной почты",
+        "Website": "Неверный формат URL сайта",
+        "Address": "Неверный адрес контракта"
       }
     },
     "Market": {
-      "Heading": "Market",
+      "Heading": "Маркет",
       "Table": {
-        "Name": "Name",
-        "24Change": "24H Change",
-        "Price": "Price USD",
-        "24Volume": "24H Volume",
-        "LiquidityDepth": "Liquidity depth",
-        "Trade": "Trade"
+        "Name": "Название",
+        "24HChange": "Изминение за 24ч",
+        "PriceETH": "Цена USD",
+        "24HVolume": "Объем за 24ч",
+        "Graph": "График за 7 дней",
+        "Trade": "Торговля"
       },
       "Chart": {
-        "Detail": "Chart"
+        "Detail": "Стоимость токена за последние 7 дней"
       },
       "Placeholder": {
-        "Search": "Search..."
+        "Search": "Поиск..."
       }
     },
     "About": {
-      "Heading": "About",
+      "Heading": "О нас",
       "Sections": {
         "1th": {
           "Heading": "1. Что есть Etherama?",
@@ -256,8 +290,8 @@
     },
     "ErrorPage": {
       "404": {
-        "Heading": "Error 404. Page not found",
-        "SectionTitle": "Use the menu to navigate the site"
+        "Heading": "Ошибка 404. Страница не найдена",
+        "SectionTitle": "Используйте меню для навигации по сайту"
       }
     }
   },
@@ -276,6 +310,7 @@
       "Hash": "Хэш вашей транзакции:",
       "Link": "Просмотр транзакции на EtherScan"
     },
+    "AddToken": "Запрос добавления токена отправлен",
     "ConnectingMM": "Подключение к MetaMask...",
     "InvalidNetwork": "Вы должны использовать {{ networkName }} сеть"
   }
