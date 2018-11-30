@@ -49,7 +49,7 @@
           </ng-template>
 
           <ng-template let-logoUrl="value" let-row="row" ngx-datatable-cell-template>
-            <div class="token-icon" (click)="trade(row)">
+            <div class="token-icon" (click)="moreInfo(row)">
               <img [src]="logoUrl" alt="token-icon">
             </div>
           </ng-template>
@@ -154,7 +154,7 @@
 
         <ng-template let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
           <div class="font-weight-500 mt-1 mb-1 d-flex align-items-center">
-            <div class="token-icon" (click)="trade(row)">
+            <div class="token-icon" (click)="moreInfo(row)">
               <img [src]="row.logoUrl" alt="token-icon">
             </div>
             <div class="ml-2">{{ row.ticker }}</div>
