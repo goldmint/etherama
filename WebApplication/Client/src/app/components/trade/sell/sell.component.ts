@@ -92,7 +92,7 @@ export class SellComponent implements OnInit, OnDestroy {
         Observable.combineLatest(
           this.ethService.getObservableTokenDealRange(),
           this.ethService.getObservableEthDealRange()
-        ).subscribe(limits => {
+        ).takeUntil(this.destroy$).subscribe(limits => {
           if (limits[0] && limits[1]) {
             this.tokenLimits.min = limits[0].min;
             this.tokenLimits.max = limits[0].max;
@@ -102,6 +102,7 @@ export class SellComponent implements OnInit, OnDestroy {
             this.estimateSellOrder(this.mntp, true, true);
           }
         });
+        this.cdRef.markForCheck();
       }
     });
     this.ethService.passEthAddress.takeUntil(this.destroy$).subscribe(address => {
@@ -110,14 +111,17 @@ export class SellComponent implements OnInit, OnDestroy {
         this.ethAddress = address;
         this.tokenBalance = this.mntp = this.eth = 0;
       }
+      this.cdRef.markForCheck();
     });
 
     this.ethService.getObservable1TokenPrice().takeUntil(this.destroy$).subscribe(price => {
       price && (this.sellPrice = price.sell);
+      this.cdRef.markForCheck();
     });
 
     this.ethService.getObservableNetwork().takeUntil(this.destroy$).subscribe(network => {
       network !== null && (this.isInvalidNetwork = network != this.MMNetwork.index);
+      this.cdRef.markForCheck();
     });
   }
 
@@ -142,12 +146,12 @@ export class SellComponent implements OnInit, OnDestroy {
   setCoinBalance(percent) {
     if (this.ethAddress) {
       let value = this.isBalanceBetter ? this.substrValue(this.tokenLimits.max * percent) : this.substrValue(+this.tokenBalance * percent);
-      this.checkErrors(true, value);
-
       if (+value != this.mntp) {
         this.mntp = +value;
-        !this.errors.tokenLimit && this.estimateSellOrder(this.mntp, true, false);
+        // !this.errors.tokenLimit && this.estimateSellOrder(this.mntp, true, false);
       }
+      this.checkErrors(true, value);
+      this.cdRef.markForCheck();
     }
   }
 
@@ -175,7 +179,7 @@ export class SellComponent implements OnInit, OnDestroy {
 
         if (fromToken) {
           this.eth = +this.substrValue(estimate);
-          this.errors.invalidBalance = false;
+          // this.errors.invalidBalance = false;
         } else {
           this.mntp = +this.substrValue(estimate);
           if (this.ethAddress && this.mntp > this.tokenBalance) {
@@ -189,6 +193,7 @@ export class SellComponent implements OnInit, OnDestroy {
         this.cdRef.markForCheck();
       }
     });
+    this.cdRef.markForCheck();
   }
 
   checkErrors(fromToken: boolean, value: number) {
@@ -200,6 +205,11 @@ export class SellComponent implements OnInit, OnDestroy {
     this.errors.ethLimit = !fromToken && this.ethAddress && value > 0 &&
       (value < this.ethLimits.min || value > this.ethLimits.max);
 
+    this.cdRef.markForCheck();
+  }
+
+  setMinReturn(percent: number) {
+    !this.loading && (this.minReturn = +this.substrValue(this.eth * percent));
     this.cdRef.markForCheck();
   }
 

@@ -81,32 +81,32 @@ export class EthereumService {
   public getSuccessBuyRequestLink$ = new Subject();
   public getSuccessSellRequestLink$ = new Subject();
 
+  private destroy$: Subject<boolean> = new Subject<boolean>();
+
   constructor(
     private commonService: CommonService,
-    private _http: HttpClient,
-    private router: Router
+    private _http: HttpClient
   ) {
-    interval(500).subscribe(this.checkWeb3.bind(this));
-    interval(7500).subscribe(this.checkBalance.bind(this));
-    interval(60000).subscribe(this.checkContractData.bind(this));
-    interval(10000).subscribe(this.updateWinBIGPromoBonus.bind(this));
-    interval(10000).subscribe(this.updateWinQUICKPromoBonus.bind(this));
-
     this.commonService.passMarketData$.subscribe((data: MarketData) => {
-      if (!data && this.router.url === '/trade') {
-        this.router.navigate(['/market']);
-        return;
-      }
-
-      this._web3Infura = null;
-      this._web3Metamask = null;
-      this._lastAddress = null;
-
       if (data) {
         this.etheramaContractAddress = data.etheramaContractAddress;
         this.tokenContractAddress = data.tokenContractAddress;
+        this.setInterval();
+      } else {
+        this._lastAddress = null;
+        this._web3Infura = null;
+        this._web3Metamask = null;
+        this.destroy$.next(true);
       }
     });
+  }
+
+  private setInterval() {
+    interval(500).takeUntil(this.destroy$).subscribe(this.checkWeb3.bind(this));
+    interval(7500).takeUntil(this.destroy$).subscribe(this.checkBalance.bind(this));
+    interval(60000).takeUntil(this.destroy$).subscribe(this.checkContractData.bind(this));
+    interval(10000).takeUntil(this.destroy$).subscribe(this.updateWinBIGPromoBonus.bind(this));
+    interval(10000).takeUntil(this.destroy$).subscribe(this.updateWinQUICKPromoBonus.bind(this));
   }
 
   private getContractABI(address) {
@@ -179,7 +179,6 @@ export class EthereumService {
           && (this._web3Metamask['eth'].defaultAccount = this._web3Metamask['eth'].coinbase);
 
     this._obsEthAddressSubject.next(ethAddress);
-
     this.checkBalance();
     this.update1TokenPrice();
     this.updateTotalData();
@@ -318,11 +317,13 @@ export class EthereumService {
       this._obsTokenDealRangeSubject.next(null);
     } else {
       this._contractInfura.getTokenDealRange((err, res) => {
-        let limit = {
-          min: +new BigNumber(res[0].toString()).div(new BigNumber(10).pow(18)),
-          max: +new BigNumber(res[1].toString()).div(new BigNumber(10).pow(18))
+        if (res) {
+          let limit = {
+            min: +new BigNumber(res[0].toString()).div(new BigNumber(10).pow(18)),
+            max: +new BigNumber(res[1].toString()).div(new BigNumber(10).pow(18))
+          }
+          this._obsTokenDealRangeSubject.next(limit);
         }
-        this._obsTokenDealRangeSubject.next(limit);
       });
     }
   }
@@ -332,11 +333,13 @@ export class EthereumService {
       this._obsEthDealRangeSubject.next(null);
     } else {
       this._contractInfura.getEthDealRange((err, res) => {
-        let limit = {
-          min: +new BigNumber(res[0].toString()).div(new BigNumber(10).pow(18)),
-          max: +new BigNumber(res[1].toString()).div(new BigNumber(10).pow(18))
+        if (res) {
+          let limit = {
+            min: +new BigNumber(res[0].toString()).div(new BigNumber(10).pow(18)),
+            max: +new BigNumber(res[1].toString()).div(new BigNumber(10).pow(18))
+          }
+          this._obsEthDealRangeSubject.next(limit);
         }
-        this._obsEthDealRangeSubject.next(limit);
       });
     }
   }

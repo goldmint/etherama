@@ -1,4 +1,7 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {EthereumService} from "./services/ethereum.service";
+import {BigNumber} from "bignumber.js";
+import {CommonService} from "./services/common.service";
 
 @Component({
   selector: 'app-root',
@@ -8,8 +11,41 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
-  constructor() {}
+  public ethBalance: BigNumber = null;
+  public tokenBalance: BigNumber | any = null;
+  public ethAddress: string = null;
 
-  ngOnInit() { }
+  constructor(
+    private ethService: EthereumService,
+    private commonService: CommonService,
+    private cdRef: ChangeDetectorRef
+  ) {}
+
+  ngOnInit() {
+    this.ethService.getObservableEthBalance().subscribe(balance => {
+      if (balance !== null && (this.ethBalance === null || !this.ethBalance.eq(balance))) {
+        this.ethBalance = balance;
+        this.ethService.passEthBalance.next(balance);
+      }
+    });
+
+    this.ethService.getObservableTokenBalance().subscribe((balance) => {
+      if (balance !== null && (this.tokenBalance === null || !this.tokenBalance.eq(balance))) {
+        this.tokenBalance = balance;
+        this.ethService.passTokenBalance.next(balance);
+      }
+    });
+
+    this.ethService.getObservableEthAddress().subscribe(ethAddr => {
+      if (ethAddr && this.ethService._contractInfura) {
+        this.tokenBalance && this.ethService.passTokenBalance.next(this.tokenBalance);
+        this.ethBalance && this.ethService.passEthBalance.next(this.ethBalance);
+      }
+
+      this.ethAddress = ethAddr;
+      this.ethService.passEthAddress.next(ethAddr);
+      this.cdRef.markForCheck();
+    });
+  }
 
 }

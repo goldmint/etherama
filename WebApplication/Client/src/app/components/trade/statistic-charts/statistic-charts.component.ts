@@ -101,6 +101,7 @@ export class StatisticChartsComponent implements OnInit, OnDestroy {
       chart.table.addData(data);
 
       chart.chart = anychart.stock();
+      chart.chart.scroller().enabled(false);
 
       options.forEach((item, i) => {
         chart.chart.plot(0).line(chart.table.mapAs({value: i+1})).name(item.label).stroke({

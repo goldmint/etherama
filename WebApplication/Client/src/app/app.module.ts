@@ -51,6 +51,7 @@ import { TradeComponent } from './components/trade/trade.component';
 import {CommonService} from "./services/common.service";
 import { EthAddressValidatorDirective } from './directives/eth-address-validator.directive';
 import {environment} from "../environments/environment";
+import { EmailValidatorDirective } from './directives/email-validator.directive';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -101,7 +102,8 @@ export function createTranslateLoader(http: HttpClient) {
     FaqComponent,
     MarketComponent,
     TradeComponent,
-    EthAddressValidatorDirective
+    EthAddressValidatorDirective,
+    EmailValidatorDirective
   ],
   exports: [],
   providers: [

@@ -8,6 +8,7 @@ import {UserService} from "../../services/user.service";
 import {CommonService} from "../../services/common.service";
 import {APIService} from "../../services/api.service";
 import {TokenInfo} from "../../interfaces/token-info";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-trade',
@@ -20,7 +21,6 @@ export class TradeComponent implements OnInit, OnDestroy {
 
   public etherscanContractUrl = environment.etherscanContractUrl;
   public ethAddress: string = null;
-  public ethBalance: BigNumber = null;
   public tokenBalance: BigNumber | any = null;
   public isUserRefAvailable: boolean = false;
   public refBonusPercent: number = 0;
@@ -48,6 +48,7 @@ export class TradeComponent implements OnInit, OnDestroy {
     private apiService: APIService,
     private commonService: CommonService,
     private messageBox: MessageBoxService,
+    private router: Router,
     private cdRef: ChangeDetectorRef
   ) { }
 
@@ -59,37 +60,25 @@ export class TradeComponent implements OnInit, OnDestroy {
           this.isDataLoaded = true;
           this.cdRef.markForCheck();
         });
+      } else {
+        this.router.navigate(['/market']);
       }
     });
 
-    this.ethService.getObservableEthBalance().takeUntil(this.destroy$).subscribe(balance => {
-      if (balance !== null && (this.ethBalance === null || !this.ethBalance.eq(balance))) {
-        this.ethBalance = balance;
-        this.ethService.passEthBalance.next(balance);
-      }
-    });
-
-    this.ethService.getObservableTokenBalance().takeUntil(this.destroy$).subscribe((balance) => {
-      if (balance !== null && (this.tokenBalance === null || !this.tokenBalance.eq(balance))) {
+    this.ethService.passTokenBalance.takeUntil(this.destroy$).subscribe(balance => {
+      if (balance) {
         this.tokenBalance = balance;
-        this.ethService.passTokenBalance.next(balance);
         this.checkCurrentUserRefAvailable();
         this.cdRef.markForCheck();
       }
     });
 
-    this.ethService.getObservableEthAddress().takeUntil(this.destroy$).subscribe(ethAddr => {
-      if (this.ethAddress && !ethAddr) {
+    this.ethService.passEthAddress.takeUntil(this.destroy$).subscribe(address => {
+      address && (this.ethAddress = address);
+      if (this.ethAddress && !address) {
+        this.ethAddress = address;
         this.isUserRefAvailable = false;
       }
-
-      if (ethAddr && this.ethService._contractInfura) {
-        this.tokenBalance && this.ethService.passTokenBalance.next(this.tokenBalance);
-        this.ethBalance && this.ethService.passEthBalance.next(this.ethBalance);
-      }
-
-      this.ethAddress = ethAddr;
-      this.ethService.passEthAddress.next(ethAddr);
       this.cdRef.markForCheck();
     });
 
@@ -137,7 +126,7 @@ export class TradeComponent implements OnInit, OnDestroy {
   }
 
   openBuySellModal() {
-    this.messageBox.buySell();
+    this.messageBox.buySell(false);
   }
 
   withdraw() {
@@ -153,6 +142,7 @@ export class TradeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.destroy$.next(true);
+    this.commonService.passMarketData$.next(null);
   }
 
 }

@@ -102,9 +102,15 @@
                 </div>
               </div>
 
+              <div class="percent-btn-cont mt-2">
+                <button class="percent-btn" (click)="setMinReturn(0.9)">90%</button>
+                <button class="percent-btn" (click)="setMinReturn(0.95)">95%</button>
+                <button class="percent-btn" (click)="setMinReturn(1)">100%</button>
+              </div>
+
               <div class="mt-3 text-center">
-                <div *ngIf="isMinReturnError">
-                  {{ "PAGES.Buy.Errors.minReturn" | translate:{ max: +substrValue(eth * minReturnPercent) } }}
+                <div *ngIf="isMinReturnError"
+                     [innerHTML]="'PAGES.Buy.Errors.minReturn' | translate:{ max: +substrValue(eth) }">
                 </div>
               </div>
             </div>

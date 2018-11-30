@@ -17,6 +17,7 @@ import {Page} from "../../models/page.model";
 import {TokenList} from "../../interfaces/token-list";
 import {Router} from "@angular/router";
 import {CommonService} from "../../services/common.service";
+import {MessageBoxService} from "../../services/message-box.service";
 
 @Component({
   selector: 'app-market',
@@ -58,6 +59,7 @@ export class MarketComponent implements OnInit, OnDestroy {
     private apiService: APIService,
     private translate: TranslateService,
     private router: Router,
+    private messageBox: MessageBoxService,
     private cdRef: ChangeDetectorRef
   ) { }
 
@@ -231,13 +233,22 @@ export class MarketComponent implements OnInit, OnDestroy {
     this.page.totalPages = Math.ceil(this.page.totalElements / this.page.size);
   }
 
-  trade(row: TokenList) {
+  moreInfo(row: TokenList) {
     let data: any = {};
     data.tokenContractAddress = row.tokenContractAddress;
     data.etheramaContractAddress = row.etheramaContractAddress;
     data.tokenId = row.id;
     this.commonService.passMarketData$.next(data);
     this.router.navigate(['/trade']);
+  }
+
+  trade(row: TokenList) {
+    let data: any = {};
+    data.tokenContractAddress = row.tokenContractAddress;
+    data.etheramaContractAddress = row.etheramaContractAddress;
+    data.tokenId = row.id;
+    this.commonService.passMarketData$.next(data);
+    this.messageBox.buySell(true);
   }
 
   ngOnDestroy() {

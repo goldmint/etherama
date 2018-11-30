@@ -29,13 +29,13 @@
                                required>
                     </div>
                 </div>
-            </div>
 
-            <div class="percent-btn-cont mt-2">
-              <button class="percent-btn" (click)="setCoinBalance(0.25)">25%</button>
-              <button class="percent-btn" (click)="setCoinBalance(0.5)">50%</button>
-              <button class="percent-btn" (click)="setCoinBalance(0.75)">75%</button>
-              <button class="percent-btn" (click)="setCoinBalance(1)">100%</button>
+                <div class="percent-btn-cont mt-2">
+                  <button class="percent-btn" (click)="setCoinBalance(0.25)">25%</button>
+                  <button class="percent-btn" (click)="setCoinBalance(0.5)">50%</button>
+                  <button class="percent-btn" (click)="setCoinBalance(0.75)">75%</button>
+                  <button class="percent-btn" (click)="setCoinBalance(1)">100%</button>
+                </div>
             </div>
 
             <div class="my-3">
@@ -104,16 +104,22 @@
                 </div>
               </div>
 
+              <div class="percent-btn-cont mt-2">
+                <button class="percent-btn" (click)="setMinReturn(0.9)">90%</button>
+                <button class="percent-btn" (click)="setMinReturn(0.95)">95%</button>
+                <button class="percent-btn" (click)="setMinReturn(1)">100%</button>
+              </div>
+
               <div class="mt-3 text-center">
-                <div *ngIf="isMinReturnError">
-                  {{ "PAGES.Buy.Errors.minReturn" | translate:{ max: +substrValue(mntp * minReturnPercent) } }}
+                <div *ngIf="isMinReturnError"
+                     [innerHTML]="'PAGES.Buy.Errors.minReturn' | translate:{ max: +substrValue(mntp) }">
                 </div>
               </div>
             </div>
 
             <div class="text-center mt-3">
                 <div class="d-inline-block position-relative">
-                    <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="!+eth || !+mntp || errors.invalidBalance || errors.maxPurchase || errors.ethLimit || errors.tokenLimit || loading || isTyping || isInvalidNetwork || isMinReturnError">
+                  <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="!+eth || !+mntp || errors.invalidBalance || errors.maxPurchase || errors.ethLimit || errors.tokenLimit || loading || isTyping || isInvalidNetwork || isMinReturnError">
                         {{ "PAGES.Buy.Buttons.Buy" | translate }}
                     </button>
                     <img *ngIf="loading" alt="Processing..." width="17" height="17" class="form-loader absolute" src="assets/img/loader-gold-bg-white.gif">

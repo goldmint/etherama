@@ -38,7 +38,7 @@
                  autocomplete="off"
                  placeholder='Email'
                  pattern="[^а-яА-ЯёЁ]*"
-                 email
+                 emailValidator
                  required>
           <div class="invalid-feedback" *ngIf="email.errors?.required">
             {{ "PAGES.AddToken.Errors.Required" | translate }}
@@ -46,7 +46,7 @@
           <div class="invalid-feedback" *ngIf="email.errors?.pattern">
             {{ "PAGES.AddToken.Errors.Pattern" | translate }}
           </div>
-          <div class="invalid-feedback" *ngIf="!email.errors?.required && email.errors?.email">
+          <div class="invalid-feedback" *ngIf="!email.errors?.required && email.errors?.emailValidator">
             {{ "PAGES.AddToken.Errors.Email" | translate }}
           </div>
         </div>

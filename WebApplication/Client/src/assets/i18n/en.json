@@ -27,7 +27,10 @@
         "Bonus": "My bonus:",
         "RefLink": "My ref link:",
         "Description": "Project description:",
-        "ClickToCopy": "Click to copy"
+        "ClickToCopy": "Click to copy",
+        "ShareReward": "Share reward",
+        "RefBonus": "Ref bonus",
+        "PromoBonus": "Promo bonus"
       },
       "Buttons": {
         "BuySell": "Buy/Sell token",
@@ -62,7 +65,7 @@
         "InvalidBalance": "You don't have enough money.",
         "MaxPurchase": "You are allowed to buy max {{ max }} MNTP",
         "Limits": "Minimal value is {{ min }}. Maximum value is {{ max }}.",
-        "minReturn": "Minimum value must be greater than 0. Maximum value is {{ max }}."
+        "minReturn": "Minimum value must be greater than <b>0</b>. Maximum value is <b>{{ max }}</b>."
       }
     },
     "Sell": {
@@ -80,7 +83,8 @@
       },
       "Errors": {
         "InvalidBalance": "You don't have enough money",
-        "Limits": "Minimal value is {{ min }}. Maximum value is {{ max }}."
+        "Limits": "Minimal value is {{ min }}. Maximum value is {{ max }}.",
+        "minReturn": "Minimum value must be greater than <b>0</b>. Maximum value is <b>{{ max }}</b>."
       }
     },
     "PromoBonus": {
@@ -131,10 +135,11 @@
       "Heading": "Market",
       "Table": {
         "Name": "Name",
-        "24HChange": "24H Change",
-        "PriceETH": "Price ETH",
-        "24HVolume": "24H Volume",
-        "Graph": "7D graph",
+        "24HChange": "24H Change, %",
+        "PriceETH": "Price, ETH",
+        "24HVolume": "24H Volume, ETH",
+        "Graph": "7D price graph",
+        "MoreInfo": "More info",
         "Trade": "Trade"
       },
       "Chart": {

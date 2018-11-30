@@ -92,11 +92,12 @@ export class MessageBoxService {
     return this._show(message, title, single, MessageType.Prompt);
   }
 
-  public buySell() {
+  public buySell(stopService: boolean) {
     let config = {
       class: 'buy-sell-box'
     }
-    this._modalService.show(BuySellModalComponent, config);
+    let messageBox  = this._modalService.show(BuySellModalComponent, config);
+    messageBox.content = {isStop: stopService};
   }
 
 }

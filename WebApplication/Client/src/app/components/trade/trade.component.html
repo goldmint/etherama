@@ -35,6 +35,24 @@
         <div class="col-12">
           <app-promo-bonus></app-promo-bonus>
         </div>
+
+        <div class="col-12 mb-4 px-1 py-2 trade-info-block">
+          <div class="row">
+            <div class="col-4 text-center">
+              <div class="mb-1"><b>{{ "PAGES.Trade.Labels.ShareReward" | translate }}</b></div>
+              <div>0.00000334543 ETH</div>
+            </div>
+            <div class="col-4 text-center">
+              <div class="mb-1"><b>{{ "PAGES.Trade.Labels.RefBonus" | translate }}</b></div>
+              <div>0.0000014343 ETH</div>
+            </div>
+            <div class="col-4 text-center">
+              <div class="mb-1"><b>{{ "PAGES.Trade.Labels.PromoBonus" | translate }}</b></div>
+              <div>0 ETH</div>
+            </div>
+          </div>
+        </div>
+
         <div class="col-12">
           <div class="action-info-block">
             <div class="mb-2">{{ "PAGES.Trade.Labels.Tokens" | translate }} <b>{{ +tokenBalance | noexp }} MNTP</b></div>

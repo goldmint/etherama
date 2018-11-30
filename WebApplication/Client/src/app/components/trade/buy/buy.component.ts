@@ -3,12 +3,10 @@ import {EthereumService} from "../../../services/ethereum.service";
 import {Subject} from "rxjs/Subject";
 import * as Web3 from "web3";
 import {BigNumber} from "bignumber.js";
-import {Subscription} from "rxjs/Subscription";
 import {MessageBoxService} from "../../../services/message-box.service";
 import {TranslateService} from "@ngx-translate/core";
 import {environment} from "../../../../environments/environment";
 import {UserService} from "../../../services/user.service";
-import {APIService} from "../../../services/api.service";
 import {Observable} from "rxjs/Observable";
 
 @Component({
@@ -99,7 +97,7 @@ export class BuyComponent implements OnInit, OnDestroy {
           Observable.combineLatest(
             this.ethService.getObservableTokenDealRange(),
             this.ethService.getObservableEthDealRange()
-          ).subscribe(limits => {
+          ).takeUntil(this.destroy$).subscribe(limits => {
             if (limits[0] && limits[1]) {
               this.tokenLimits.min = limits[0].min;
               this.tokenLimits.max = limits[0].max;
@@ -110,19 +108,22 @@ export class BuyComponent implements OnInit, OnDestroy {
             }
           });
         });
+        this.cdRef.markForCheck();
       }
     });
+
     this.ethService.passEthAddress.takeUntil(this.destroy$).subscribe(address => {
       address && (this.ethAddress = address);
-
       if (this.ethAddress && !address) {
         this.ethAddress = address;
         this.ethBalance = this.eth = this.mntp = 0;
       }
+      this.cdRef.markForCheck();
     });
 
     this.ethService.getObservable1TokenPrice().takeUntil(this.destroy$).subscribe(price => {
       price && (this.buyPrice = price.buy);
+      this.cdRef.markForCheck();
     });
 
     this.ethService.getObservableNetwork().takeUntil(this.destroy$).subscribe(network => {
@@ -138,7 +139,7 @@ export class BuyComponent implements OnInit, OnDestroy {
         } else {
           this.isInvalidNetwork = false;
         }
-
+        this.cdRef.markForCheck();
       }
     });
   }
@@ -166,9 +167,9 @@ export class BuyComponent implements OnInit, OnDestroy {
     // let value = this.isBalanceBetter ? this.substrValue(max * percent) : this.substrValue(+this.ethBalance * percent);
 
     let value = this.substrValue(+this.ethBalance * percent);
+    this.eth = +value;
     this.checkErrors(true, value);
 
-    this.eth = +value;
     !this.errors.ethLimit && this.estimateBuyOrder(this.eth, true, false);
 
     // if (this.ethAddress && +value != this.eth) {
@@ -180,6 +181,7 @@ export class BuyComponent implements OnInit, OnDestroy {
     //     !this.errors.ethLimit && this.estimateBuyOrder(this.eth, true, false);
     //   }
     // }
+    this.cdRef.markForCheck();
   }
 
   substrValue(value) {
@@ -209,7 +211,7 @@ export class BuyComponent implements OnInit, OnDestroy {
 
           if (fromEth) {
             this.mntp = +this.substrValue(estimate);
-            this.errors.invalidBalance = false;
+            // this.errors.invalidBalance = false;
           } else {
             this.eth = +this.substrValue(estimate);
             if (this.ethAddress && this.eth > this.ethBalance) {
@@ -225,6 +227,7 @@ export class BuyComponent implements OnInit, OnDestroy {
         });
       }
     });
+    this.cdRef.markForCheck();
   }
 
   checkErrors(fromEth: boolean, value: number) {
@@ -236,6 +239,11 @@ export class BuyComponent implements OnInit, OnDestroy {
     this.errors.tokenLimit = !fromEth && this.ethAddress && value > 0 &&
       (value < this.tokenLimits.min || value > this.tokenLimits.max);
 
+    this.cdRef.markForCheck();
+  }
+
+  setMinReturn(percent: number) {
+    !this.loading && (this.minReturn = +this.substrValue(this.mntp * percent));
     this.cdRef.markForCheck();
   }
 
