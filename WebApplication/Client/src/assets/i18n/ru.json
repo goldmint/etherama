@@ -36,6 +36,9 @@
         "BuySell": "Купить/Продать токен",
         "Withdraw": "Вывести бонус",
         "View": "Посмотреть на Etherscan"
+      },
+      "Errors": {
+        "InvalidAddress": "Недействительный адрес контракта"
       }
     },
     "Statistics": {
@@ -305,6 +308,7 @@
       "Heading": "Чтобы продолжить, Вам понадобится Metamask",
       "Text": "MetaMask - это мост, который позволяет вам посещать распределенную сеть будущего в вашем браузере сегодня. Он позволяет запускать Ethereum dApps прямо в вашем браузере без запуска полного узла Ethereum. Пожалуйста, установите расширение MetaMask в браузере Chrome, Firefox или Opera. Узнать о <a href=\"https://metamask.io\" target=\"_blank\">Metamask</a>"
     },
+    "MMHandingOut": "Похоже, что Ваш MetaMask завис и не работает, как ожидается. Пожалуйста, попытайтесь выключить и включить его снова в настройках расширения.",
     "LoginToMM": {
       "HeadingBuy": "КУПИТЬ ТОКЕНЫ",
       "HeadingSell": "ПРОДАТЬ ТОКЕНЫ",
@@ -317,6 +321,7 @@
     },
     "AddToken": "Запрос добавления токена отправлен",
     "ConnectingMM": "Подключение к MetaMask...",
-    "InvalidNetwork": "Вы должны использовать {{ networkName }} сеть"
+    "InvalidNetwork": "Вы должны использовать {{ networkName }} сеть",
+    "ServiceUnavailable": "Сервис временно недоступен"
   }
 }

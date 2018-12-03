@@ -55,6 +55,8 @@ export class BuyComponent implements OnInit, OnDestroy {
   private web3: Web3 = new Web3();
   private destroy$: Subject<boolean> = new Subject<boolean>();
   private gasLimit: number = 600000;
+  private ethBalanceForCheck: BigNumber;
+  private timeOut: any;
 
   constructor(
     private ethService: EthereumService,
@@ -88,6 +90,8 @@ export class BuyComponent implements OnInit, OnDestroy {
     this.initTransactionHashModal();
 
     this.ethService.passEthBalance.takeUntil(this.destroy$).subscribe(eth => {
+      this.ethBalanceForCheck = eth;
+
       if (eth) {
         this.ethService._contractInfura.getMaxGasPrice((err, res) => {
           let gas = (+res * this.gasLimit) / Math.pow(10, 18);
@@ -113,7 +117,18 @@ export class BuyComponent implements OnInit, OnDestroy {
     });
 
     this.ethService.passEthAddress.takeUntil(this.destroy$).subscribe(address => {
-      address && (this.ethAddress = address);
+      if (address) {
+        if (!this.ethAddress) {
+           this.timeOut = setTimeout(() => {
+             !this.ethBalanceForCheck && this.translate.get('MESSAGE.MMHandingOut').subscribe(phrase => {
+               this.messageBox.alert(`<div>${phrase}<div class="mm-hanging-out"></div></div>`);
+             });
+          }, 3000);
+        }
+
+        this.ethAddress = address;
+      }
+
       if (this.ethAddress && !address) {
         this.ethAddress = address;
         this.ethBalance = this.eth = this.mntp = 0;
@@ -298,6 +313,7 @@ export class BuyComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.destroy$.next(true);
+    clearTimeout(this.timeOut);
   }
 
 }

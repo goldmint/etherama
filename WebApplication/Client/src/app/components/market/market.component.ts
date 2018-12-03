@@ -234,17 +234,11 @@ export class MarketComponent implements OnInit, OnDestroy {
   }
 
   moreInfo(row: TokenList) {
-    let data: any = {};
-    data.tokenContractAddress = row.tokenContractAddress;
-    data.etheramaContractAddress = row.etheramaContractAddress;
-    data.tokenId = row.id;
-    this.commonService.passMarketData$.next(data);
-    this.router.navigate(['/trade']);
+    this.router.navigate(['/trade', row.etheramaContractAddress]);
   }
 
   trade(row: TokenList) {
     let data: any = {};
-    data.tokenContractAddress = row.tokenContractAddress;
     data.etheramaContractAddress = row.etheramaContractAddress;
     data.tokenId = row.id;
     this.commonService.passMarketData$.next(data);

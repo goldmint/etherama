@@ -14,7 +14,7 @@ const appRoutes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'faq', component: FaqComponent },
   { path: 'add-token', component: AddTokenComponent },
-  { path: 'trade', component: TradeComponent },
+  { path: 'trade/:id', component: TradeComponent },
   { path: '**', component: NotFoundPageComponent }
 ];
 

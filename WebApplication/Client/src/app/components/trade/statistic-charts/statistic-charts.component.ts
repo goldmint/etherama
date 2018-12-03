@@ -67,8 +67,6 @@ export class StatisticChartsComponent implements OnInit, OnDestroy {
             let currentChart = this.charts[chart];
             this.setChartsData(this.tokenStatistics, currentChart.fieldName, currentChart.data);
             this.initDailyStatChart(currentChart.chart, currentChart.data, currentChart.id, currentChart.options);
-
-            this.setChartsTranslate(currentChart);
           }
         });
       }
@@ -114,21 +112,15 @@ export class StatisticChartsComponent implements OnInit, OnDestroy {
         return options;
       });
 
-      this.translate.get('PAGES.Statistics.Charts.Headings.' +  id).subscribe(phrase => {
-        chart.chart.title(phrase);
+      this.userService.currentLocale.takeUntil(this.destroy$).subscribe(() => {
+        this.translate.get('PAGES.Statistics.Charts.Headings.' + id).subscribe(phrase => {
+          chart.chart.title(phrase);
+        });
       });
 
       let containerId = 'chart-container-' + id;
       chart.chart.container(containerId);
       chart.chart.draw();
-    });
-  }
-
-  setChartsTranslate(currentChart) {
-    this.userService.currentLocale.takeUntil(this.destroy$).subscribe(() => {
-      this.translate.get('PAGES.Statistics.Charts.Headings.' + currentChart.id).subscribe(phrase => {
-        currentChart && currentChart.chart.chart.title(phrase);
-      });
     });
   }
 

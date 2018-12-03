@@ -8,7 +8,7 @@ import {UserService} from "../../services/user.service";
 import {CommonService} from "../../services/common.service";
 import {APIService} from "../../services/api.service";
 import {TokenInfo} from "../../interfaces/token-info";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-trade',
@@ -39,6 +39,13 @@ export class TradeComponent implements OnInit, OnDestroy {
   };
   public tillExpiration: number = null;
   public tokenInfo: TokenInfo;
+  public invalidContractAddress: boolean = false;
+  public myBonusInfo: any = {
+    shareReward: null,
+    refBonus: null,
+    promoBonus: null
+  };
+  public locale: string;
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
@@ -49,22 +56,53 @@ export class TradeComponent implements OnInit, OnDestroy {
     private commonService: CommonService,
     private messageBox: MessageBoxService,
     private router: Router,
+    private route: ActivatedRoute,
     private cdRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
-    this.commonService.passMarketData$.takeUntil(this.destroy$).subscribe(data => {
-      if (data) {
-        this.apiService.getTokenInfo(data.tokenId).subscribe((data: any) => {
-          this.tokenInfo = data.data;
+    this.route.params.takeUntil(this.destroy$).subscribe(params => {
+      let address = params.id,
+          tokenId,
+          addressExist = false;
+
+      if (!this.ethService.isValidAddress(address)) {
+        this.invalidContractAddress = true;
+        this.isDataLoaded = true;
+        this.cdRef.markForCheck();
+        return;
+      }
+
+      this.apiService.getTokenList().subscribe((list: any) => {
+        list.data.forEach(token => {
+          if (token.etheramaContractAddress === address) {
+            addressExist = true;
+            tokenId = token.id;
+          }
+        });
+
+        if (addressExist) {
+          let data: any = {};
+          data.etheramaContractAddress = address;
+          data.tokenId = tokenId;
+          this.commonService.passMarketData$.next(data);
+
+          this.apiService.getTokenInfo(tokenId).subscribe((data: any) => {
+            this.tokenInfo = data.data;
+            this.initTradePage();
+            this.isDataLoaded = true;
+            this.cdRef.markForCheck();
+          });
+        } else {
+          this.invalidContractAddress = true;
           this.isDataLoaded = true;
           this.cdRef.markForCheck();
-        });
-      } else {
-        this.router.navigate(['/market']);
-      }
+        }
+      });
     });
+  }
 
+  initTradePage() {
     this.ethService.passTokenBalance.takeUntil(this.destroy$).subscribe(balance => {
       if (balance) {
         this.tokenBalance = balance;
@@ -83,7 +121,19 @@ export class TradeComponent implements OnInit, OnDestroy {
     });
 
     this.ethService.getObservableUserReward().takeUntil(this.destroy$).subscribe(reward => {
-      reward && (this.userReward = reward);
+      if (reward) {
+        this.userReward = reward;
+
+        this.ethService._contractMetamask.getCurrentUserShareReward((err, res) => {
+          this.myBonusInfo.shareReward = +new BigNumber(res.toString()).div(new BigNumber(10).pow(18));
+        });
+        this.ethService._contractMetamask.getCurrentUserRefBonus((err, res) => {
+          this.myBonusInfo.refBonus = +new BigNumber(res.toString()).div(new BigNumber(10).pow(18));
+        });
+        this.ethService._contractMetamask.getCurrentUserPromoBonus((err, res) => {
+          this.myBonusInfo.promoBonus = +new BigNumber(res.toString()).div(new BigNumber(10).pow(18));
+        });
+      }
       this.cdRef.markForCheck();
     });
 
@@ -107,6 +157,11 @@ export class TradeComponent implements OnInit, OnDestroy {
         this.totalData.totalTokens = total.tokens;
         this.cdRef.markForCheck();
       }
+    });
+
+    this.userService.currentLocale.takeUntil(this.destroy$).subscribe(locale => {
+      this.locale = locale;
+      this.cdRef.markForCheck();
     });
   }
 

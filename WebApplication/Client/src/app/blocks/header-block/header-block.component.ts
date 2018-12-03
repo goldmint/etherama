@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import {UserService} from "../../services/user.service";
+import {NavigationEnd, Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header-block.component.html',
   styleUrls: ['./header-block.component.sass'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderBlockComponent implements OnInit {
 
@@ -15,8 +17,16 @@ export class HeaderBlockComponent implements OnInit {
 
   constructor(
     private cdRef: ChangeDetectorRef,
-    private userService: UserService
-  ) { }
+    private userService: UserService,
+    private router: Router
+  ) {
+    router.events.subscribe(route => {
+      if (route instanceof NavigationEnd) {
+        this.isShowMobileMenu = false;
+        this.cdRef.markForCheck();
+      }
+    })
+  }
 
   ngOnInit() {
     this.userService.currentLocale.subscribe(currentLocale => {

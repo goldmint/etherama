@@ -36,6 +36,9 @@
         "BuySell": "Buy/Sell token",
         "Withdraw": "Withdraw bonus",
         "View": "View Etherscan"
+      },
+      "Errors": {
+        "InvalidAddress": "Invalid the contract address"
       }
     },
     "Statistics": {
@@ -305,6 +308,7 @@
       "Heading": "To continue you'll need to have Metamask",
       "Text": "MetaMask is a bridge that allows you to visit the distributed web of tomorrow in your browser today. It allows you to run Ethereum dApps right in your browser without running a full Ethereum node. Please, install the MetaMask add-on in Chrome, Firefox or Opera browser. Get <a href=\"https://metamask.io\" target=\"_blank\">Metamask</a>"
     },
+    "MMHandingOut": "Seems like your MetaMask is hanging out and doesn't work properly at the moment. Please try to turn it off and then on at your extension settings.",
     "LoginToMM": {
       "HeadingBuy": "BUY TOKEN",
       "HeadingSell": "SELL TOKEN",
@@ -317,6 +321,7 @@
     },
     "AddToken": "Token request has been sent",
     "ConnectingMM": "Connecting to MetaMask...",
-    "InvalidNetwork": "You must use {{ networkName }} network"
+    "InvalidNetwork": "You must use {{ networkName }} network",
+    "ServiceUnavailable": "Service is temporarily unavailable"
   }
 }

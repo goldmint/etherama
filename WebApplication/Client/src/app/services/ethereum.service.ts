@@ -5,10 +5,8 @@ import * as Web3 from "web3";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { BigNumber } from 'bignumber.js'
 import {environment} from "../../environments/environment";
-import {HttpClient} from "@angular/common/http";
 import {Subject} from "rxjs/Subject";
 import {MarketData} from "../interfaces/market-data";
-import {Router} from "@angular/router";
 import {CommonService} from "./common.service";
 
 @Injectable()
@@ -20,7 +18,7 @@ export class EthereumService {
   private etheramaContractAddress /*= environment.mintoramaContractAddress*/;
   private etheramaContractABI = environment.etheramaContractABI;
 
-  private tokenContractAddress/* = environment.mntpContractAddress*/;
+  private tokenContractAddress = environment.mntpContractAddress;
   private tokenContractABI = environment.tokenABI;
 
   private _web3Infura: Web3 = null;
@@ -84,13 +82,11 @@ export class EthereumService {
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
-    private commonService: CommonService,
-    private _http: HttpClient
+    private commonService: CommonService
   ) {
     this.commonService.passMarketData$.subscribe((data: MarketData) => {
       if (data) {
         this.etheramaContractAddress = data.etheramaContractAddress;
-        this.tokenContractAddress = data.tokenContractAddress;
         this.setInterval();
       } else {
         this._lastAddress = null;
@@ -109,10 +105,6 @@ export class EthereumService {
     interval(10000).takeUntil(this.destroy$).subscribe(this.updateWinQUICKPromoBonus.bind(this));
   }
 
-  private getContractABI(address) {
-    return this._http.get(`${this._etherscanGetABIUrl}/api?module=contract&action=getabi&address=${address}&forma=raw`);
-  }
-
   private checkWeb3() {
     if (!this._web3Infura && this.etheramaContractAddress) {
       this._web3Infura = new Web3(new Web3.providers.HttpProvider(this._infuraUrl));
@@ -124,7 +116,7 @@ export class EthereumService {
       }
     }
 
-    if (!this._web3Metamask && (window.hasOwnProperty('web3') || window.hasOwnProperty('ethereum')) && this.tokenContractAddress) {
+    if (!this._web3Metamask && (window.hasOwnProperty('web3') || window.hasOwnProperty('ethereum')) && this.etheramaContractAddress) {
       let ethereum = window['ethereum'];
 
       if (ethereum) {
