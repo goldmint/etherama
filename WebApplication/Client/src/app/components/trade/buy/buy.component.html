@@ -45,12 +45,11 @@
                 </div>
 
                 <div *ngIf="ethAddress">
-                  <span *ngIf="eth && (!errors.maxPurchase && !errors.invalidBalance && !errors.ethLimit)">
+                  <span *ngIf="eth && (!errors.invalidBalance && !errors.ethLimit)">
                     <div class="estimate-info">{{ "PAGES.Buy.Labels.Fee" | translate }}  {{ estimateFee | noexp:18 }} ETH</div>
                     <div class="estimate-info">{{ "PAGES.Buy.Labels.TokenPrice" | translate }}  {{ averageTokenPrice | noexp:18 }} ETH/MNTP</div>
                   </span>
                   <div *ngIf="errors.invalidBalance">{{ "PAGES.Buy.Errors.InvalidBalance" | translate }}</div>
-                  <div class="c-red" *ngIf="errors.maxPurchase">{{ "PAGES.Buy.Errors.MaxPurchase" | translate:{max: maxPurchase | noexp:-1} }}</div>
                   <div *ngIf="!errors.invalidBalance && errors.ethLimit">
                     {{ "PAGES.Buy.Errors.Limits" | translate:{ min: ethLimits.min, max: ethLimits.max } }}
                   </div>
@@ -119,7 +118,7 @@
 
             <div class="text-center mt-3">
                 <div class="d-inline-block position-relative">
-                  <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="!+eth || !+mntp || errors.invalidBalance || errors.maxPurchase || errors.ethLimit || errors.tokenLimit || loading || isTyping || isInvalidNetwork || isMinReturnError">
+                  <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="!+eth || !+mntp || errors.invalidBalance || errors.ethLimit || errors.tokenLimit || loading || isTyping || isInvalidNetwork || isMinReturnError">
                         {{ "PAGES.Buy.Buttons.Buy" | translate }}
                     </button>
                     <img *ngIf="loading" alt="Processing..." width="17" height="17" class="form-loader absolute" src="assets/img/loader-gold-bg-white.gif">

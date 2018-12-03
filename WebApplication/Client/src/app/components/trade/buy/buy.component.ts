@@ -27,11 +27,9 @@ export class BuyComponent implements OnInit, OnDestroy {
   public averageTokenPrice: number = 0;
   public ethBalance: BigNumber | any = 0;
   public buyPrice: BigNumber | any = 0;
-  public maxPurchase: number = 0;
   public ethAddress: string = null;
   public errors = {
     invalidBalance: false,
-    maxPurchase: false,
     ethLimit: false,
     tokenLimit: false
   };
@@ -178,24 +176,11 @@ export class BuyComponent implements OnInit, OnDestroy {
   }
 
   setCoinBalance(percent) {
-    // let max = +this.maxPurchase < this.ethLimits.max ? +this.maxPurchase : this.ethLimits.max;
-    // let value = this.isBalanceBetter ? this.substrValue(max * percent) : this.substrValue(+this.ethBalance * percent);
-
     let value = this.substrValue(+this.ethBalance * percent);
     this.eth = +value;
     this.checkErrors(true, value);
 
     !this.errors.ethLimit && this.estimateBuyOrder(this.eth, true, false);
-
-    // if (this.ethAddress && +value != this.eth) {
-    //   if (this.isBalanceBetter) {
-    //     this.mntp = +value;
-    //     !this.errors.ethLimit && this.estimateBuyOrder(this.mntp, false, false);
-    //   } else {
-    //     this.eth = +value;
-    //     !this.errors.ethLimit && this.estimateBuyOrder(this.eth, true, false);
-    //   }
-    // }
     this.cdRef.markForCheck();
   }
 
@@ -213,34 +198,24 @@ export class BuyComponent implements OnInit, OnDestroy {
     this.fromEth = fromEth;
     const wei = this.web3['toWei'](amount);
 
-    this.ethService._contractInfura && this.ethService._contractInfura.getCurrentUserMaxPurchase((err, res) => {
-      if (res) {
-        this.maxPurchase = +new BigNumber(res.toString()).div(new BigNumber(10).pow(18));
+    this.ethService._contractInfura.estimateBuyOrder(wei, fromEth, (err, res) => {
+      let estimate = +new BigNumber(res[0].toString()).div(new BigNumber(10).pow(18));
+      this.estimateFee = +new BigNumber(res[1].toString()).div(new BigNumber(10).pow(18));
+      this.averageTokenPrice = +new BigNumber(res[2].toString()).div(new BigNumber(10).pow(18));
 
-        this.ethService._contractInfura.estimateBuyOrder(wei, fromEth, (err, res) => {
-          let estimate = +new BigNumber(res[0].toString()).div(new BigNumber(10).pow(18));
-          this.estimateFee = +new BigNumber(res[1].toString()).div(new BigNumber(10).pow(18));
-          this.averageTokenPrice = +new BigNumber(res[2].toString()).div(new BigNumber(10).pow(18));
-
-          // isFirstLoad && (this.isBalanceBetter = estimate > this.maxPurchase || amount > this.ethLimits.max);
-
-          if (fromEth) {
-            this.mntp = +this.substrValue(estimate);
-            // this.errors.invalidBalance = false;
-          } else {
-            this.eth = +this.substrValue(estimate);
-            if (this.ethAddress && this.eth > this.ethBalance) {
-              this.errors.invalidBalance = true;
-            }
-          }
-
-          this.minReturn = +this.substrValue(this.mntp * this.minReturnPercent);
-
-          this.ethAddress && (this.errors.maxPurchase = this.mntp > this.maxPurchase);
-          this.loading = this.isMinReturnError = false;
-          this.cdRef.markForCheck();
-        });
+      if (fromEth) {
+        this.mntp = +this.substrValue(estimate);
+      } else {
+        this.eth = +this.substrValue(estimate);
+        if (this.ethAddress && this.eth > this.ethBalance) {
+          this.errors.invalidBalance = true;
+        }
       }
+
+      this.minReturn = +this.substrValue(this.mntp * this.minReturnPercent);
+
+      this.loading = this.isMinReturnError = false;
+      this.cdRef.markForCheck();
     });
     this.cdRef.markForCheck();
   }
