@@ -119,7 +119,9 @@ export class BuyComponent implements OnInit, OnDestroy {
         if (!this.ethAddress) {
            this.timeOut = setTimeout(() => {
              !this.ethBalanceForCheck && this.translate.get('MESSAGE.MMHandingOut').subscribe(phrase => {
-               this.messageBox.alert(`<div>${phrase}<div class="mm-hanging-out"></div></div>`);
+               this.messageBox.alert(`<div>${phrase}<div class="mm-hanging-out"></div></div>`).subscribe(ok => {
+                 ok && location.reload();
+               });
              });
           }, 3000);
         }
