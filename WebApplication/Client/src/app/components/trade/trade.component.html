@@ -70,6 +70,10 @@
                   <b>{{ uniqueMasternodeLink }}</b>
                 </span>
               </div>
+
+              <div class="pr-2" *ngIf="uniqueMasternodeLink && !isUserRefAvailable">
+                <span [innerHTML]="'PAGES.Trade.Labels.GettingRef' | translate:{token: minRefTokenAmount}"></span>
+              </div>
             </div>
 
             <div class="text-right">

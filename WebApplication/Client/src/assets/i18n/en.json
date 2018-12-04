@@ -30,7 +30,8 @@
         "ClickToCopy": "Click to copy",
         "ShareReward": "Share reward",
         "RefBonus": "Ref bonus",
-        "PromoBonus": "Promo bonus"
+        "PromoBonus": "Promo bonus",
+        "GettingRef": "You need to buy <b>at least {{ token }} token</b> for getting ref link"
       },
       "Buttons": {
         "BuySell": "Buy/Sell token",

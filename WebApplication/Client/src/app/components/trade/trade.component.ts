@@ -24,6 +24,7 @@ export class TradeComponent implements OnInit, OnDestroy {
   public tokenBalance: BigNumber | any = null;
   public isUserRefAvailable: boolean = false;
   public refBonusPercent: number = 0;
+  public minRefTokenAmount: number = null;
   public uniqueMasternodeLink: string;
 
   public userReward: BigNumber | any = 0;
@@ -173,10 +174,15 @@ export class TradeComponent implements OnInit, OnDestroy {
         this.cdRef.markForCheck();
       });
 
-      this.ethService._contractInfura.getRefBonusPercent((err, res) => {
-        this.refBonusPercent = +res / Math.pow(10, 18);
+      this.ethService._contractInfura.getMinRefTokenAmount((err, res) => {
+        this.minRefTokenAmount = +res / Math.pow(10, 18);
         this.cdRef.markForCheck();
       });
+
+      // this.ethService._contractInfura.getRefBonusPercent((err, res) => {
+      //   this.refBonusPercent = +res / Math.pow(10, 18);
+      //   this.cdRef.markForCheck();
+      // });
     }
   }
 
