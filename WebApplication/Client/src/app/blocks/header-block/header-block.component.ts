@@ -23,6 +23,7 @@ export class HeaderBlockComponent implements OnInit {
     router.events.subscribe(route => {
       if (route instanceof NavigationEnd) {
         this.isShowMobileMenu = false;
+        document.body.style.overflow = 'visible';
         this.cdRef.markForCheck();
       }
     })
