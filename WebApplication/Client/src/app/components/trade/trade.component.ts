@@ -64,6 +64,7 @@ export class TradeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.params.takeUntil(this.destroy$).subscribe(params => {
       let address = params.id,
+          tokenAddress,
           tokenId,
           addressExist = false;
 
@@ -79,12 +80,14 @@ export class TradeComponent implements OnInit, OnDestroy {
           if (token.etheramaContractAddress === address) {
             addressExist = true;
             tokenId = token.id;
+            tokenAddress = token.tokenContractAddress;
           }
         });
 
         if (addressExist) {
           let data: any = {};
           data.etheramaContractAddress = address;
+          data.tokenContractAddress = tokenAddress;
           data.tokenId = tokenId;
           this.commonService.passMarketData$.next(data);
 

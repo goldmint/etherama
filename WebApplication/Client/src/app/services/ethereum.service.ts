@@ -13,12 +13,11 @@ import {CommonService} from "./common.service";
 export class EthereumService {
 
   private _infuraUrl = environment.infuraUrl;
-  private _etherscanGetABIUrl = environment.etherscanGetABIUrl;
 
-  private etheramaContractAddress /*= environment.mintoramaContractAddress*/;
+  private etheramaContractAddress;
   private etheramaContractABI = environment.etheramaContractABI;
 
-  private tokenContractAddress = environment.mntpContractAddress;
+  private tokenContractAddress;
   private tokenContractABI = environment.tokenABI;
 
   private _web3Infura: Web3 = null;
@@ -87,6 +86,7 @@ export class EthereumService {
     this.commonService.passMarketData$.subscribe((data: MarketData) => {
       if (data) {
         this.etheramaContractAddress = data.etheramaContractAddress;
+        this.tokenContractAddress = data.tokenContractAddress;
         this.setInterval();
       } else {
         this._lastAddress = null;

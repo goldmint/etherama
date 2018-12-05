@@ -240,6 +240,7 @@ export class MarketComponent implements OnInit, OnDestroy {
   trade(row: TokenList) {
     let data: any = {};
     data.etheramaContractAddress = row.etheramaContractAddress;
+    data.tokenContractAddress = row.tokenContractAddress;
     data.tokenId = row.id;
     this.commonService.passMarketData$.next(data);
     this.messageBox.buySell(true);
