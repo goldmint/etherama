@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {EthereumService} from "../../../services/ethereum.service";
 import {Subject} from "rxjs/Subject";
 import * as Web3 from "web3";
@@ -8,6 +8,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {MessageBoxService} from "../../../services/message-box.service";
 import {UserService} from "../../../services/user.service";
 import {Observable} from "rxjs/Observable";
+import {TokenInfo} from "../../../interfaces/token-info";
 
 @Component({
   selector: 'app-sell',
@@ -16,6 +17,7 @@ import {Observable} from "rxjs/Observable";
 })
 export class SellComponent implements OnInit, OnDestroy {
 
+  @Input('tokenInfo') tokenInfo: TokenInfo;
   @ViewChild('mntpInput') mntpInput;
   @ViewChild('ethInput') ethInput;
 

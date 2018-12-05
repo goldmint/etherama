@@ -21,7 +21,7 @@
       "Labels": {
         "ExpDate": "Lookup exp. date:",
         "EthContract": "ETH in contract:",
-        "TokensContract": "Tokens in contract:",
+        "TokensContract": "Tokens sold:",
         "TotalSupply": "Total token supply:",
         "Tokens": "My tokens:",
         "Bonus": "My bonus:",

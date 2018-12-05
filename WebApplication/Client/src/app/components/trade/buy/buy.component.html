@@ -1,9 +1,9 @@
 <div class="pt-2">
     <div class="text-center">
         <div class="buy-sell__title-block">
-            <svg class="icon gold" width="50" height="50">
-                <use xlink:href="#etherama-icon"></use>
-            </svg>
+            <div class="buy-sell-logo">
+              <img [src]="tokenInfo.logoUrl" alt="token_icon">
+            </div>
             <div class="buy-sell__title">{{ "PAGES.Buy.Heading" | translate }}</div>
         </div>
 
@@ -61,9 +61,9 @@
               <div class="from-row form-group m-0">
                 <div class="d-flex align-items-center">
                   <div class="form-currency">
-                    <svg class="icon" width="30" height="30">
-                      <use xlink:href="#etherama-icon" width="30" height="30"></use>
-                    </svg>
+                    <div class="buy-sell-token-icon">
+                      <img [src]="tokenInfo.logoUrl" alt="token_icon">
+                    </div>
                   </div>
                   <input type="text" class="form-control m-0" name="mntp-input" id="mntp-input" placeholder="0.01"
                          #mntpInput="ngModel"

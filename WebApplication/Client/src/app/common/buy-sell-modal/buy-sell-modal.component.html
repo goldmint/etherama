@@ -7,7 +7,7 @@
   </button>
 </div>
 
-<div class="message-box__body">
+<div class="message-box__body position-relative">
   <div class="col-auto btn-group p-0 w-100">
     <label class="btn btn-primary btn-sm active wrap w-50"
            name="limitsSwitchModel.type"
@@ -19,11 +19,15 @@
            btnRadio="sell">Sell</label>
   </div>
 
-  <div *ngIf="switchModel.type === 'buy'">
-    <app-buy></app-buy>
+  <div class="progress-linear progress-linear--tiny trade-progress-linear" *ngIf="!isDataLoaded">
+    <div class="container"></div>
   </div>
-  <div *ngIf="switchModel.type === 'sell'">
-    <app-sell></app-sell>
+
+  <div *ngIf="switchModel.type === 'buy' && isDataLoaded">
+    <app-buy [tokenInfo]="tokenInfo"></app-buy>
+  </div>
+  <div *ngIf="switchModel.type === 'sell' && isDataLoaded">
+    <app-sell [tokenInfo]="tokenInfo"></app-sell>
   </div>
 
 </div>
