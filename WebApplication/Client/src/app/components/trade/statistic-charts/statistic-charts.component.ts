@@ -40,7 +40,7 @@ export class StatisticChartsComponent implements OnInit, OnDestroy {
       id: 'buySellCount',
       fieldName: ['totalTxCount'],
       options: [
-        {text: "Tx amount", iconFill:"#63B7F7", label: 'ETH'},
+        {text: "Tx amount", iconFill:"#63B7F7", label: 'TX'},
       ]
     }
   };

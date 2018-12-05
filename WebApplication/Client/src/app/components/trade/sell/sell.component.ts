@@ -51,7 +51,7 @@ export class SellComponent implements OnInit, OnDestroy {
   public minReturn: number;
   public isMinReturnError: boolean = false;
 
-  private minReturnPercent = 0.95;
+  private minReturnPercent = 1;
   private web3: Web3 = new Web3();
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
