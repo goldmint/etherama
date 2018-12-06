@@ -35,19 +35,51 @@
                   <button class="percent-btn" (click)="setCoinBalance(0.5)">50%</button>
                   <button class="percent-btn" (click)="setCoinBalance(0.75)">75%</button>
                   <button class="percent-btn" (click)="setCoinBalance(1)">100%</button>
+
+                  <div class="ml-2" popover='info' triggers="mouseenter:mouseleave" placement="top">
+                    <svg class="icon" width="17" height="17">
+                      <use xlink:href="#info"></use>
+                    </svg>
+                  </div>
                 </div>
             </div>
 
             <div class="my-3">
                 <div *ngIf="!ethAddress">
-                  <div class="estimate-info">{{ "PAGES.Buy.Labels.Fee" | translate }}  {{ estimateFee | noexp:18 }} ETH</div>
-                  <div class="estimate-info">{{ "PAGES.Buy.Labels.TokenPrice" | translate }}  {{ averageTokenPrice | noexp:18 }} ETH/MNTP</div>
+                  <div class="estimate-info">{{ "PAGES.Buy.Labels.Fee" | translate }}  {{ estimateFee | noexp:18 }} ETH
+                    <span class="ml-2" popover='info' triggers="mouseenter:mouseleave" placement="top">
+                      <svg class="icon" width="17" height="17">
+                        <use xlink:href="#info"></use>
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="estimate-info">
+                    {{ "PAGES.Buy.Labels.TokenPrice" | translate }}  {{ averageTokenPrice | noexp:18 }} ETH/MNTP
+                    <span class="ml-2" popover='info' triggers="mouseenter:mouseleave" placement="top">
+                      <svg class="icon" width="17" height="17">
+                        <use xlink:href="#info"></use>
+                      </svg>
+                    </span>
+                  </div>
                 </div>
 
                 <div *ngIf="ethAddress">
                   <span *ngIf="eth && (!errors.invalidBalance && !errors.ethLimit)">
-                    <div class="estimate-info">{{ "PAGES.Buy.Labels.Fee" | translate }}  {{ estimateFee | noexp:18 }} ETH</div>
-                    <div class="estimate-info">{{ "PAGES.Buy.Labels.TokenPrice" | translate }}  {{ averageTokenPrice | noexp:18 }} ETH/MNTP</div>
+                    <div class="estimate-info">{{ "PAGES.Buy.Labels.Fee" | translate }}  {{ estimateFee | noexp:18 }} ETH
+                      <span class="ml-2" popover='info' triggers="mouseenter:mouseleave" placement="top">
+                      <svg class="icon" width="17" height="17">
+                        <use xlink:href="#info"></use>
+                      </svg>
+                    </span>
+                    </div>
+                    <div class="estimate-info">
+                      {{ "PAGES.Buy.Labels.TokenPrice" | translate }}  {{ averageTokenPrice | noexp:18 }} ETH/MNTP
+                      <span class="ml-2" popover='info' triggers="mouseenter:mouseleave" placement="top">
+                      <svg class="icon" width="17" height="17">
+                        <use xlink:href="#info"></use>
+                      </svg>
+                    </span>
+                    </div>
                   </span>
                   <div *ngIf="errors.invalidBalance">{{ "PAGES.Buy.Errors.InvalidBalance" | translate }}</div>
                   <div *ngIf="!errors.invalidBalance && errors.ethLimit">
@@ -73,6 +105,12 @@
                          [value]="mntp"
                          readonly
                          required>
+
+                  <div class="ml-2" popover='info' triggers="mouseenter:mouseleave" placement="top">
+                    <svg class="icon" width="17" height="17">
+                      <use xlink:href="#info"></use>
+                    </svg>
+                  </div>
                 </div>
               </div>
 
