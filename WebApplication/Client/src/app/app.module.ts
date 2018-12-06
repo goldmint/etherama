@@ -21,7 +21,7 @@ import { RECAPTCHA_SETTINGS,
 import {
   BsDropdownModule,
   ModalModule,
-  ButtonsModule, CollapseModule, PopoverModule
+  ButtonsModule, CollapseModule, PopoverModule, CarouselModule
 } from 'ngx-bootstrap';
 
 import { HeaderBlockComponent } from './blocks/header-block/header-block.component';
@@ -52,6 +52,7 @@ import { EthAddressValidatorDirective } from './directives/eth-address-validator
 import {environment} from "../environments/environment";
 import { EmailValidatorDirective } from './directives/email-validator.directive';
 import { MainPromoBonusComponent } from './components/market/main-promo-bonus/main-promo-bonus.component';
+import { EtheramaMainModalComponent } from './common/etherama-main-modal/etherama-main-modal.component';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -73,6 +74,7 @@ export function createTranslateLoader(http: HttpClient) {
     HttpClientModule,
     NgxDatatableModule,
     PopoverModule.forRoot(),
+    CarouselModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -103,7 +105,8 @@ export function createTranslateLoader(http: HttpClient) {
     TradeComponent,
     EthAddressValidatorDirective,
     EmailValidatorDirective,
-    MainPromoBonusComponent
+    MainPromoBonusComponent,
+    EtheramaMainModalComponent
   ],
   exports: [],
   providers: [
@@ -127,7 +130,8 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   entryComponents: [
     MessageBoxComponent,
-    BuySellModalComponent
+    BuySellModalComponent,
+    EtheramaMainModalComponent
   ],
   bootstrap: [AppComponent]
 })

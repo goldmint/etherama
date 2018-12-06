@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@an
 import {EthereumService} from "./services/ethereum.service";
 import {BigNumber} from "bignumber.js";
 import {CommonService} from "./services/common.service";
+import {MessageBoxService} from "./services/message-box.service";
 
 @Component({
   selector: 'app-root',
@@ -18,10 +19,17 @@ export class AppComponent implements OnInit {
   constructor(
     private ethService: EthereumService,
     private commonService: CommonService,
+    private messageBox: MessageBoxService,
     private cdRef: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
+    let modalSessionKeyName = 'main_modal_shown',
+        modalSessionValue = window.sessionStorage.getItem(modalSessionKeyName);
+
+    modalSessionValue === null && this.messageBox.mainModal();
+    window.sessionStorage.setItem(modalSessionKeyName, 'true');
+
     this.ethService.getObservableEthBalance().subscribe(balance => {
       if (balance !== null && (this.ethBalance === null || !this.ethBalance.eq(balance))) {
         this.ethBalance = balance;

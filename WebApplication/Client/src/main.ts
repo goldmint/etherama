@@ -15,7 +15,7 @@ platformBrowserDynamic().bootstrapModule(AppModule)
 /**
  * Storage prefix
  */
-const storagePrefix = 'blockchain_';
+const storagePrefix = 'etherama_';
 
 let originStorageSetItem = Storage.prototype.setItem;
 Storage.prototype.setItem = function(key, value) {

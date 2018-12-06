@@ -51,9 +51,4 @@ export class MessageBoxComponent {
     this.callback(this);
     this._bsModalRef.hide();
   }
-
-  // get observable() {
-  //   this._onClose.asObservable();
-  // }
-
 }
