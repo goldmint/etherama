@@ -1,5 +1,8 @@
-<div class="text-center promo-bonus-container my-5 my-lg-0">
+<div class="progress-linear progress-linear--tiny" *ngIf="!isDataLoaded">
+  <div class="container"></div>
+</div>
 
+<div class="text-center promo-bonus-container my-5 my-lg-0">
   <div class="promo-bonus-info-container mb-3">
     <div class="promo-bonus-info-block col-12 col-sm-6">
       <div class="mb-2"><b>{{ "PAGES.PromoBonus.Labels.BigBonus" | translate }}</b></div>
@@ -11,7 +14,7 @@
       </div>
 
       <div class="promo-bonus-info">
-        <b>{{ +promoBonus?.big }}</b>
+        <b>{{ +promoBonus?.big | noexp:18 }}</b>
         <div class="fz-13">(ETH)</div>
       </div>
 
@@ -30,7 +33,7 @@
       </div>
 
       <div class="promo-bonus-info">
-        <b>{{ +promoBonus?.quick }}</b>
+        <b>{{ +promoBonus?.quick | noexp:18 }}</b>
         <div class="fz-13">(ETH)</div>
       </div>
 

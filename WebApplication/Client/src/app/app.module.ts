@@ -53,6 +53,7 @@ import {environment} from "../environments/environment";
 import { EmailValidatorDirective } from './directives/email-validator.directive';
 import { MainPromoBonusComponent } from './components/market/main-promo-bonus/main-promo-bonus.component';
 import { EtheramaMainModalComponent } from './common/etherama-main-modal/etherama-main-modal.component';
+import {MainContractService} from "./services/main-contract.service";
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -116,6 +117,7 @@ export function createTranslateLoader(http: HttpClient) {
     UserService,
     CommonService,
     EthereumService,
+    MainContractService,
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: {

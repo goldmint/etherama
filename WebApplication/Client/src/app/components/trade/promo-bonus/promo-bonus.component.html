@@ -11,7 +11,7 @@
       </div>
 
       <div class="promo-bonus-info">
-        <b>{{ +promoBonus?.big }}</b>
+        <b>{{ +promoBonus?.big | noexp:18 }}</b>
         <div class="fz-13">(ETH)</div>
       </div>
 
@@ -31,7 +31,7 @@
       </div>
 
       <div class="promo-bonus-info">
-        <b>{{ +promoBonus?.quick }}</b>
+        <b>{{ +promoBonus?.quick | noexp:18 }}</b>
         <div class="fz-13">(ETH)</div>
       </div>
 

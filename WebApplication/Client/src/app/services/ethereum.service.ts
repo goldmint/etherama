@@ -78,6 +78,7 @@ export class EthereumService {
   public getSuccessBuyRequestLink$ = new Subject();
   public getSuccessSellRequestLink$ = new Subject();
 
+  private isTradePage: boolean;
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
@@ -85,24 +86,28 @@ export class EthereumService {
   ) {
     this.commonService.passMarketData$.subscribe((data: MarketData) => {
       if (data) {
+        this.stopService();
         this.etheramaContractAddress = data.etheramaContractAddress;
         this.tokenContractAddress = data.tokenContractAddress;
+        this.isTradePage = data.isTradePage;
         this.setInterval();
       } else {
-        this._lastAddress = null;
-        this._web3Infura = null;
-        this._web3Metamask = null;
-        this.destroy$.next(true);
+        this.stopService();
       }
     });
+  }
+
+  private stopService() {
+    this._lastAddress = this._web3Infura = this._web3Metamask = null;
+    this.destroy$.next(true);
   }
 
   private setInterval() {
     interval(500).takeUntil(this.destroy$).subscribe(this.checkWeb3.bind(this));
     interval(7500).takeUntil(this.destroy$).subscribe(this.checkBalance.bind(this));
     interval(60000).takeUntil(this.destroy$).subscribe(this.checkContractData.bind(this));
-    interval(10000).takeUntil(this.destroy$).subscribe(this.updateWinBIGPromoBonus.bind(this));
-    interval(10000).takeUntil(this.destroy$).subscribe(this.updateWinQUICKPromoBonus.bind(this));
+    this.isTradePage && interval(10000).takeUntil(this.destroy$).subscribe(this.updateWinBIGPromoBonus.bind(this));
+    this.isTradePage && interval(10000).takeUntil(this.destroy$).subscribe(this.updateWinQUICKPromoBonus.bind(this));
   }
 
   private checkWeb3() {
@@ -111,6 +116,8 @@ export class EthereumService {
 
       if (this._web3Infura['eth']) {
         this._contractInfura = this._web3Infura['eth'].contract(JSON.parse(this.etheramaContractABI)).at(this.etheramaContractAddress);
+        this.isTradePage && this.initBankInfoMethods();
+        this.update1TokenPrice();
       } else {
         this._web3Infura = null;
       }
@@ -151,6 +158,12 @@ export class EthereumService {
     }
   }
 
+  private initBankInfoMethods() {
+    this.updatePromoBonus();
+    this.updateWinBIGPromoBonus();
+    this.updateWinQUICKPromoBonus();
+  }
+
   private checkBalance() {
     if (this._lastAddress != null) {
       this.updateTokenBalance(this._lastAddress);
@@ -161,9 +174,12 @@ export class EthereumService {
 
   private checkContractData() {
     this.update1TokenPrice();
-    this.updateTotalData();
-    this.updatePromoBonus();
-    this.updateTotalTokenSupply();
+
+    if (this.isTradePage) {
+      this.updateTotalData();
+      this.updatePromoBonus();
+      this.updateTotalTokenSupply();
+    }
   }
 
   private emitAddress(ethAddress: string) {
@@ -172,15 +188,14 @@ export class EthereumService {
 
     this._obsEthAddressSubject.next(ethAddress);
     this.checkBalance();
-    this.update1TokenPrice();
-    this.updateTotalData();
-    this.updatePromoBonus();
-    this.updateWinBIGPromoBonus();
-    this.updateWinQUICKPromoBonus();
     this.getTokenDealRange();
     this.getEthDealRange();
-    this.updateTotalTokenSupply();
-    this.getExpirationTime();
+
+    if (this.isTradePage) {
+      this.updateTotalData();
+      this.updateTotalTokenSupply();
+      this.getExpirationTime();
+    }
   }
 
   private updateTokenBalance(addr: string) {

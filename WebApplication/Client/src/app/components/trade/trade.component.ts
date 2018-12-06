@@ -23,7 +23,6 @@ export class TradeComponent implements OnInit, OnDestroy {
   public ethAddress: string = null;
   public tokenBalance: BigNumber | any = null;
   public isUserRefAvailable: boolean = false;
-  public refBonusPercent: number = 0;
   public minRefTokenAmount: number = null;
   public uniqueMasternodeLink: string;
 
@@ -34,6 +33,7 @@ export class TradeComponent implements OnInit, OnDestroy {
     totalTokens: 0
   };
   public isDataLoaded: boolean = false;
+  public isBankLoaded: boolean = false;
   public expirationTime = {
     expiration: '-',
     tillExpiration: '-'
@@ -89,6 +89,7 @@ export class TradeComponent implements OnInit, OnDestroy {
           data.etheramaContractAddress = address;
           data.tokenContractAddress = tokenAddress;
           data.tokenId = tokenId;
+          data.isTradePage = true;
           this.commonService.passMarketData$.next(data);
 
           this.apiService.getTokenInfo(tokenId).subscribe((data: any) => {
@@ -103,6 +104,11 @@ export class TradeComponent implements OnInit, OnDestroy {
           this.cdRef.markForCheck();
         }
       });
+    });
+
+    this.commonService.isDataLoaded$.subscribe((isLoaded: any) => {
+      this.isBankLoaded = isLoaded;
+      this.cdRef.markForCheck();
     });
   }
 
@@ -181,11 +187,6 @@ export class TradeComponent implements OnInit, OnDestroy {
         this.minRefTokenAmount = +res / Math.pow(10, 18);
         this.cdRef.markForCheck();
       });
-
-      // this.ethService._contractInfura.getRefBonusPercent((err, res) => {
-      //   this.refBonusPercent = +res / Math.pow(10, 18);
-      //   this.cdRef.markForCheck();
-      // });
     }
   }
 
