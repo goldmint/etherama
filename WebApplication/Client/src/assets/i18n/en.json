@@ -30,10 +30,10 @@
         "ShareReward": "Share reward",
         "RefBonus": "Ref bonus",
         "PromoBonus": "Promo bonus",
-        "GettingRef": "You need to buy <b>at least {{ token }} token</b> for getting ref link"
+        "GettingRef": "You need to buy <b>at least {{ token }} token</b> to get ref link"
       },
       "Buttons": {
-        "BuySell": "Buy/Sell token",
+        "BuySell": "Buy/sell token",
         "Withdraw": "Withdraw bonus",
         "View": "View Etherscan"
       },
@@ -58,8 +58,8 @@
       "Labels": {
         "TypeNumber": "Type a valid number.",
         "Result": "Approximately {{ amount }} MNTP.",
-        "Fee": "Estimated fee",
-        "TokenPrice": "Average token price",
+        "Fee": "Estimated fee:",
+        "TokenPrice": "Average token price:",
         "CurrentPrice": "Current buy price for 1 token:",
         "MaxPurchase": "You can buy maximum {{ max }} tokens",
         "MinReturn": "Min return"
@@ -68,7 +68,7 @@
         "InvalidBalance": "You don't have enough money.",
         "MaxPurchase": "You are allowed to buy max {{ max }} MNTP",
         "Limits": "Minimal value is {{ min }}. Maximum value is {{ max }}.",
-        "minReturn": "Minimum value must be greater than <b>0</b>. Maximum value is <b>{{ max }}</b>."
+        "minReturn": "Minimal value must be greater than <b>0</b>. Maximal value is <b>{{ max }}</b>."
       }
     },
     "Sell": {
@@ -87,7 +87,7 @@
       "Errors": {
         "InvalidBalance": "You don't have enough money",
         "Limits": "Minimal value is {{ min }}. Maximum value is {{ max }}.",
-        "minReturn": "Minimum value must be greater than <b>0</b>. Maximum value is <b>{{ max }}</b>."
+        "minReturn": "Minimal value must be greater than <b>0</b>. Maximal value is <b>{{ max }}</b>."
       }
     },
     "PromoBonus": {
@@ -100,7 +100,7 @@
       "Info": "You're gonna win a promo bonus if your buy transaction for <b>more than {{ value }} tokens</b> is the first in a particular block!"
     },
     "AddToken": {
-      "Heading": "Add token request",
+      "Heading": "Add token",
       "Labels": {
         "Name": "Your company name",
         "Email": "Contact email",
@@ -303,10 +303,10 @@
   },
   "MESSAGE": {
     "MetaMask": {
-      "Heading": "To continue you'll need to have Metamask",
-      "Text": "MetaMask is a bridge that allows you to visit the distributed web of tomorrow in your browser today. It allows you to run Ethereum dApps right in your browser without running a full Ethereum node. Please, install the MetaMask add-on in Chrome, Firefox or Opera browser. Get <a href=\"https://metamask.io\" target=\"_blank\">Metamask</a>"
+      "Heading": "To continue you'll need to have MetaMask",
+      "Text": "MetaMask is a bridge that allows you to visit the distributed web of tomorrow in your browser today. It allows you to run Ethereum dApps right in your browser without running a full Ethereum node. Please, install the MetaMask add-on in Chrome, Firefox or Opera browser. Get <a href=\"https://metamask.io\" target=\"_blank\">MetaMask</a>"
     },
-    "MMHandingOut": "Seems like your MetaMask is hanging out and doesn't work properly at the moment. Please try to turn it off and then on at your extension settings. After reloading MetaMask please click OK.",
+    "MMHandingOut": "Seems like your MetaMask is hanging out or doesn't work properly at the moment. Please try to turn it off and then on at your extension settings. After reloading MetaMask please click OK.",
     "LoginToMM": {
       "HeadingBuy": "BUY TOKEN",
       "HeadingSell": "SELL TOKEN",
