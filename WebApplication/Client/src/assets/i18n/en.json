@@ -2,11 +2,10 @@
   "HEADER": {
     "Menu": {
       "Market": "Market",
-      "About": "About",
       "FAQ": "FAQ"
     },
     "Buttons": {
-      "Add": "Add token request"
+      "Add": "Add your token"
     }
   },
   "PAGES": {
@@ -136,7 +135,6 @@
       }
     },
     "Market": {
-      "Heading": "Market",
       "Table": {
         "Name": "Name",
         "24HChange": "24H Change, %",
@@ -154,7 +152,6 @@
       }
     },
     "About": {
-      "Heading": "About",
       "Sections": {
         "1th": {
           "Heading": "1. Что есть Etherama?",

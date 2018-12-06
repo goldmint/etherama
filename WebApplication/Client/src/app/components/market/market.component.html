@@ -1,10 +1,8 @@
 <!-- host: .page -->
 
-<h1 class="page__heading">{{ "PAGES.Market.Heading" | translate }}</h1>
+<app-main-promo-bonus></app-main-promo-bonus>
 
-<section class="page__section section">
-  <h2 class="section__title">{{ "PAGES.Market.Heading" | translate }}</h2>
-
+<section class="page__section">
   <div class="progress-linear progress-linear--tiny" *ngIf="!isDataLoaded || loading">
     <div class="container"></div>
   </div>

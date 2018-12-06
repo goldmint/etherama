@@ -44,7 +44,6 @@ import { AddTokenComponent } from './components/add-token/add-token.component';
 import { TimerComponent } from './common/timer/timer.component';
 import { StatisticChartsComponent } from './components/trade/statistic-charts/statistic-charts.component';
 import { BuySellModalComponent } from './common/buy-sell-modal/buy-sell-modal.component';
-import { AboutComponent } from './components/about/about.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { MarketComponent } from './components/market/market.component';
 import { TradeComponent } from './components/trade/trade.component';
@@ -52,6 +51,7 @@ import {CommonService} from "./services/common.service";
 import { EthAddressValidatorDirective } from './directives/eth-address-validator.directive';
 import {environment} from "../environments/environment";
 import { EmailValidatorDirective } from './directives/email-validator.directive';
+import { MainPromoBonusComponent } from './components/market/main-promo-bonus/main-promo-bonus.component';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -98,12 +98,12 @@ export function createTranslateLoader(http: HttpClient) {
     TimerComponent,
     StatisticChartsComponent,
     BuySellModalComponent,
-    AboutComponent,
     FaqComponent,
     MarketComponent,
     TradeComponent,
     EthAddressValidatorDirective,
-    EmailValidatorDirective
+    EmailValidatorDirective,
+    MainPromoBonusComponent
   ],
   exports: [],
   providers: [
