@@ -1,34 +1,53 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {Subject} from "rxjs/Subject";
+import {document} from "ngx-bootstrap/utils/facade/browser";
 
 @Component({
   selector: 'app-faq',
   templateUrl: './faq.component.html',
-  styleUrls: ['./faq.component.sass']
+  styleUrls: ['./faq.component.sass'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FaqComponent implements OnInit {
+export class FaqComponent implements OnInit, OnDestroy {
 
   @HostBinding('class') class = 'page';
 
-  public collapse: any = {
-    about: {},
-    faq: {}
-  };
+  public collapse: any = {};
   public totalCollapses = {
     about: 8,
     faq: 13
   }
   public ngForArray = new Array(this.totalCollapses.faq);
 
-  constructor() { }
+  private destroy$: Subject<boolean> = new Subject<boolean>();
+
+  constructor(
+    private route: ActivatedRoute,
+    private cdRef: ChangeDetectorRef
+  ) { }
 
   ngOnInit() {
-    for (let i = 1; i <= this.totalCollapses.about; i++) {
-      this.collapse.about['about' + i] = true;
-    }
+    this.route.params.takeUntil(this.destroy$).subscribe(params => {
+      for (let i = 1; i <= (this.totalCollapses.about + this.totalCollapses.faq); i++) {
+        this.collapse['item' + i] = true;
+      }
 
-    for (let i = 0; i < this.totalCollapses.faq; i++) {
-      this.collapse.faq['faq' + i] = true;
-    }
+      if (params.id && this.collapse['item' + params.id]) {
+        this.collapse['item' + params.id] = false;
+        this.cdRef.markForCheck();
+
+       setTimeout(() => {
+         let element = document.querySelector('.collapse-heading.open');
+         element && element.scrollIntoView();
+       }, 0);
+      }
+
+    });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
   }
 
 }

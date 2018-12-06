@@ -11,6 +11,7 @@ const appRoutes: Routes = [
   { path: '', redirectTo: 'market', pathMatch: 'full' },
   { path: 'market', component: MarketComponent },
   { path: 'faq', component: FaqComponent },
+  { path: 'faq/:id', component: FaqComponent },
   { path: 'add-token', component: AddTokenComponent },
   { path: 'trade/:id', component: TradeComponent },
   { path: '**', component: NotFoundPageComponent }
