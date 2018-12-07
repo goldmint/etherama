@@ -5,7 +5,14 @@
 <div class="text-center promo-bonus-container my-5 my-lg-0">
   <div class="promo-bonus-info-container mb-3">
     <div class="promo-bonus-info-block col-12 col-sm-6">
-      <div class="mb-2"><b>{{ "PAGES.PromoBonus.Labels.BigBonus" | translate }}</b></div>
+      <div class="d-flex align-items-center justify-content-center mb-2">
+        <b>{{ "PAGES.PromoBonus.Labels.BigBonus" | translate }}</b>
+        <span class="ml-2" popover='info' triggers="mouseenter:mouseleave" placement="top">
+          <svg class="icon gold" width="22" height="22">
+            <use xlink:href="#info"></use>
+          </svg>
+        </span>
+      </div>
 
       <div class="w-100">
         <svg class="icon" width="150" height="150">
@@ -24,7 +31,13 @@
       </div>
     </div>
     <div class="promo-bonus-info-block col-12 col-sm-6">
-      <div class="mb-2"><b>{{ "PAGES.PromoBonus.Labels.QuickBonus" | translate }}</b></div>
+      <div class="d-flex align-items-center justify-content-center mb-2"><b>{{ "PAGES.PromoBonus.Labels.QuickBonus" | translate }}</b>
+        <span class="ml-2" popover='info' triggers="mouseenter:mouseleave" placement="top">
+          <svg class="icon gold" width="22" height="22">
+            <use xlink:href="#info"></use>
+          </svg>
+        </span>
+      </div>
 
       <div class="w-100">
         <svg class="icon" width="150" height="150">

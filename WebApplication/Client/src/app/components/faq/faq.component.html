@@ -47,14 +47,7 @@
 
       <div class="collapse-content">
         <div class="card card-block card-header" [collapse]="collapse.item2">
-          <div class="mt-2" [innerHTML]="'PAGES.About.Sections.2th.Text' | translate"></div>
-
-          <ul class="mt-2">
-            <li><div [innerHTML]="'PAGES.About.Sections.1th.List.1th' | translate"></div></li>
-            <li><div [innerHTML]="'PAGES.About.Sections.1th.List.2th' | translate"></div></li>
-            <li><div [innerHTML]="'PAGES.About.Sections.1th.List.3th' | translate"></div></li>
-            <li><div [innerHTML]="'PAGES.About.Sections.1th.List.4th' | translate"></div></li>
-          </ul>
+          <div [innerHTML]="'PAGES.About.Sections.2th.Text' | translate"></div>
         </div>
       </div>
     </div>
@@ -71,7 +64,7 @@
 
       <div class="collapse-content">
         <div class="card card-block card-header" [collapse]="collapse.item3">
-          <div [innerHTML]="'PAGES.About.Sections.3th.Text' | translate"></div>
+          <div class="mt-2" [innerHTML]="'PAGES.About.Sections.3th.Text' | translate"></div>
         </div>
       </div>
     </div>
@@ -89,15 +82,6 @@
       <div class="collapse-content">
         <div class="card card-block card-header" [collapse]="collapse.item4">
           <div [innerHTML]="'PAGES.About.Sections.4th.Text' | translate"></div>
-
-          <ul class="mt-2 no-list-type pl-4">
-            <li><div [innerHTML]="'PAGES.About.Sections.4th.List.1th' | translate"></div></li>
-            <li><div [innerHTML]="'PAGES.About.Sections.4th.List.2th' | translate"></div></li>
-            <li><div [innerHTML]="'PAGES.About.Sections.4th.List.3th' | translate"></div></li>
-            <li><div [innerHTML]="'PAGES.About.Sections.4th.List.4th' | translate"></div></li>
-            <li><div [innerHTML]="'PAGES.About.Sections.4th.List.5th' | translate"></div></li>
-            <li><div [innerHTML]="'PAGES.About.Sections.4th.List.6th' | translate"></div></li>
-          </ul>
         </div>
       </div>
     </div>
@@ -114,21 +98,7 @@
 
       <div class="collapse-content">
         <div class="card card-block card-header" [collapse]="collapse.item5">
-          <div>
-            <div class="mb-1" [innerHTML]="'PAGES.About.Sections.5th.List1.Heading' | translate"></div>
-            <div class="text-indent-4" [innerHTML]="'PAGES.About.Sections.5th.List1.Items.1th' | translate"></div>
-          </div>
-
-          <div class="mt-2">
-            <div class="mb-1" [innerHTML]="'PAGES.About.Sections.5th.List2.Heading' | translate"></div>
-            <ul class="no-list-type pl-4">
-              <li [innerHTML]="'PAGES.About.Sections.5th.List2.Items.1th' | translate"></li>
-              <li [innerHTML]="'PAGES.About.Sections.5th.List2.Items.2th' | translate"></li>
-              <li [innerHTML]="'PAGES.About.Sections.5th.List2.Items.3th' | translate"></li>
-              <li [innerHTML]="'PAGES.About.Sections.5th.List2.Items.4th' | translate"></li>
-              <li [innerHTML]="'PAGES.About.Sections.5th.List2.Items.5th' | translate"></li>
-            </ul>
-          </div>
+          <div [innerHTML]="'PAGES.About.Sections.5th.Text' | translate"></div>
         </div>
       </div>
     </div>
@@ -145,12 +115,16 @@
 
       <div class="collapse-content">
         <div class="card card-block card-header" [collapse]="collapse.item6">
-          <ul class="no-list-type">
-            <li [innerHTML]="'PAGES.About.Sections.6th.List.1th' | translate"></li>
-            <li [innerHTML]="'PAGES.About.Sections.6th.List.2th' | translate"></li>
-            <li [innerHTML]="'PAGES.About.Sections.6th.List.3th' | translate"></li>
+          <div [innerHTML]="'PAGES.About.Sections.6th.Text' | translate"></div>
+
+          <ul class="mt-2 no-list-type pl-4">
+            <li><div [innerHTML]="'PAGES.About.Sections.6th.List.1th' | translate"></div></li>
+            <li><div [innerHTML]="'PAGES.About.Sections.6th.List.2th' | translate"></div></li>
+            <li><div [innerHTML]="'PAGES.About.Sections.6th.List.3th' | translate"></div></li>
+            <li><div [innerHTML]="'PAGES.About.Sections.6th.List.4th' | translate"></div></li>
+            <li><div [innerHTML]="'PAGES.About.Sections.6th.List.5th' | translate"></div></li>
+            <li><div [innerHTML]="'PAGES.About.Sections.6th.List.6th' | translate"></div></li>
           </ul>
-          <div class="mt-2" [innerHTML]="'PAGES.About.Sections.6th.Text' | translate"></div>
         </div>
       </div>
     </div>
@@ -167,18 +141,21 @@
 
       <div class="collapse-content">
         <div class="card card-block card-header" [collapse]="collapse.item7">
-          <ul class="no-list-type m-0">
-            <li [innerHTML]="'PAGES.About.Sections.7th.List1.1th' | translate"></li>
-            <li [innerHTML]="'PAGES.About.Sections.7th.List1.2th' | translate"></li>
-            <li [innerHTML]="'PAGES.About.Sections.7th.List1.3th' | translate"></li>
-            <li [innerHTML]="'PAGES.About.Sections.7th.List1.4th' | translate"></li>
-          </ul>
-          <ul class="no-list-type pl-3">
-            <li [innerHTML]="'PAGES.About.Sections.7th.List2.1th' | translate"></li>
-            <li [innerHTML]="'PAGES.About.Sections.7th.List2.2th' | translate"></li>
-            <li [innerHTML]="'PAGES.About.Sections.7th.List2.3th' | translate"></li>
-            <li [innerHTML]="'PAGES.About.Sections.7th.List2.4th' | translate"></li>
-          </ul>
+          <div>
+            <div class="mb-1" [innerHTML]="'PAGES.About.Sections.7th.List1.Heading' | translate"></div>
+            <div class="text-indent-4" [innerHTML]="'PAGES.About.Sections.7th.List1.Items.1th' | translate"></div>
+          </div>
+
+          <div class="mt-2">
+            <div class="mb-1" [innerHTML]="'PAGES.About.Sections.7th.List2.Heading' | translate"></div>
+            <ul class="no-list-type pl-4">
+              <li [innerHTML]="'PAGES.About.Sections.7th.List2.Items.1th' | translate"></li>
+              <li [innerHTML]="'PAGES.About.Sections.7th.List2.Items.2th' | translate"></li>
+              <li [innerHTML]="'PAGES.About.Sections.7th.List2.Items.3th' | translate"></li>
+              <li [innerHTML]="'PAGES.About.Sections.7th.List2.Items.4th' | translate"></li>
+              <li [innerHTML]="'PAGES.About.Sections.7th.List2.Items.5th' | translate"></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -199,13 +176,35 @@
             <li [innerHTML]="'PAGES.About.Sections.8th.List.1th' | translate"></li>
             <li [innerHTML]="'PAGES.About.Sections.8th.List.2th' | translate"></li>
             <li [innerHTML]="'PAGES.About.Sections.8th.List.3th' | translate"></li>
-            <li [innerHTML]="'PAGES.About.Sections.8th.List.4th' | translate"></li>
+          </ul>
+          <div class="mt-2" [innerHTML]="'PAGES.About.Sections.8th.Text' | translate"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="collapse-container">
+      <div class="collapse-heading" [ngClass]="{'open': !collapse.item9}" (click)="collapse.item9 = !collapse.item9">
+        <div class="font-weight-500 lead" [innerHTML]="'PAGES.About.Sections.9th.Heading' | translate"></div>
+        <div class="collapse-arrow">
+          <svg class="icon" width="20" height="20">
+            <use xlink:href="#next"></use>
+          </svg>
+        </div>
+      </div>
+
+      <div class="collapse-content">
+        <div class="card card-block card-header" [collapse]="collapse.item9">
+          <ul class="no-list-type">
+            <li [innerHTML]="'PAGES.About.Sections.9th.List.1th' | translate"></li>
+            <li [innerHTML]="'PAGES.About.Sections.9th.List.2th' | translate"></li>
+            <li [innerHTML]="'PAGES.About.Sections.9th.List.3th' | translate"></li>
+            <li [innerHTML]="'PAGES.About.Sections.9th.List.4th' | translate"></li>
           </ul>
         </div>
       </div>
     </div>
 
-    <div class="mt-4">
+    <div>
       <div class="collapse-container" *ngFor="let a of ngForArray; index as i">
         <div class="collapse-heading" [ngClass]="{'open': !collapse['item'+(i+totalCollapses.about+1)]}" (click)="collapse['item'+(i+totalCollapses.about+1)] = !collapse['item'+(i+totalCollapses.about+1)]">
           <div class="font-weight-500 lead" [innerHTML]="'PAGES.FAQ.Answers.'+ (i+1) +'th.Heading' | translate"></div>

@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
     let modalSessionKeyName = 'main_modal_shown',
         modalSessionValue = window.sessionStorage.getItem(modalSessionKeyName);
 
-    modalSessionValue === null && this.messageBox.mainModal();
+    /*modalSessionValue === null && */this.messageBox.mainModal();
     window.sessionStorage.setItem(modalSessionKeyName, 'true');
 
     this.ethService.getObservableEthBalance().subscribe(balance => {

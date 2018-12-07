@@ -78,9 +78,9 @@ export class MainContractService {
       this._obsPromoBonusSubject.next(null);
     } else {
       let promoBonus = {};
-      this._contractInfura._currentQuickPromoBonus((err, res) => {
+      this._contractInfura && this._contractInfura._currentQuickPromoBonus((err, res) => {
         promoBonus['quick'] = new BigNumber(res.toString()).div(new BigNumber(10).pow(18));
-        this._contractInfura._currentBigPromoBonus((err, res) => {
+        this._contractInfura && this._contractInfura._currentBigPromoBonus((err, res) => {
           promoBonus['big'] = new BigNumber(res.toString()).div(new BigNumber(10).pow(18));
           this._obsPromoBonusSubject.next(promoBonus);
         });

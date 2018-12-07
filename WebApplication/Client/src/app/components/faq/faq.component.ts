@@ -15,8 +15,8 @@ export class FaqComponent implements OnInit, OnDestroy {
 
   public collapse: any = {};
   public totalCollapses = {
-    about: 8,
-    faq: 13
+    about: 9,
+    faq: 12
   }
   public ngForArray = new Array(this.totalCollapses.faq);
 

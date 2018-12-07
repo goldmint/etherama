@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, Title } from '@angular/platform-browser';
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
@@ -54,6 +54,7 @@ import { EmailValidatorDirective } from './directives/email-validator.directive'
 import { MainPromoBonusComponent } from './components/market/main-promo-bonus/main-promo-bonus.component';
 import { EtheramaMainModalComponent } from './common/etherama-main-modal/etherama-main-modal.component';
 import {MainContractService} from "./services/main-contract.service";
+import {ShareButtonsModule} from "@ngx-share/buttons";
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -76,6 +77,7 @@ export function createTranslateLoader(http: HttpClient) {
     NgxDatatableModule,
     PopoverModule.forRoot(),
     CarouselModule.forRoot(),
+    ShareButtonsModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

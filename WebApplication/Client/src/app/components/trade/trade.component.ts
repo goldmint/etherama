@@ -47,6 +47,7 @@ export class TradeComponent implements OnInit, OnDestroy {
     promoBonus: null
   };
   public locale: string;
+  public shareSocialUrl: string = location.href;
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
