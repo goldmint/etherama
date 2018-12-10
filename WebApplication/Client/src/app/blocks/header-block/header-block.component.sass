@@ -100,11 +100,6 @@
       .dropdown-menu
         font-size: rem(14px)
 
-.add-server-btn
-  background: $color-brand
-  margin: 0 10px
-  color: $color-white
-
 .language__select
   .add-server-btn
     a
@@ -112,6 +107,13 @@
       &:hover
         background: $color-brand-hover
         color: $color-black
+
+.header-info-container
+  display: flex
+  justify-content: space-between
+  align-items: center
+  width: 100%
+  height: 100%
 
 .mobile-menu-icon
   color: $color-brand
@@ -132,11 +134,13 @@
     display: block
     .nav-item
       border: none
+      margin: 0
       .nav-link
         background-color: black
         color: $color-brand
         justify-content: flex-start
         font-size: 1rem
+        padding: 0.625rem 1rem
 
   .mobile-account-info
     .dropdown-toggle
@@ -153,6 +157,70 @@
     color: $color-brand-active !important
     border: none
 
+  .input-copy-link
+    max-width: 100%
+
+.action-info-block
+  display: flex
+  align-items: center
+  justify-content: space-between
+  margin-right: 1rem
+  font-size: 14px
+
+  button
+    margin-bottom: 0.5rem
+    display: flex
+    align-items: center
+    min-height: 47px
+    justify-content: center
+    min-width: 200px
+
+    svg
+      margin-right: 0.5rem
+
+.pop-up-in-btn
+  width: 100%
+  display: flex
+  align-items: center
+  min-height: 47px
+  justify-content: center
+  min-width: 200px
+
+  svg
+    margin-right: 0.5rem
+
+.input-copy
+  width: 5px
+  border: none
+  color: transparent
+  visibility: visible
+  margin-left: -8px
+
+.input-copy-link
+  display: inline-block
+  width: 100%
+  max-width: 300px
+  padding-top: 6px
+  cursor: pointer
+
+.my-bonus-pop-up
+  display: block
+
+  .my-bonus-pop-up-block
+    width: auto
+    margin-bottom: 10px
+
+.mobile-bonus-info
+  padding-left: 1rem
+  margin-bottom: 1rem
+
 @media only screen and (max-width: 576px)
+  .header-info-container
+    flex-wrap: wrap
+
   .rate
     font-size: 1rem
+
+  .action-info-block
+    display: block
+    margin-bottom: 1rem

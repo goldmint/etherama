@@ -23,7 +23,7 @@ export class EthereumService {
   private _web3Infura: Web3 = null;
   private _web3Metamask: Web3 = null;
   private _lastAddress: string | null;
-  private _metamaskNetwork: number = null
+  private _metamaskNetwork: number = null;
 
   public _contractInfura: any;
   public _contractMetamask: any;

@@ -64,8 +64,6 @@ export class MarketComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.commonService.initMainContract$.next(true);
-
     this.isMobile = (window.innerWidth <= 992);
     this.page.pageNumber = 0;
     this.page.size = 10;
@@ -251,7 +249,6 @@ export class MarketComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.destroy$.next(true);
-    this.commonService.initMainContract$.next(false);
   }
 
 }

@@ -10,6 +10,7 @@ import {APIService} from "../../services/api.service";
 import {TokenInfo} from "../../interfaces/token-info";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Meta} from "@angular/platform-browser";
+import {MainContractService} from "../../services/main-contract.service";
 
 @Component({
   selector: 'app-trade',
@@ -23,11 +24,9 @@ export class TradeComponent implements OnInit, OnDestroy {
   public etherscanContractUrl = environment.etherscanContractUrl;
   public ethAddress: string = null;
   public tokenBalance: BigNumber | any = null;
-  public isUserRefAvailable: boolean = false;
-  public minRefTokenAmount: number = null;
-  public uniqueMasternodeLink: string;
+  public refLink: string = '';
+  public isRefAvailable: boolean = false;
 
-  public userReward: BigNumber | any = 0;
   public tokenSupply: BigNumber | any = 0;
   public totalData: any = {
     totalEth: 0,
@@ -42,18 +41,12 @@ export class TradeComponent implements OnInit, OnDestroy {
   public tillExpiration: number = null;
   public tokenInfo: TokenInfo;
   public invalidContractAddress: boolean = false;
-  public myBonusInfo: any = {
-    shareReward: null,
-    refBonus: null,
-    promoBonus: null
-  };
-  public locale: string;
-  public shareSocialUrl: string = location.href;
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private ethService: EthereumService,
+    private mainContractService: MainContractService,
     private userService: UserService,
     private apiService: APIService,
     private commonService: CommonService,
@@ -97,6 +90,23 @@ export class TradeComponent implements OnInit, OnDestroy {
 
           this.apiService.getTokenInfo(tokenId).subscribe((data: any) => {
             this.tokenInfo = data.data;
+
+            // ---
+            this.meta.addTag({name: 'title', content: this.tokenInfo.ticker + ' ON ETHERAMA.IO'});
+            this.meta.addTag({name: 'description', content: this.tokenInfo.description});
+
+            this.meta.addTag({name: 'twitter:card', content: 'summary'});
+            this.meta.addTag({name: 'twitter:site', content: 'ETHERAMA.IO'});
+            this.meta.addTag({name: 'twitter:creator', content: 'ETHERAMA.IO'});
+
+            this.meta.addTag({property: 'og:site_name', content: 'ETHERAMA.IO'});
+            this.meta.addTag({property: 'og:title', content: this.tokenInfo.ticker + ' ON ETHERAMA.IO'});
+            this.meta.addTag({property: 'og:description', content: this.tokenInfo.description});
+            this.meta.addTag({property: 'og:url', content:this.refLink});
+            this.meta.addTag({property: 'og:image', content: this.tokenInfo.logoUrl});
+            this.meta.addTag({property: 'og:type', content: 'website'});
+            // --
+
             this.initTradePage();
             this.isDataLoaded = true;
             this.cdRef.markForCheck();
@@ -113,13 +123,18 @@ export class TradeComponent implements OnInit, OnDestroy {
       this.isBankLoaded = isLoaded;
       this.cdRef.markForCheck();
     });
+
+    this.mainContractService.isRefAvailable$.takeUntil(this.destroy$).subscribe(data => {
+      this.isRefAvailable = data.isAvailable;
+      this.refLink = data.refLink;
+      this.cdRef.markForCheck();
+    });
   }
 
   initTradePage() {
     this.ethService.passTokenBalance.takeUntil(this.destroy$).subscribe(balance => {
       if (balance) {
         this.tokenBalance = balance;
-        this.checkCurrentUserRefAvailable();
         this.cdRef.markForCheck();
       }
     });
@@ -128,24 +143,6 @@ export class TradeComponent implements OnInit, OnDestroy {
       address && (this.ethAddress = address);
       if (this.ethAddress && !address) {
         this.ethAddress = address;
-        this.isUserRefAvailable = false;
-      }
-      this.cdRef.markForCheck();
-    });
-
-    this.ethService.getObservableUserReward().takeUntil(this.destroy$).subscribe(reward => {
-      if (reward) {
-        this.userReward = reward;
-
-        this.ethService._contractMetamask.getCurrentUserShareReward((err, res) => {
-          this.myBonusInfo.shareReward = +new BigNumber(res.toString()).div(new BigNumber(10).pow(18));
-        });
-        this.ethService._contractMetamask.getCurrentUserRefBonus((err, res) => {
-          this.myBonusInfo.refBonus = +new BigNumber(res.toString()).div(new BigNumber(10).pow(18));
-        });
-        this.ethService._contractMetamask.getCurrentUserPromoBonus((err, res) => {
-          this.myBonusInfo.promoBonus = +new BigNumber(res.toString()).div(new BigNumber(10).pow(18));
-        });
       }
       this.cdRef.markForCheck();
     });
@@ -171,49 +168,10 @@ export class TradeComponent implements OnInit, OnDestroy {
         this.cdRef.markForCheck();
       }
     });
-
-    this.userService.currentLocale.takeUntil(this.destroy$).subscribe(locale => {
-      this.locale = locale;
-      this.cdRef.markForCheck();
-    });
-  }
-
-  checkCurrentUserRefAvailable() {
-    if (this.ethService._contractInfura) {
-      this.ethService._contractInfura.isCurrentUserRefAvailable((err, res) => {
-        this.isUserRefAvailable = res;
-        this.uniqueMasternodeLink = `${window.location.href}?ref=${this.ethAddress}`;
-
-        this.meta.addTag({name: 'title', content: this.tokenInfo.ticker + ' ON ETHERAMA.IO'});
-        this.meta.addTag({name: 'description', content: this.tokenInfo.description});
-
-        this.meta.addTag({name: 'twitter:card', content: 'summary'});
-        this.meta.addTag({name: 'twitter:site', content: 'ETHERAMA.IO'});
-        this.meta.addTag({name: 'twitter:creator', content: 'ETHERAMA.IO'});
-
-        this.meta.addTag({property: 'og:site_name', content: 'ETHERAMA.IO'});
-        this.meta.addTag({property: 'og:title', content: this.tokenInfo.ticker + ' ON ETHERAMA.IO'});
-        this.meta.addTag({property: 'og:description', content: this.tokenInfo.description});
-        this.meta.addTag({property: 'og:url', content:this.uniqueMasternodeLink});
-        this.meta.addTag({property: 'og:image', content: this.tokenInfo.logoUrl});
-        this.meta.addTag({property: 'og:type', content: 'website'});
-
-        this.cdRef.markForCheck();
-      });
-
-      this.ethService._contractInfura.getMinRefTokenAmount((err, res) => {
-        this.minRefTokenAmount = +res / Math.pow(10, 18);
-        this.cdRef.markForCheck();
-      });
-    }
   }
 
   openBuySellModal() {
     this.messageBox.buySell(false);
-  }
-
-  withdraw() {
-    this.ethService._contractMetamask.withdraw((err, res) => { });
   }
 
   onCopyData(input) {

@@ -36,7 +36,7 @@ export class MainPromoBonusComponent implements OnInit {
         this.promoBonus.big = this.promoBonus.big < Math.pow(10, -9) ? Math.pow(10, -9) : +this.promoBonus.big.toFixed(9);
         this.promoBonus.quick = this.promoBonus.quick < Math.pow(10, -9) ? Math.pow(10, -9) : +this.promoBonus.quick.toFixed(9);
 
-        !this.isFirstLoad && (this.isDataLoaded = true);
+        this.isDataLoaded = true;
         this.cdRef.markForCheck();
       }
       this.isFirstLoad = false;

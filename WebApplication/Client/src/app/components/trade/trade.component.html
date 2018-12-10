@@ -28,12 +28,12 @@
         <div class="mb-1"><b>{{ "PAGES.Trade.Labels.Description" | translate }}</b></div>
         {{ tokenInfo.description }}
 
-       <div class="mt-3 text-center">
+       <div class="mt-3 text-center" *ngIf="isRefAvailable">
          <share-buttons [theme]="'default'"
                         [include]="['facebook','twitter','vk']"
                         [showCount]="true"
                         [size]="-1"
-                        [url]="shareSocialUrl"
+                        [url]="refLink"
                         [autoSetMeta]="false"
          ></share-buttons>
        </div>
@@ -47,7 +47,7 @@
         </div>
 
         <div class="col-12">
-          <div class="action-info-block" [ngClass]="locale">
+          <div class="action-info-block">
             <div class="mb-2">
               <div class="d-flex align-items-center mb-1">
                 {{ "PAGES.Trade.Labels.Tokens" | translate }}
@@ -57,7 +57,7 @@
                   </svg>
                 </span>
               </div>
-               <b>{{ +tokenBalance | noexp }} MNTP</b>
+               <b>{{ +tokenBalance | noexp }} {{ tokenInfo.ticker }}</b>
             </div>
 
             <div class="text-right">
@@ -70,50 +70,8 @@
             </div>
           </div>
 
-          <div class="action-info-block" [ngClass]="locale">
-            <div class="mb-2">
-                <div class="d-flex align-items-center mb-1">{{ "PAGES.Trade.Labels.Bonus" | translate }}
-                  <span class="ml-2" popover='info' triggers="mouseenter:mouseleave" placement="top">
-                    <svg class="icon gold" width="20" height="20">
-                      <use xlink:href="#info"></use>
-                    </svg>
-                  </span>
-                </div>
-                <b [popover]="myBonusPopUp" triggers="mouseenter:mouseleave" >{{ +userReward | noexp:18 }} ETH</b>
-            </div>
-
-            <div class="text-right">
-              <button class="btn btn-sm btn-primary w-100" type="button" (click)="withdraw()" [disabled]="!ethAddress || !+userReward">
-                <svg  width="30" height="25">
-                  <use xlink:href="#withdraw"></use>
-                </svg>
-                {{ "PAGES.Trade.Buttons.Withdraw" | translate }}
-              </button>
-            </div>
-          </div>
-
-          <div class="action-info-block" [ngClass]="locale">
-            <div class="overflow-hidden">
-              <div class="overflow-ellipsis nowrap mb-2" [title]="uniqueMasternodeLink" *ngIf="isUserRefAvailable">
-                <div class="d-flex align-items-center">
-                  {{ "PAGES.Trade.Labels.RefLink" | translate }}
-                  <span class="ml-2" popover='info' triggers="mouseenter:mouseleave" placement="top">
-                    <svg class="icon gold" width="20" height="20">
-                      <use xlink:href="#info"></use>
-                    </svg>
-                  </span>
-                </div>
-
-                <input type="text" class="input-copy" value="{{ uniqueMasternodeLink }}" #secondAddress readonly>
-                <span class="input-copy-link" popover='{{ "PAGES.Trade.Labels.ClickToCopy" | translate }}' triggers="mouseenter:mouseleave" placement="top" (click)="onCopyData(secondAddress)">
-                  <b>{{ uniqueMasternodeLink }}</b>
-                </span>
-              </div>
-
-              <div class="pr-2" *ngIf="uniqueMasternodeLink && !isUserRefAvailable">
-                <span [innerHTML]="'PAGES.Trade.Labels.GettingRef' | translate:{token: minRefTokenAmount}"></span>
-              </div>
-            </div>
+          <div class="action-info-block">
+            <div class="overflow-hidden"> </div>
 
             <div class="text-right">
               <a [href]="etherscanContractUrl + tokenInfo.etheramaContractAddress" target="_blank">
@@ -141,20 +99,3 @@
     {{ "PAGES.Trade.Errors.InvalidAddress" | translate }}
   </div>
 </section>
-
-<ng-template #myBonusPopUp>
-  <div class="my-bonus-pop-up">
-    <div class="my-bonus-pop-up-block">
-      <div class="mb-1"><b>{{ "PAGES.Trade.Labels.ShareReward" | translate }}</b></div>
-      <div class="px-2">{{ +myBonusInfo?.shareReward | noexp:18 }} ETH</div>
-    </div>
-    <div class="my-bonus-pop-up-block">
-      <div class="mb-1"><b>{{ "PAGES.Trade.Labels.RefBonus" | translate }}</b></div>
-      <div class="px-2">{{ +myBonusInfo?.refBonus | noexp:18 }} ETH</div>
-    </div>
-    <div class="my-bonus-pop-up-block">
-      <div class="mb-1"><b>{{ "PAGES.Trade.Labels.PromoBonus" | translate }}</b></div>
-      <div class="px-2">{{ +myBonusInfo?.promoBonus | noexp:18 }} ETH</div>
-    </div>
-  </div>
-</ng-template>
