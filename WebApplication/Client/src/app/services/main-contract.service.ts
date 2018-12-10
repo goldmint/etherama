@@ -38,6 +38,7 @@ export class MainContractService {
   private _obsUserTotalReward = this._obsUserTotalRewardSubject.asObservable();
 
   public isRefAvailable$ = new BehaviorSubject(null);
+  public passRefLink$ = new BehaviorSubject(null);
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 

@@ -37,9 +37,7 @@ export class HeaderBlockComponent implements OnInit {
   ) {
     router.events.subscribe(route => {
       if (route instanceof NavigationEnd) {
-        this.refLink = `${window.location.href}?ref=${this.ethAddress}`;
         this.isTradePage = route.url.indexOf('/trade') >= 0;
-
         this.isShowMobileMenu = false;
         document.body.style.overflow = 'visible';
         this.cdRef.markForCheck();
@@ -72,7 +70,6 @@ export class HeaderBlockComponent implements OnInit {
         this.userTotalReward = 0;
       }
       this.ethAddress = address;
-      this.refLink = `${window.location.href}?ref=${this.ethAddress}`;
       this.cdRef.markForCheck();
     });
 
@@ -96,13 +93,18 @@ export class HeaderBlockComponent implements OnInit {
       this.cdRef.markForCheck();
     });
 
+    this.mainContractService.passRefLink$.subscribe(refLink => {
+      this.refLink = refLink;
+      this.cdRef.markForCheck();
+    });
+
     this.cdRef.markForCheck();
   }
 
   checkRefAvailable() {
     this.mainContractService._contractMetamask.isRefAvailable((err, res) => {
       this.isRefAvailable = res;
-      this.mainContractService.isRefAvailable$.next({isAvailable: res, refLink: this.refLink});
+      this.mainContractService.isRefAvailable$.next({isAvailable: res});
       this.cdRef.markForCheck();
     });
   }

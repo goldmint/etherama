@@ -53,8 +53,7 @@ export class TradeComponent implements OnInit, OnDestroy {
     private messageBox: MessageBoxService,
     private router: Router,
     private route: ActivatedRoute,
-    private cdRef: ChangeDetectorRef,
-    private meta: Meta
+    private cdRef: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -90,23 +89,6 @@ export class TradeComponent implements OnInit, OnDestroy {
 
           this.apiService.getTokenInfo(tokenId).subscribe((data: any) => {
             this.tokenInfo = data.data;
-
-            // ---
-            this.meta.addTag({name: 'title', content: this.tokenInfo.ticker + ' ON ETHERAMA.IO'});
-            this.meta.addTag({name: 'description', content: this.tokenInfo.description});
-
-            this.meta.addTag({name: 'twitter:card', content: 'summary'});
-            this.meta.addTag({name: 'twitter:site', content: 'ETHERAMA.IO'});
-            this.meta.addTag({name: 'twitter:creator', content: 'ETHERAMA.IO'});
-
-            this.meta.addTag({property: 'og:site_name', content: 'ETHERAMA.IO'});
-            this.meta.addTag({property: 'og:title', content: this.tokenInfo.ticker + ' ON ETHERAMA.IO'});
-            this.meta.addTag({property: 'og:description', content: this.tokenInfo.description});
-            this.meta.addTag({property: 'og:url', content:this.refLink});
-            this.meta.addTag({property: 'og:image', content: this.tokenInfo.logoUrl});
-            this.meta.addTag({property: 'og:type', content: 'website'});
-            // --
-
             this.initTradePage();
             this.isDataLoaded = true;
             this.cdRef.markForCheck();
@@ -125,9 +107,10 @@ export class TradeComponent implements OnInit, OnDestroy {
     });
 
     this.mainContractService.isRefAvailable$.takeUntil(this.destroy$).subscribe(data => {
-      this.isRefAvailable = data.isAvailable;
-      this.refLink = data.refLink;
-      this.cdRef.markForCheck();
+      if (data) {
+        this.isRefAvailable = data.isAvailable;
+        this.cdRef.markForCheck();
+      }
     });
   }
 
@@ -144,6 +127,9 @@ export class TradeComponent implements OnInit, OnDestroy {
       if (this.ethAddress && !address) {
         this.ethAddress = address;
       }
+
+      this.refLink = `${window.location.href}?ref=${this.ethAddress}`;
+      this.mainContractService.passRefLink$.next(this.refLink);
       this.cdRef.markForCheck();
     });
 
