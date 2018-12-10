@@ -9,6 +9,7 @@ import {CommonService} from "../../services/common.service";
 import {APIService} from "../../services/api.service";
 import {TokenInfo} from "../../interfaces/token-info";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Meta} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-trade',
@@ -59,7 +60,8 @@ export class TradeComponent implements OnInit, OnDestroy {
     private messageBox: MessageBoxService,
     private router: Router,
     private route: ActivatedRoute,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private meta: Meta
   ) { }
 
   ngOnInit() {
@@ -181,6 +183,21 @@ export class TradeComponent implements OnInit, OnDestroy {
       this.ethService._contractInfura.isCurrentUserRefAvailable((err, res) => {
         this.isUserRefAvailable = res;
         this.uniqueMasternodeLink = `${window.location.href}?ref=${this.ethAddress}`;
+
+        this.meta.addTag({name: 'title', content: this.tokenInfo.ticker + ' ON ETHERAMA.IO'});
+        this.meta.addTag({name: 'description', content: this.tokenInfo.description});
+
+        this.meta.addTag({name: 'twitter:card', content: 'summary'});
+        this.meta.addTag({name: 'twitter:site', content: 'ETHERAMA.IO'});
+        this.meta.addTag({name: 'twitter:creator', content: 'ETHERAMA.IO'});
+
+        this.meta.addTag({property: 'og:site_name', content: 'ETHERAMA.IO'});
+        this.meta.addTag({property: 'og:title', content: this.tokenInfo.ticker + ' ON ETHERAMA.IO'});
+        this.meta.addTag({property: 'og:description', content: this.tokenInfo.description});
+        this.meta.addTag({property: 'og:url', content:this.uniqueMasternodeLink});
+        this.meta.addTag({property: 'og:image', content: this.tokenInfo.logoUrl});
+        this.meta.addTag({property: 'og:type', content: 'website'});
+
         this.cdRef.markForCheck();
       });
 
