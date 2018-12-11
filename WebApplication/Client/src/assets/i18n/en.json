@@ -30,7 +30,8 @@
         "ShareReward": "Share reward",
         "RefBonus": "Ref bonus",
         "PromoBonus": "Promo bonus",
-        "GettingRef": "You need to buy <b>at least {{ token }} token</b> to get ref link"
+        "RefNotAvailable": "not available yet",
+        "GettingRef": "To get you ref link you have to buy any tokens for at least {{ token }} ETH"
       },
       "Buttons": {
         "BuySell": "Buy/sell token",

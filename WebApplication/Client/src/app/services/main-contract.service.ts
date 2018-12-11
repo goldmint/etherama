@@ -15,7 +15,7 @@ export class MainContractService {
   private contractABI = environment.mainContractABI;
 
   private _infuraUrl = environment.infuraUrl;
-  private _contractInfura: any;
+  public _contractInfura: any;
   public _contractMetamask: any;
 
   private _web3Infura: Web3 = null;
@@ -38,7 +38,6 @@ export class MainContractService {
   private _obsUserTotalReward = this._obsUserTotalRewardSubject.asObservable();
 
   public isRefAvailable$ = new BehaviorSubject(null);
-  public passRefLink$ = new BehaviorSubject(null);
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 

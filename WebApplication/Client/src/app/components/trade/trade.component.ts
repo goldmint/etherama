@@ -129,7 +129,6 @@ export class TradeComponent implements OnInit, OnDestroy {
       }
 
       this.refLink = `${window.location.href}?ref=${this.ethAddress}`;
-      this.mainContractService.passRefLink$.next(this.refLink);
       this.cdRef.markForCheck();
     });
 
@@ -158,13 +157,6 @@ export class TradeComponent implements OnInit, OnDestroy {
 
   openBuySellModal() {
     this.messageBox.buySell(false);
-  }
-
-  onCopyData(input) {
-    input.focus();
-    input.setSelectionRange(0, input.value.length);
-    document.execCommand("copy");
-    input.setSelectionRange(0, 0);
   }
 
   ngOnDestroy() {
