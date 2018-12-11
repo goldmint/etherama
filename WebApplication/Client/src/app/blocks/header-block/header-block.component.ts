@@ -4,6 +4,7 @@ import {NavigationEnd, Router} from "@angular/router";
 import {MainContractService} from "../../services/main-contract.service";
 import {BigNumber} from "bignumber.js";
 import {CommonService} from "../../services/common.service";
+import {AllTokensBalance} from "../../interfaces/all-tokens-balance";
 
 @Component({
   selector: 'app-header',
@@ -30,6 +31,11 @@ export class HeaderBlockComponent implements OnInit {
   public userRefLink: string;
   public myGenerateRefLink: string;
   public minRefTokenAmount: number = null;
+  public allTokensBalance: AllTokensBalance[] = null;
+  public allTokensBalanceSum: number = 0;
+  public totalSpent: number = 0;
+
+  private bonusPopTimer: any;
 
   constructor(
     private cdRef: ChangeDetectorRef,
@@ -63,10 +69,10 @@ export class HeaderBlockComponent implements OnInit {
       this.cdRef.markForCheck();
     });
 
-    window.innerWidth > 992 ? this.isMobile = this.isShowMobileMenu = false : this.isMobile = true;
+    window.innerWidth > 1200 ? this.isMobile = this.isShowMobileMenu = false : this.isMobile = true;
 
     window.onresize = () => {
-      if (window.innerWidth > 992) {
+      if (window.innerWidth > 1200) {
         this.isMobile = this.isShowMobileMenu = false;
         document.body.style.overflow = 'visible';
       } else {
@@ -105,16 +111,31 @@ export class HeaderBlockComponent implements OnInit {
       this.cdRef.markForCheck();
     });
 
+    this.mainContractService.passTokensBalance$.subscribe((balance: AllTokensBalance[]) => {
+      if (balance) {
+        this.allTokensBalanceSum = 0;
+        this.allTokensBalance = balance;
+        balance.forEach(item => {
+          this.allTokensBalanceSum += item.balance;
+        });
+        this.cdRef.markForCheck();
+      }
+    });
     this.cdRef.markForCheck();
   }
 
   checkRefAvailable() {
-    this.mainContractService._contractMetamask.isRefAvailable((err, res) => {
-      this.mainContractService._contractMetamask._minRefEthPurchase((err, res) => {
-        this.minRefTokenAmount = +res / Math.pow(10, 18);
+    this.mainContractService._contractMetamask._minRefEthPurchase((err, res) => {
+      this.minRefTokenAmount = +res / Math.pow(10, 18);
+
+      this.mainContractService._contractMetamask.getUserTotalEthVolumeSaldo(this.ethAddress, (err, res) => {
+        this.totalSpent = +res / Math.pow(10, 18);
         this.cdRef.markForCheck();
       });
+      this.cdRef.markForCheck();
+    });
 
+    this.mainContractService._contractMetamask.isRefAvailable((err, res) => {
       this.isRefAvailable = res;
       this.mainContractService.isRefAvailable$.next({isAvailable: res});
       this.cdRef.markForCheck();
@@ -138,4 +159,17 @@ export class HeaderBlockComponent implements OnInit {
     document.execCommand("copy");
     input.setSelectionRange(0, 0);
   }
+
+  popEnter(pop) {
+    setTimeout(() => {
+      let popoverContainer = document.querySelector('.popover-content');
+      popoverContainer && popoverContainer.addEventListener('mouseenter', () => clearTimeout(this.bonusPopTimer));
+      popoverContainer && popoverContainer.addEventListener('mouseleave', () => pop.hide());
+    }, 0);
+  }
+
+  popLeave(pop) {
+    this.bonusPopTimer = setTimeout(() => pop.hide(), 300);
+  }
+
 }

@@ -23,6 +23,7 @@
         "TokensContract": "Tokens sold:",
         "TotalSupply": "Total token supply:",
         "Tokens": "My tokens:",
+        "Balances": "My balances:",
         "Bonus": "My bonus:",
         "RefLink": "My ref link:",
         "Description": "Project description:",
@@ -30,8 +31,9 @@
         "ShareReward": "Share reward",
         "RefBonus": "Ref bonus",
         "PromoBonus": "Promo bonus",
+        "TotalSpent": "Total spent:",
         "RefNotAvailable": "not available yet",
-        "GettingRef": "To get you ref link you have to buy any tokens for at least {{ token }} ETH"
+        "GettingRef": "To get you ref link you have to buy any tokens for at least <b>{{ token }}</b> ETH. You're missing <b>{{ missing }}</b> ETH"
       },
       "Buttons": {
         "BuySell": "Buy/sell token",

@@ -195,23 +195,18 @@
   cursor: pointer
 
 .my-bonus-pop-up
-  display: flex
+  display: block
 
   .my-bonus-pop-up-block
-    text-align: center
-    min-width: 150px
+    width: auto
+    margin-bottom: 10px
 
 .mobile-bonus-info
   padding-left: 1rem
   margin-bottom: 1rem
 
-@media only screen and (max-width: 992px)
-  .my-bonus-pop-up
-    display: block
-
-    .my-bonus-pop-up-block
-      width: auto
-      margin-bottom: 10px
+.ref-link-not-available
+  color: $color-red
 
 @media only screen and (max-width: 576px)
   .header-info-container

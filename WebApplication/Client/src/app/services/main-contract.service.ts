@@ -7,12 +7,15 @@ import * as Web3 from "web3";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
+import {APIService} from "./api.service";
+import {AllTokensBalance} from "../interfaces/all-tokens-balance";
 
 @Injectable()
 export class MainContractService {
 
   private contractAddress = environment.mainContractAddress;
   private contractABI = environment.mainContractABI;
+  private etharamaContractABI = environment.etheramaContractABI;
 
   private _infuraUrl = environment.infuraUrl;
   public _contractInfura: any;
@@ -37,12 +40,16 @@ export class MainContractService {
   private _obsUserTotalRewardSubject = new BehaviorSubject(null);
   private _obsUserTotalReward = this._obsUserTotalRewardSubject.asObservable();
 
-  public isRefAvailable$ = new BehaviorSubject(null);
-
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
+  public isRefAvailable$ = new BehaviorSubject(null);
+  public passTokensBalance$ = new BehaviorSubject(null);
+  public tokensBalance: AllTokensBalance[] = [];
+  public prevUserTotalReward: number = null;
+
   constructor(
-    private commonService: CommonService
+    private commonService: CommonService,
+    private apiService: APIService
   ) {
     this.commonService.initMainContract$.subscribe(init => {
       init && this.setInterval();
@@ -114,6 +121,24 @@ export class MainContractService {
     this.updateUserTotalReward();
   }
 
+  private getAllUserBalances() {
+    this.apiService.getTokenList().subscribe((tokenList: any) => {
+      let count = 0;
+      this.tokensBalance = [];
+
+      tokenList.data.forEach(token => {
+        let contractMetamask = this._web3Metamask['eth'].contract(JSON.parse(this.etharamaContractABI)).at(token.etheramaContractAddress);
+        contractMetamask && contractMetamask.getCurrentUserLocalTokenBalance((err, res) => {
+          const balance = new BigNumber(res.toString()).div(new BigNumber(10).pow(18));
+          this.tokensBalance.push({token: token.ticker, balance: +balance});
+          count++;
+
+          count === tokenList.data.length && this.passTokensBalance$.next(this.tokensBalance);
+        });
+      });
+    });
+  }
+
   private updatePromoBonus() {
     if (!this._contractInfura) {
       this._obsPromoBonusSubject.next(null);
@@ -154,6 +179,10 @@ export class MainContractService {
       this._obsUserTotalRewardSubject.next(null);
     } else {
       this._contractMetamask.getCurrentUserTotalReward((err, res) => {
+        let result = +new BigNumber(res.toString()).div(new BigNumber(10).pow(18));
+
+        this.prevUserTotalReward !== result && this.getAllUserBalances();
+        this.prevUserTotalReward = result;
         this._obsUserTotalRewardSubject.next(new BigNumber(res.toString()).div(new BigNumber(10).pow(18)));
       });
     }

@@ -9,8 +9,8 @@ import {CommonService} from "../../services/common.service";
 import {APIService} from "../../services/api.service";
 import {TokenInfo} from "../../interfaces/token-info";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Meta} from "@angular/platform-browser";
 import {MainContractService} from "../../services/main-contract.service";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'app-trade',
@@ -43,6 +43,7 @@ export class TradeComponent implements OnInit, OnDestroy {
   public invalidContractAddress: boolean = false;
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
+  private sub1: Subscription;
 
   constructor(
     private ethService: EthereumService,
@@ -105,13 +106,6 @@ export class TradeComponent implements OnInit, OnDestroy {
       this.isBankLoaded = isLoaded;
       this.cdRef.markForCheck();
     });
-
-    this.mainContractService.isRefAvailable$.takeUntil(this.destroy$).subscribe(data => {
-      if (data) {
-        this.isRefAvailable = data.isAvailable;
-        this.cdRef.markForCheck();
-      }
-    });
   }
 
   initTradePage() {
@@ -128,7 +122,14 @@ export class TradeComponent implements OnInit, OnDestroy {
         this.ethAddress = address;
       }
 
-      this.refLink = `${window.location.href}?ref=${this.ethAddress}`;
+      this.sub1 && this.sub1.unsubscribe();
+      this.sub1 = this.mainContractService.isRefAvailable$.takeUntil(this.destroy$).subscribe(data => {
+        if (data) {
+          this.isRefAvailable = data.isAvailable;
+          this.refLink = this.isRefAvailable && this.ethAddress ? `${window.location.href}?ref=${this.ethAddress}` : window.location.href;
+        }
+      });
+
       this.cdRef.markForCheck();
     });
 
@@ -162,6 +163,7 @@ export class TradeComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next(true);
     this.commonService.passMarketData$.next(null);
+    this.sub1 && this.sub1.unsubscribe();
   }
 
 }
