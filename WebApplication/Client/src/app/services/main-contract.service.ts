@@ -136,13 +136,18 @@ export class MainContractService {
           const balance = +new BigNumber(res.toString()).div(new BigNumber(10).pow(18));
           const wei = this.web3['toWei'](+balance);
 
-          contractMetamask && contractMetamask.estimateSellOrder(wei, true, (err, res) => {
-            const estimate = +new BigNumber(res[0].toString()).div(new BigNumber(10).pow(18));
-            this.tokensBalance.push({token: token.ticker, balance, estimate});
+          if (balance > 0) {
+            contractMetamask && contractMetamask.estimateSellOrder(wei, true, (err, res) => {
+              const estimate = +new BigNumber(res[0].toString()).div(new BigNumber(10).pow(18));
+              this.tokensBalance.push({token: token.ticker, balance, estimate});
+              count++;
+              count === tokenList.data.length && this.passTokensBalance$.next(this.tokensBalance);
+            });
+          } else {
+            this.tokensBalance.push({token: token.ticker, balance, estimate: 0});
             count++;
-
             count === tokenList.data.length && this.passTokensBalance$.next(this.tokensBalance);
-          });
+          }
         });
       });
     });
