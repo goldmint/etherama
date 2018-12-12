@@ -5,6 +5,9 @@ import {MainContractService} from "../../services/main-contract.service";
 import {BigNumber} from "bignumber.js";
 import {CommonService} from "../../services/common.service";
 import {AllTokensBalance} from "../../interfaces/all-tokens-balance";
+import {TranslateService} from "@ngx-translate/core";
+import {MessageBoxService} from "../../services/message-box.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-header',
@@ -32,8 +35,9 @@ export class HeaderBlockComponent implements OnInit {
   public myGenerateRefLink: string;
   public minRefTokenAmount: number = null;
   public allTokensBalance: AllTokensBalance[] = null;
-  public allTokensBalanceSum: number = 0;
+  public allTokensBalanceSumEth: number = 0;
   public totalSpent: number = 0;
+  public etherscanUrl = environment.etherscanUrl;
 
   private bonusPopTimer: any;
 
@@ -42,7 +46,9 @@ export class HeaderBlockComponent implements OnInit {
     private userService: UserService,
     private mainContractService: MainContractService,
     private router: Router,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private messageBox: MessageBoxService,
+    private translate: TranslateService
   ) {
     router.events.subscribe(route => {
       if (route instanceof NavigationEnd) {
@@ -69,10 +75,12 @@ export class HeaderBlockComponent implements OnInit {
       this.cdRef.markForCheck();
     });
 
-    window.innerWidth > 1200 ? this.isMobile = this.isShowMobileMenu = false : this.isMobile = true;
+    this.initTransactionHashModal();
+
+    window.innerWidth > 992 ? this.isMobile = this.isShowMobileMenu = false : this.isMobile = true;
 
     window.onresize = () => {
-      if (window.innerWidth > 1200) {
+      if (window.innerWidth > 992) {
         this.isMobile = this.isShowMobileMenu = false;
         document.body.style.overflow = 'visible';
       } else {
@@ -111,12 +119,12 @@ export class HeaderBlockComponent implements OnInit {
       this.cdRef.markForCheck();
     });
 
-    this.mainContractService.passTokensBalance$.subscribe((balance: AllTokensBalance[]) => {
-      if (balance) {
-        this.allTokensBalanceSum = 0;
-        this.allTokensBalance = balance;
-        balance.forEach(item => {
-          this.allTokensBalanceSum += item.balance;
+    this.mainContractService.passTokensBalance$.subscribe((balances: AllTokensBalance[]) => {
+      if (balances) {
+        this.allTokensBalanceSumEth = 0;
+        this.allTokensBalance = balances;
+        balances.forEach(item => {
+          this.allTokensBalanceSumEth += item.estimate;
         });
         this.cdRef.markForCheck();
       }
@@ -150,7 +158,7 @@ export class HeaderBlockComponent implements OnInit {
   }
 
   withdraw() {
-    this.mainContractService._contractMetamask.withdrawUserReward((err, res) => { });
+    this.mainContractService.withdraw();
   }
 
   onCopyData(input) {
@@ -170,6 +178,23 @@ export class HeaderBlockComponent implements OnInit {
 
   popLeave(pop) {
     this.bonusPopTimer = setTimeout(() => pop.hide(), 300);
+  }
+
+  initTransactionHashModal() {
+    this.mainContractService.getSuccessWithdrawRequestLink$.subscribe(hash => {
+      if (hash) {
+        this.translate.get('MESSAGE.SentTransaction').subscribe(phrases => {
+          this.messageBox.alert(`
+            <div class="text-center">
+              <div class="font-weight-500 mb-2">${phrases.Heading}</div>
+              <div>${phrases.Hash}</div>
+              <div class="mb-2 modal-tx-hash overflow-ellipsis">${hash}</div>
+              <a href="${this.etherscanUrl}${hash}" target="_blank">${phrases.Link}</a>
+            </div>
+          `);
+        });
+      }
+    });
   }
 
 }

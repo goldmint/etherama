@@ -9,13 +9,14 @@ import {Subject} from "rxjs/Subject";
 import {Observable} from "rxjs/Observable";
 import {APIService} from "./api.service";
 import {AllTokensBalance} from "../interfaces/all-tokens-balance";
+import {TokenList} from "../interfaces/token-list";
 
 @Injectable()
 export class MainContractService {
 
   private contractAddress = environment.mainContractAddress;
   private contractABI = environment.mainContractABI;
-  private etharamaContractABI = environment.etheramaContractABI;
+  private etheramaContractABI = environment.etheramaContractABI;
 
   private _infuraUrl = environment.infuraUrl;
   public _contractInfura: any;
@@ -41,11 +42,13 @@ export class MainContractService {
   private _obsUserTotalReward = this._obsUserTotalRewardSubject.asObservable();
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
+  private web3: Web3 = new Web3();
 
   public isRefAvailable$ = new BehaviorSubject(null);
   public passTokensBalance$ = new BehaviorSubject(null);
   public tokensBalance: AllTokensBalance[] = [];
   public prevUserTotalReward: number = null;
+  public getSuccessWithdrawRequestLink$ = new Subject();
 
   constructor(
     private commonService: CommonService,
@@ -127,13 +130,19 @@ export class MainContractService {
       this.tokensBalance = [];
 
       tokenList.data.forEach(token => {
-        let contractMetamask = this._web3Metamask['eth'].contract(JSON.parse(this.etharamaContractABI)).at(token.etheramaContractAddress);
-        contractMetamask && contractMetamask.getCurrentUserLocalTokenBalance((err, res) => {
-          const balance = new BigNumber(res.toString()).div(new BigNumber(10).pow(18));
-          this.tokensBalance.push({token: token.ticker, balance: +balance});
-          count++;
+        let contractMetamask = this._web3Metamask['eth'].contract(JSON.parse(this.etheramaContractABI)).at(token.etheramaContractAddress);
 
-          count === tokenList.data.length && this.passTokensBalance$.next(this.tokensBalance);
+        contractMetamask && contractMetamask.getCurrentUserLocalTokenBalance((err, res) => {
+          const balance = +new BigNumber(res.toString()).div(new BigNumber(10).pow(18));
+          const wei = this.web3['toWei'](+balance);
+
+          contractMetamask && contractMetamask.estimateSellOrder(wei, true, (err, res) => {
+            const estimate = +new BigNumber(res[0].toString()).div(new BigNumber(10).pow(18));
+            this.tokensBalance.push({token: token.ticker, balance, estimate});
+            count++;
+
+            count === tokenList.data.length && this.passTokensBalance$.next(this.tokensBalance);
+          });
         });
       });
     });
@@ -206,6 +215,21 @@ export class MainContractService {
 
   public getObservableUserTotalReward(): Observable<any> {
     return this._obsUserTotalReward;
+  }
+
+  public withdraw() {
+    this.apiService.getTokenList().subscribe((data: any) => {
+      let tokenList: TokenList = data.data;
+      let contractInfura = this._web3Infura['eth'].contract(JSON.parse(this.etheramaContractABI)).at(tokenList[0].etheramaContractAddress);
+
+      contractInfura && contractInfura.getMaxGasPrice((err, res) => {
+        if (+res) {
+          this._contractMetamask.withdrawUserReward({ gas: 600000, gasPrice: +res }, (err, res) => {
+            this.getSuccessWithdrawRequestLink$.next(res);
+          });
+        }
+      });
+    });
   }
 
 }

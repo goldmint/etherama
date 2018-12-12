@@ -23,7 +23,7 @@
               </div>
               <b *ngIf="!ethAddress">~ O ETH</b>
               <img *ngIf="ethAddress && !allTokensBalance" alt="loading" width="17" height="17" class="form-loader" src="assets/img/loader-gold-bg-black.gif">
-              <b *ngIf="ethAddress && allTokensBalance" [popover]="allTokensBalanceSum > 0 && myBalancesPopUp" triggers="mouseenter:mouseleave" placement="bottom">~ {{ allTokensBalanceSum | noexp:6 }} ETH</b>
+              <b *ngIf="ethAddress && allTokensBalance" [popover]="allTokensBalanceSumEth > 0 && myBalancesPopUp" triggers="mouseenter:mouseleave" placement="bottom">~ {{ allTokensBalanceSumEth | noexp:4 }} ETH</b>
             </div>
           </div>
 
@@ -36,13 +36,13 @@
                     </svg>
                   </span>
               </div>
-              <b [popover]="myBonusPopUp" triggers="mouseenter" #myBonusPopover="bs-popover" (mouseleave)="popLeave(myBonusPopover)" (mouseenter)="popEnter(myBonusPopover)" [outsideClick]="true" placement="bottom">{{ +userTotalReward | noexp:18 }} ETH</b>
+              <b [popover]="myBonusPopUp" triggers="mouseenter" #myBonusPopover="bs-popover" (mouseleave)="popLeave(myBonusPopover)" (mouseenter)="popEnter(myBonusPopover)" [outsideClick]="true" placement="bottom">{{ +userTotalReward | noexp:4 }} ETH</b>
             </div>
           </div>
 
           <div class="action-info-block" *ngIf="!isMobile">
             <div class="overflow-hidden">
-              <div class="overflow-ellipsis nowrap mb-2" [title]="isRefAvailable ? myGenerateRefLink : ''">
+              <div class="nowrap my-ref-link-container" [title]="isRefAvailable ? myGenerateRefLink : ''">
                 <div class="d-flex align-items-center mb-1">
                   {{ "PAGES.Trade.Labels.RefLink" | translate }}
                   <span class="ml-2" popover='info' triggers="mouseenter:mouseleave" placement="bottom">
@@ -105,7 +105,7 @@
             </div>
             <b *ngIf="!ethAddress">~ O ETH</b>
             <img *ngIf="ethAddress && !allTokensBalance" alt="loading" width="17" height="17" class="form-loader" src="assets/img/loader-gold-bg-black.gif">
-            <b *ngIf="ethAddress && allTokensBalance" [popover]="allTokensBalanceSum > 0 && myBalancesPopUp" triggers="mouseenter:mouseleave" placement="right" container="body">~ {{ allTokensBalanceSum | noexp:6 }} ETH</b>
+            <b *ngIf="ethAddress && allTokensBalance" [popover]="allTokensBalanceSumEth > 0 && myBalancesPopUp" triggers="mouseenter:mouseleave" placement="right" container="body">~ {{ allTokensBalanceSumEth | noexp:4 }} ETH</b>
           </div>
         </div>
 
@@ -118,13 +118,13 @@
                     </svg>
                   </span>
             </div>
-            <b [popover]="myBonusPopUp" triggers="mouseenter" [outsideClick]="true" [placement]="+userTotalReward ? 'bottom' : 'right'" container="body">{{ +userTotalReward | noexp:18 }} ETH</b>
+            <b [popover]="myBonusPopUp" triggers="mouseenter" [outsideClick]="true" [placement]="+userTotalReward ? 'bottom' : 'right'" container="body">{{ +userTotalReward | noexp:4 }} ETH</b>
           </div>
         </div>
 
         <div class="action-info-block">
           <div class="overflow-hidden">
-            <div class="overflow-ellipsis nowrap mb-2" [title]="isRefAvailable ? myGenerateRefLink : ''">
+            <div class="nowrap mb-2" [title]="isRefAvailable ? myGenerateRefLink : ''">
               <div class="d-flex align-items-center mb-1">
                 {{ "PAGES.Trade.Labels.RefLink" | translate }}
                 <span class="ml-2" popover='info' triggers="mouseenter:mouseleave" placement="right">

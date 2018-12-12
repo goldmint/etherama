@@ -191,8 +191,10 @@
 .input-copy-link
   display: inline-block
   width: 100%
-  max-width: 300px
+  max-width: 175px
   cursor: pointer
+  text-overflow: ellipsis
+  overflow: hidden
 
 .my-bonus-pop-up
   display: block
@@ -207,6 +209,9 @@
 
 .ref-link-not-available
   color: $color-red
+
+.my-ref-link-container
+  margin-bottom: 2px
 
 @media only screen and (max-width: 576px)
   .header-info-container
