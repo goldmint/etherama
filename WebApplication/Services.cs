@@ -1,16 +1,14 @@
-﻿using Etherama.Common;
+﻿using AutoMapper;
+using Etherama.Common;
 using Etherama.CoreLogic.Services.Blockchain.Ethereum;
 using Etherama.CoreLogic.Services.Blockchain.Ethereum.Impl;
-using Etherama.CoreLogic.Services.Localization;
-using Etherama.CoreLogic.Services.Localization.Impl;
-using Etherama.CoreLogic.Services.Notification;
-using Etherama.CoreLogic.Services.Notification.Impl;
 using Etherama.DAL;
 using Etherama.DAL.Models.Identity;
 using Etherama.WebApplication.Core;
 using Etherama.WebApplication.Core.Policies;
 using Etherama.WebApplication.Core.Tokens;
-using Etherama.WebApplication.Services.HostedServices;
+using Etherama.WebApplication.Services.Email;
+using Etherama.WebApplication.Services.Email.Impl;
 using Etherama.WebApplication.Services.OAuth.Impl;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -19,11 +17,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using NLog;
 using System;
 using System.Linq;
-using AutoMapper;
 
 namespace Etherama.WebApplication {
 
@@ -163,14 +159,8 @@ namespace Etherama.WebApplication {
 			// http context
 			services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-			//// mutex
-			//services.AddScoped<IMutexHolder, DBMutexHolder>();
-            
 			// notifications
-			services.AddScoped<INotificationQueue, DBNotificationQueue>();
-
-			// templates
-			services.AddSingleton<ITemplateProvider, TemplateProvider>();
+			services.AddSingleton<IEmailSender, MailGunSender>();
 
 			// kyc
 			//if (_environment.IsProduction()) {

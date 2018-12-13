@@ -16,13 +16,6 @@
     <ProjectReference Include="..\Common\Common.csproj" />
     <ProjectReference Include="..\DAL\DAL.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="Data\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Data\**" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Nethereum.Web3" Version="2.5.1" />
     <PackageReference Include="NetMQ" Version="4.0.0.1" />

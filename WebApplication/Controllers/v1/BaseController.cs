@@ -1,9 +1,11 @@
-﻿using Etherama.Common;
+﻿using AutoMapper;
+using Etherama.Common;
+using Etherama.Common.Extensions;
 using Etherama.CoreLogic.Services.Blockchain.Ethereum;
-using Etherama.CoreLogic.Services.KYC;
-using Etherama.CoreLogic.Services.Localization;
-using Etherama.CoreLogic.Services.Mutex;
-using Etherama.CoreLogic.Services.Notification;
+using Etherama.DAL;
+using Etherama.WebApplication.Core.Tokens;
+using Etherama.WebApplication.Models;
+using Etherama.WebApplication.Services.Email;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +16,6 @@ using NLog;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using Etherama.WebApplication.Core.Tokens;
-using Etherama.WebApplication.Models;
-using Etherama.Common.Extensions;
-using Etherama.DAL;
 
 namespace Etherama.WebApplication.Controllers.v1 {
 
@@ -32,8 +29,7 @@ namespace Etherama.WebApplication.Controllers.v1 {
 		protected SignInManager<DAL.Models.Identity.User> SignInManager { get; private set; }
 		protected UserManager<DAL.Models.Identity.User> UserManager { get; private set; }
 		//protected IKycProvider KycExternalProvider { get; private set; }
-		protected INotificationQueue EmailQueue { get; private set; }
-		protected ITemplateProvider TemplateProvider { get; private set; }
+		protected IEmailSender EmailSender { get; private set; }
 		protected IEthereumReader EthereumObserver { get; private set; }
 
 	    protected IMapper Mapper { get; private set; }
@@ -51,8 +47,7 @@ namespace Etherama.WebApplication.Controllers.v1 {
 			SignInManager = services.GetRequiredService<SignInManager<DAL.Models.Identity.User>>();
 			UserManager = services.GetRequiredService<UserManager<DAL.Models.Identity.User>>();
 			//KycExternalProvider = services.GetRequiredService<IKycProvider>();
-			EmailQueue = services.GetRequiredService<INotificationQueue>();
-			TemplateProvider = services.GetRequiredService<ITemplateProvider>();
+			EmailSender = services.GetRequiredService<IEmailSender>();
 			EthereumObserver = services.GetRequiredService<IEthereumReader>();
 		    Mapper = services.GetRequiredService<IMapper>();
         }

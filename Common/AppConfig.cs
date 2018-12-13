@@ -13,6 +13,7 @@
 
 		public class AppsSection {
 
+			public string[] AdminEmails { get; set; } = new string[]{};
 			public string RelativeApiPath { get; set; } = "/";
 			public CabinetSection Cabinet { get; set; } = new CabinetSection();
 			public DashboardSection Dashboard { get; set; } = new DashboardSection();

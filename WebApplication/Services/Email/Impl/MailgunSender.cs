@@ -1,32 +1,37 @@
 ﻿using Etherama.Common;
+using Etherama.Common.Extensions;
 using Etherama.Common.WebRequest;
+using Microsoft.EntityFrameworkCore.Internal;
 using NLog;
 using System;
 using System.Threading.Tasks;
-using Etherama.Common.Extensions;
 
-namespace Etherama.CoreLogic.Services.Notification.Impl {
+namespace Etherama.WebApplication.Services.Email.Impl {
 
 	public sealed class MailGunSender : IEmailSender {
 
-		private AppConfig _appConfig;
-		private ILogger _logger;
+		private readonly AppConfig _appConfig;
+		private readonly ILogger _logger;
 
 		public MailGunSender(AppConfig appConfig, LogFactory logFactory) {
 			_logger = logFactory.GetLoggerFor(this);
 			_appConfig = appConfig;
 		}
 
-		public async Task<bool> Send(EmailNotification noti) {
-			var ret = false;
+		public async Task<bool> Send(string[] recipients, string subject, string body) {
+			
+			if ((recipients?.Length ?? 0) == 0) {
+				return true;
+			}
 
+			var ret = false;
 			var url = _appConfig.Services.MailGun.Url.TrimEnd('/', ' ') + "/" + _appConfig.Services.MailGun.DomainName.TrimEnd('/', ' ') + "/messages";
 
 			var postParams = new Parameters()
-				.Set("from", $"{_appConfig.Services.MailGun.Sender}")
-				.Set("to", $"{noti.RecipientName} <{noti.Recipient}>")
-				.Set("subject", $"{noti.Subject}")
-				.Set("html", $"{noti.Body}")
+				.Set("from", _appConfig.Services.MailGun.Sender)
+				.Set("to", $"<{recipients.Join(">,<")}>")
+				.Set("subject", subject)
+				.Set("text", body)
 			;
 
 			using (var req = new Request(_logger)) {
@@ -36,7 +41,7 @@ namespace Etherama.CoreLogic.Services.Notification.Impl {
 					.BodyForm(postParams)
 					.OnResult(async (res) => {
 						if (res.GetHttpStatus() != System.Net.HttpStatusCode.OK) {
-							_logger?.Error("Message has not been sent to `{0}` with subject `{1}`. Status {2}. Raw: `{3}`", noti.Recipient, noti.Subject, res.GetHttpStatus(), await res.ToRawString());
+							_logger?.Error("Message has not been sent to <{0}> with subject `{1}`. Status {2}. Raw: `{3}`", recipients.Join(","), subject, res.GetHttpStatus(), await res.ToRawString());
 						} else {
 							ret = true;
 						}

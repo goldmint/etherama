@@ -82,7 +82,26 @@ namespace Etherama.WebApplication.Controllers.v1
 
             await DbContext.SaveChangesAsync();
 
-            return APIResponse.Success();
+	        try {
+		        var body = $@"
+					Hello from etherama.io
+					There is a new request:
+
+					Company: {model.CompanyName}
+					Email: {model.ContactEmail}
+					Website: {model.WebsiteUrl}
+					
+					Token ticker: {model.TokenTicker}
+					Token contract address: {model.TokenContractAddress}
+					Start price: {model.StartPriceEth} ETH
+					Total token supply: {model.TotalSupply}
+				";
+		        await EmailSender.Send(AppConfig.Apps.AdminEmails, "New request", body.Replace("\t", ""));
+	        }
+	        catch {
+	        }
+
+	        return APIResponse.Success();
         }
     }
 }

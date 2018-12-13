@@ -1,17 +1,13 @@
 ﻿using Etherama.Common;
-using Etherama.CoreLogic.Services.Localization;
-using Etherama.CoreLogic.Services.Notification.Impl;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 using Etherama.WebApplication.Core;
 using Etherama.WebApplication.Core.Policies;
 using Etherama.WebApplication.Core.Response;
 using Etherama.WebApplication.Core.Tokens;
 using Etherama.WebApplication.Models.API;
 using Etherama.WebApplication.Models.API.v1.User.UserModels;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Etherama.WebApplication.Controllers.v1 {

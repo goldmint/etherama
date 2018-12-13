@@ -1,11 +1,4 @@
 ﻿using Etherama.Common;
-using Etherama.CoreLogic.Services.Localization;
-using Etherama.CoreLogic.Services.Notification.Impl;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Threading.Tasks;
 using Etherama.WebApplication.Core;
 using Etherama.WebApplication.Core.Policies;
 using Etherama.WebApplication.Core.Response;
@@ -13,6 +6,11 @@ using Etherama.WebApplication.Core.Tokens;
 using Etherama.WebApplication.Models.API.v1.OAuthModels;
 using Etherama.WebApplication.Services.OAuth;
 using Etherama.WebApplication.Services.OAuth.Impl;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Threading.Tasks;
 
 namespace Etherama.WebApplication.Controllers.v1 {
 
@@ -105,12 +103,12 @@ namespace Etherama.WebApplication.Controllers.v1 {
 					if (accessRightsMask != null) {
 						var agent = GetUserAgentInfo();
 
-						// notification
-						await EmailComposer.FromTemplate(await TemplateProvider.GetEmailTemplate(EmailTemplate.SignedIn, userLocale))
-							.ReplaceBodyTag("IP", agent.Ip)
-							.Initiator(agent.Ip, agent.Agent, DateTime.UtcNow)
-							.Send(user.Email, user.UserName, EmailQueue)
-						;
+						//// notification
+						//await EmailComposer.FromTemplate(await TemplateProvider.GetEmailTemplate(EmailTemplate.SignedIn, userLocale))
+						//	.ReplaceBodyTag("IP", agent.Ip)
+						//	.Initiator(agent.Ip, agent.Agent, DateTime.UtcNow)
+						//	.Send(user.Email, user.UserName, EmailQueue)
+						//;
 
 						// activity
 						var userActivity = CoreLogic.User.CreateUserActivity(
