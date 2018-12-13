@@ -46,7 +46,7 @@
             <div class="my-3">
                 <div *ngIf="!ethAddress">
                   <div class="estimate-info">{{ "PAGES.Sell.Labels.Fee" | translate }}  {{ estimateFee | noexp:18 }} ETH
-                    <span class="ml-2" [popover]='"POPOVER.TokenFee" | translate' triggers="mouseenter:mouseleave" placement="top" container="body">
+                    <span class="d-inline-block ml-2" [popover]='"POPOVER.TokenFee" | translate' triggers="mouseenter:mouseleave" placement="top" container="body">
                       <svg class="icon" width="17" height="17">
                         <use xlink:href="#info"></use>
                       </svg>
@@ -54,7 +54,7 @@
                   </div>
                   <div class="estimate-info">
                     {{ "PAGES.Sell.Labels.TokenPrice" | translate }}  {{ averageTokenPrice | noexp:18 }} ETH/MNTP
-                    <span class="ml-2" [popover]='"POPOVER.AveragePrice" | translate' triggers="mouseenter:mouseleave" [placement]="isMobile ? 'auto' : 'top'" container="body">
+                    <span class="d-inline-block ml-2" [popover]='"POPOVER.AveragePrice" | translate' triggers="mouseenter:mouseleave" [placement]="isMobile ? 'auto' : 'top'" container="body">
                       <svg class="icon" width="17" height="17">
                         <use xlink:href="#info"></use>
                       </svg>
@@ -65,7 +65,7 @@
                 <div *ngIf="ethAddress">
                   <span *ngIf="+mntp && !errors.invalidBalance && !errors.tokenLimit">
                     <div class="estimate-info">{{ "PAGES.Sell.Labels.Fee" | translate }}  {{ estimateFee | noexp:18 }} ETH
-                      <span class="ml-2" [popover]='"POPOVER.TokenFee" | translate' triggers="mouseenter:mouseleave" placement="top" container="body">
+                      <span class="d-inline-block ml-2" [popover]='"POPOVER.TokenFee" | translate' triggers="mouseenter:mouseleave" placement="top" container="body">
                       <svg class="icon" width="17" height="17">
                         <use xlink:href="#info"></use>
                       </svg>
@@ -73,7 +73,7 @@
                     </div>
                     <div class="estimate-info">
                       {{ "PAGES.Sell.Labels.TokenPrice" | translate }}  {{ averageTokenPrice | noexp:18 }} ETH/{{ tokenInfo.ticker }}
-                      <span class="ml-2" [popover]='"POPOVER.AveragePrice" | translate' triggers="mouseenter:mouseleave" [placement]="isMobile ? 'auto' : 'top'" container="body">
+                      <span class="d-inline-block ml-2" [popover]='"POPOVER.AveragePrice" | translate' triggers="mouseenter:mouseleave" [placement]="isMobile ? 'auto' : 'top'" container="body">
                       <svg class="icon" width="17" height="17">
                         <use xlink:href="#info"></use>
                       </svg>
