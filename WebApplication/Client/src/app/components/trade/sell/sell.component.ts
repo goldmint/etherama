@@ -9,6 +9,7 @@ import {MessageBoxService} from "../../../services/message-box.service";
 import {UserService} from "../../../services/user.service";
 import {Observable} from "rxjs/Observable";
 import {TokenInfo} from "../../../interfaces/token-info";
+import {CommonService} from "../../../services/common.service";
 
 @Component({
   selector: 'app-sell',
@@ -50,6 +51,7 @@ export class SellComponent implements OnInit, OnDestroy {
   public isBalanceBetter: boolean = false;
   public minReturn: number;
   public isMinReturnError: boolean = false;
+  public isMobile: boolean = false;
 
   private minReturnPercent = 1;
   private web3: Web3 = new Web3();
@@ -60,7 +62,8 @@ export class SellComponent implements OnInit, OnDestroy {
     private messageBox: MessageBoxService,
     private translate: TranslateService,
     private userService: UserService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private commonService: CommonService
   ) { }
 
   ngOnInit() {
@@ -125,6 +128,8 @@ export class SellComponent implements OnInit, OnDestroy {
       network !== null && (this.isInvalidNetwork = network != this.MMNetwork.index);
       this.cdRef.markForCheck();
     });
+
+    this.commonService.isMobile$.takeUntil(this.destroy$).subscribe(isMobile => this.isMobile = isMobile);
   }
 
   changeValue(event, fromToken: boolean) {

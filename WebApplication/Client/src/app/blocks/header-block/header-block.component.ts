@@ -78,6 +78,7 @@ export class HeaderBlockComponent implements OnInit {
     this.initTransactionHashModal();
 
     window.innerWidth > 992 ? this.isMobile = this.isShowMobileMenu = false : this.isMobile = true;
+    this.commonService.isMobile$.next(this.isMobile);
 
     window.onresize = () => {
       if (window.innerWidth > 992) {
@@ -86,6 +87,7 @@ export class HeaderBlockComponent implements OnInit {
       } else {
         this.isMobile = true;
       }
+      this.commonService.isMobile$.next(this.isMobile);
       this.cdRef.markForCheck();
     };
 

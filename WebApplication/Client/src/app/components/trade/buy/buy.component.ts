@@ -9,6 +9,7 @@ import {environment} from "../../../../environments/environment";
 import {UserService} from "../../../services/user.service";
 import {Observable} from "rxjs/Observable";
 import {TokenInfo} from "../../../interfaces/token-info";
+import {CommonService} from "../../../services/common.service";
 
 @Component({
   selector: 'app-buy',
@@ -50,6 +51,7 @@ export class BuyComponent implements OnInit, OnDestroy {
   };
   public minReturn: number;
   public isMinReturnError: boolean = false;
+  public isMobile: boolean = false;
 
   private minReturnPercent = 1;
   private web3: Web3 = new Web3();
@@ -63,7 +65,8 @@ export class BuyComponent implements OnInit, OnDestroy {
     private cdRef: ChangeDetectorRef,
     private messageBox: MessageBoxService,
     private translate: TranslateService,
-    private userService: UserService
+    private userService: UserService,
+    private commonService: CommonService
   ) { }
 
   ngOnInit() {
@@ -159,6 +162,8 @@ export class BuyComponent implements OnInit, OnDestroy {
         this.cdRef.markForCheck();
       }
     });
+
+    this.commonService.isMobile$.takeUntil(this.destroy$).subscribe(isMobile => this.isMobile = isMobile);
   }
 
   changeValue(event, fromEth: boolean) {

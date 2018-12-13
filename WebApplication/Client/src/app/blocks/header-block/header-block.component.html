@@ -15,7 +15,7 @@
           <div class="action-info-block" *ngIf="!isMobile">
             <div class="mb-2">
               <div class="d-flex align-items-center mb-1">{{ "PAGES.Trade.Labels.Balances" | translate }}
-                <span class="ml-2" popover='info' triggers="mouseenter:mouseleave" placement="bottom">
+                <span class="ml-2" [popover]='"POPOVER.MyBalances" | translate' triggers="mouseenter:mouseleave" placement="bottom">
                     <svg class="icon gold" width="20" height="20">
                       <use xlink:href="#info"></use>
                     </svg>
@@ -30,7 +30,7 @@
           <div class="action-info-block" *ngIf="!isMobile">
             <div class="mb-2">
               <div class="d-flex align-items-center mb-1">{{ "PAGES.Trade.Labels.Bonus" | translate }}
-                <span class="ml-2" popover='info' triggers="mouseenter:mouseleave" placement="bottom">
+                <span class="ml-2" [popover]='"POPOVER.MyBonus" | translate' triggers="mouseenter:mouseleave" placement="bottom">
                     <svg class="icon gold" width="20" height="20">
                       <use xlink:href="#info"></use>
                     </svg>
@@ -45,7 +45,7 @@
               <div class="nowrap my-ref-link-container" [title]="isRefAvailable ? myGenerateRefLink : ''">
                 <div class="d-flex align-items-center mb-1">
                   {{ "PAGES.Trade.Labels.RefLink" | translate }}
-                  <span class="ml-2" popover='info' triggers="mouseenter:mouseleave" placement="bottom">
+                  <span class="ml-2" [popover]='"POPOVER.MyRefLink" | translate' triggers="mouseenter:mouseleave" placement="bottom">
                     <svg class="icon gold" width="20" height="20">
                       <use xlink:href="#info"></use>
                     </svg>
@@ -97,7 +97,7 @@
         <div class="action-info-block">
           <div class="mb-2">
             <div class="d-flex align-items-center mb-1">{{ "PAGES.Trade.Labels.Balances" | translate }}
-              <span class="ml-2" popover='info' triggers="mouseenter:mouseleave" placement="right">
+              <span class="ml-2" [popover]='"POPOVER.MyBalances" | translate' triggers="mouseenter:mouseleave" placement="right" container="body">
                     <svg class="icon gold" width="20" height="20">
                       <use xlink:href="#info"></use>
                     </svg>
@@ -112,7 +112,7 @@
         <div class="action-info-block">
           <div class="mb-2">
             <div class="d-flex align-items-center mb-1">{{ "PAGES.Trade.Labels.Bonus" | translate }}
-              <span class="ml-2" popover='info' triggers="mouseenter:mouseleave" placement="right">
+              <span class="ml-2" [popover]='"POPOVER.MyBonus" | translate' triggers="mouseenter:mouseleave" placement="right">
                     <svg class="icon gold" width="20" height="20">
                       <use xlink:href="#info"></use>
                     </svg>
@@ -127,7 +127,7 @@
             <div class="nowrap mb-2" [title]="isRefAvailable ? myGenerateRefLink : ''">
               <div class="d-flex align-items-center mb-1">
                 {{ "PAGES.Trade.Labels.RefLink" | translate }}
-                <span class="ml-2" popover='info' triggers="mouseenter:mouseleave" placement="right">
+                <span class="ml-2" [popover]='"POPOVER.MyRefLink" | translate' triggers="mouseenter:mouseleave" placement="right">
                     <svg class="icon gold" width="20" height="20">
                       <use xlink:href="#info"></use>
                     </svg>

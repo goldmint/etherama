@@ -9,7 +9,8 @@
       "outDir": "dist",
       "assets": [
         "assets/i18n",
-        "assets/img"
+        "assets/img",
+        "assets/docs"
       ],
       "index": "index.html",
       "main": "main.ts",

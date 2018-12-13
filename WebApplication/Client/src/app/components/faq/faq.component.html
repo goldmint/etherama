@@ -11,6 +11,8 @@
 
   <div class="section__content py-4 faq-container">
 
+    <div class="lead mb-4">{{ "PAGES.FAQ.Support" | translate }} <a href="mailto:support@etherama.io" target="_blank">support@etherama.io</a></div>
+
     <div class="collapse-container">
       <div class="collapse-heading" [ngClass]="{'open': !collapse.item1}" (click)="collapse.item1 = !collapse.item1">
         <div class="font-weight-500 lead" [innerHTML]="'PAGES.About.Sections.1th.Heading' | translate"></div>

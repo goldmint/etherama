@@ -55,6 +55,10 @@ import { MainPromoBonusComponent } from './components/market/main-promo-bonus/ma
 import { EtheramaMainModalComponent } from './common/etherama-main-modal/etherama-main-modal.component';
 import {MainContractService} from "./services/main-contract.service";
 import {ShareButtonsModule} from "@ngx-share/buttons";
+import {FooterBlockComponent} from "./blocks/footer-block/footer-block.component";
+import {StaticPagesComponent} from "./components/static-pages/static-pages.component";
+import {LegalSecurityPageComponent} from "./components/legal-security-page/legal-security-page.component";
+import {SafePipe} from "./pipes/safe.pipe";
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -109,7 +113,11 @@ export function createTranslateLoader(http: HttpClient) {
     EthAddressValidatorDirective,
     EmailValidatorDirective,
     MainPromoBonusComponent,
-    EtheramaMainModalComponent
+    EtheramaMainModalComponent,
+    FooterBlockComponent,
+    StaticPagesComponent,
+    LegalSecurityPageComponent,
+    SafePipe
   ],
   exports: [],
   providers: [

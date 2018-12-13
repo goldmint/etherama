@@ -8,6 +8,7 @@ export class CommonService {
 
   public passMarketData$ = new BehaviorSubject<MarketData>(null);
   public initMainContract$ = new BehaviorSubject<boolean>(null);
+  public isMobile$ = new BehaviorSubject<boolean>(null);
   public isDataLoaded$ = new Subject();
 
   constructor() { }
