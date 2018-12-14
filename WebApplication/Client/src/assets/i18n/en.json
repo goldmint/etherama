@@ -339,7 +339,7 @@
     "SentTransaction": {
       "Heading": "Transaction in Process:",
       "Hash": "Your transaction hash is:",
-      "Link": "View your transaction on EtherScan"
+      "Link": "View your transaction on Etherscan"
     },
     "AddToken": "Token request has been sent",
     "ConnectingMM": "Connecting to MetaMask...",
@@ -348,16 +348,16 @@
   },
   "POPOVER": {
     "MyTokens": "Your current balance of tokens",
-    "MyBalances": "The current value of all your tokens purchased on the Etherama platform at ETH.",
-    "MyBonus": "Your bonus available for receipt, including general bonus, referral bonus and promotional bonuses received.",
+    "MyBalances": "The current value of all your tokens purchased on the Etherama platform in ETH",
+    "MyBonus": "Your total earned bonus including your share bonus, referral bonus and promotional bonuses received",
     "MyRefLink": "Your referral link",
-    "BigBank": "You can get this big promo bonus if your transaction turns out to be the first in each Ethereum block whose number is a multiple of 9999.",
-    "QuickBank": "You can get this promo bonus if your transaction turns out to be the first in each Ethereum block whose number is a multiple of 100.",
-    "PercentBtnBuy": "The amount in the ETH for the active Metamask wallet for which you want to buy tokens",
-    "PercentBtnSell": "The amount in the tokens for the active Metamask wallet for which you want to buy ETH",
-    "TokenFee": "The size of the Etherama commission excluding the cost of gas per transaction",
-    "AveragePrice": "The size of the Etherama commission excluding the cost of gas per transaction",
-    "EstimateBuy": "The minimum number of tokens that you will receive after confirming the transaction",
-    "EstimateSell": "The minimum number of ETH that you will receive after confirming the transaction"
+    "BigBank": "You can get this big promo bonus if your transaction turns out to be the first in each block whose number is a multiple of 9999",
+    "QuickBank": "You can get this promo bonus if your transaction turns out to be the first in each block whose number is a multiple of 100",
+    "PercentBtnBuy": "Amount of ETH for the active Metamask wallet for which you want to buy tokens",
+    "PercentBtnSell": "Amount of tokens for the active Metamask wallet for which you want to sell tokens",
+    "TokenFee": "Size of the Etherama's commission excluding the cost of gas per transaction",
+    "AveragePrice": "Calculated average token price of the deal",
+    "EstimateBuy": "The minimum amount of tokens you will receive as soon as the transaction is confirmed",
+    "EstimateSell": "The minimum amount of ETH you will receive as soon as the transaction is confirmed"
   }
 }
