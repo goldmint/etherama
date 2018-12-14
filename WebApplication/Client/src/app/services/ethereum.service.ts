@@ -116,7 +116,7 @@ export class EthereumService {
 
       if (this._web3Infura['eth']) {
         this._contractInfura = this._web3Infura['eth'].contract(JSON.parse(this.etheramaContractABI)).at(this.etheramaContractAddress);
-        this.isTradePage && this.initBankInfoMethods();
+        this.isTradePage && this.initMethodsFromInfura();
         this.update1TokenPrice();
       } else {
         this._web3Infura = null;
@@ -158,10 +158,13 @@ export class EthereumService {
     }
   }
 
-  private initBankInfoMethods() {
+  private initMethodsFromInfura() {
     this.updatePromoBonus();
     this.updateWinBIGPromoBonus();
     this.updateWinQUICKPromoBonus();
+    this.updateTotalData();
+    this.updateTotalTokenSupply();
+    this.getExpirationTime();
   }
 
   private checkBalance() {
@@ -190,12 +193,6 @@ export class EthereumService {
     this.checkBalance();
     this.getTokenDealRange();
     this.getEthDealRange();
-
-    if (this.isTradePage) {
-      this.updateTotalData();
-      this.updateTotalTokenSupply();
-      this.getExpirationTime();
-    }
   }
 
   private updateTokenBalance(addr: string) {
