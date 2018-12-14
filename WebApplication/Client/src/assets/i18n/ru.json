@@ -158,6 +158,9 @@
       },
       "Placeholder": {
         "Search": "Поиск..."
+      },
+      "Buttons": {
+        "ViewContract": "Посмотреть смарт-контракт на Etherscan"
       }
     },
     "About": {

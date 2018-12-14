@@ -18,6 +18,7 @@ import {TokenList} from "../../interfaces/token-list";
 import {Router} from "@angular/router";
 import {CommonService} from "../../services/common.service";
 import {MessageBoxService} from "../../services/message-box.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-market',
@@ -45,6 +46,7 @@ export class MarketComponent implements OnInit, OnDestroy {
   public loading: boolean = false;
   public isDataLoaded: boolean = false;
   public searchValue: string = '';
+  public coreContractEtherscanLink = environment.etherscanContractUrl + environment.mainContractAddress + '#internaltx'
 
   private charts: any = {};
   private miniCharts: any = [];

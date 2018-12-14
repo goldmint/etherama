@@ -158,6 +158,9 @@
       },
       "Placeholder": {
         "Search": "Search..."
+      },
+      "Buttons": {
+        "ViewContract": "View smart contract on Etherscan"
       }
     },
     "About": {
