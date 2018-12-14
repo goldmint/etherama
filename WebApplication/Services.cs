@@ -20,6 +20,8 @@ using Microsoft.Extensions.DependencyInjection;
 using NLog;
 using System;
 using System.Linq;
+using Etherama.WebApplication.Services.HostedServices;
+using Microsoft.Extensions.Hosting;
 
 namespace Etherama.WebApplication {
 
