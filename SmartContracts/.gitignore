@@ -1,0 +1,8 @@
+*.swp
+*.swo
+node_modules/
+build/
+.DS_Store/
+/coverage
+coverage.json
+/package-lock.json
