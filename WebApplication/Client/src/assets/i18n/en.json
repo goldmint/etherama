@@ -163,8 +163,6 @@
         "ViewContract": "View smart contract on Etherscan"
       }
     },
-	
-	
     "About": {
       "Sections": {
         "1th": {
@@ -302,7 +300,6 @@
         }
       }
     },
-    
 	"MainModal": {
       "Slide1": "The platform for the ERC-20 tokens distribution which based on a smart contract with a back sale guarantee.",
       "Slide2": "ETH reward from every purchase / sale for all token holders.",
