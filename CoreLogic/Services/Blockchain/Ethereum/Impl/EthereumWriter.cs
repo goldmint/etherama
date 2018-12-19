@@ -18,9 +18,11 @@ namespace Etherama.CoreLogic.Services.Blockchain.Ethereum.Impl {
 
 	    public async Task<string> UpdateMaxGaxPrice(BigInteger gasPrice)
 	    {
-	        return await Web3Utils.SendTransaction(AppConfig.Services.Ethereum.EtheramaCoreAddress,
+	        var txid = await Web3Utils.SendTransaction(AppConfig.Services.Ethereum.EtheramaCoreAddress,
                 AppConfig.Services.Ethereum.EtheramaCoreAbi, AppConfig.Services.Ethereum.SetMaxGasPriceFunctionName,
                 AppConfig.Services.Ethereum.ManagerPrivateKey, 100000, gasPrice, 0, gasPrice);
+
+	        return txid;
 	    }
 	}
 }

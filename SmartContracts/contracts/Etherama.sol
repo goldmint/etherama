@@ -1024,19 +1024,19 @@ contract Etherama {
 
     //total buy count
     function getBuyCount() public view returns(uint256) {
-        return _core.getBuyCount(address(this));
+        return _core.getBuyCount(getDataContractAddress());
     }
     //total sell count
     function getSellCount() public view returns(uint256) {
-        return _core.getSellCount(address(this));
+        return _core.getSellCount(getDataContractAddress());
     }
     //total eth volume
     function getTotalVolumeEth() public view returns(uint256) {
-        return _core.getTotalVolumeEth(address(this));
+        return _core.getTotalVolumeEth(getDataContractAddress());
     }   
     //total token volume
     function getTotalVolumeToken() public view returns(uint256) {
-        return _core.getTotalVolumeToken(address(this));
+        return _core.getTotalVolumeToken(getDataContractAddress());
     } 
     //current bonus per 1 token in ETH
     function getBonusPerShare() public view returns (uint256) {
