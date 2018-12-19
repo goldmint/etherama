@@ -206,7 +206,7 @@ export class EthereumService {
       this._obsEthBalanceSubject.next(null);
     } else {
       this._contractMetamask._eth.getBalance(addr, (err, res) => {
-        this._obsEthBalanceSubject.next(new BigNumber(res.toString()).div(new BigNumber(10).pow(18)));
+        res !== null && this._obsEthBalanceSubject.next(new BigNumber(res.toString()).div(new BigNumber(10).pow(18)));
       });
     }
   }
