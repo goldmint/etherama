@@ -41,9 +41,6 @@ export class EthereumService {
   private _obs1TokenPriceSubject = new BehaviorSubject(null);
   private _obs1TokenPrice = this._obs1TokenPriceSubject.asObservable();
 
-  private _obsUserRewardSubject = new BehaviorSubject(null);
-  private _obsUserReward = this._obsUserRewardSubject.asObservable();
-
   private _obsTotalDataSubject = new BehaviorSubject(null);
   private _obsTotalData = this._obsTotalDataSubject.asObservable();
 
@@ -170,7 +167,6 @@ export class EthereumService {
   private checkBalance() {
     if (this._lastAddress != null) {
       this.updateTokenBalance(this._lastAddress);
-      this.updateUserReward();
     }
     this.updateEthBalance(this._lastAddress);
   }
@@ -227,16 +223,6 @@ export class EthereumService {
           price['sell'] = new BigNumber(res.toString()).div(new BigNumber(10).pow(18));
           this._obs1TokenPriceSubject.next(price);
         });
-      });
-    }
-  }
-
-  private updateUserReward() {
-    if (!this._contractMetamask || this._lastAddress === null) {
-      this._obsUserRewardSubject.next(null);
-    } else {
-      this._contractMetamask.getCurrentUserReward(true, true, (err, res) => {
-        this._obsUserRewardSubject.next(new BigNumber(res.toString()).div(new BigNumber(10).pow(18)));
       });
     }
   }
@@ -366,10 +352,6 @@ export class EthereumService {
 
   public getObservable1TokenPrice(): Observable<any> {
     return this._obs1TokenPrice;
-  }
-
-  public getObservableUserReward(): Observable<any> {
-    return this._obsUserReward;
   }
 
   public getObservableTotalData(): Observable<any> {
