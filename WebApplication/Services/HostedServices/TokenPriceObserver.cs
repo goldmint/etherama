@@ -11,26 +11,25 @@ namespace Etherama.WebApplication.Services.HostedServices
     {
         protected override TimeSpan Period => TimeSpan.FromMinutes(5);
 
-        private List<Token> _tokenList;
-
         public TokenPriceObserver(IServiceProvider services) : base(services) { }
 
         protected override async Task OnInit()
         {
             await base.OnInit();
-
-            _tokenList = await DbContext.Tokens.Where(x => x.IsEnabled && !x.IsDeleted).ToListAsync();
         }
 
         protected override async void DoWork(object state)
         {
-            foreach (var token in _tokenList)
+			var tokenList = await DbContext.Tokens.Where(x => x.IsEnabled && !x.IsDeleted).ToListAsync();
+			
+            foreach (var token in tokenList)
             {
                 token.CurrentPriceEth = await EthereumObserver.GetTokenPrice(token.EtheramaContractAddress);
                 token.TimeUpdated = DateTime.Now;
             }
 
             await DbContext.SaveChangesAsync();
+			DbContext.DetachEverything();
         }
     }
 }
