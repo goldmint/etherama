@@ -66,16 +66,13 @@
       },
       "Labels": {
         "TypeNumber": "Type a valid number.",
-        "Result": "Approximately {{ amount }} MNTP.",
         "Fee": "Estimated fee:",
         "TokenPrice": "Average token price:",
         "CurrentPrice": "Current buy price for 1 token:",
-        "MaxPurchase": "You can buy maximum {{ max }} tokens",
         "MinReturn": "Min return"
       },
       "Errors": {
         "InvalidBalance": "You don't have enough money.",
-        "MaxPurchase": "You are allowed to buy max {{ max }} MNTP",
         "Limits": "Minimal value is {{ min }}. Maximum value is {{ max }}.",
         "minReturn": "Minimal value must be greater than <b>0</b>. Maximal value is <b>{{ max }}</b>."
       }
@@ -87,7 +84,6 @@
       },
       "Labels": {
         "TypeNumber": "Type a valid number.",
-        "Result": "Approximately {{ amount }} ETH.",
         "Fee": "Estimated fee",
         "TokenPrice": "Average token price",
         "CurrentPrice": "Current sell price for 1 token:",

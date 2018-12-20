@@ -53,7 +53,7 @@
                     </span>
                   </div>
                   <div class="estimate-info">
-                    {{ "PAGES.Sell.Labels.TokenPrice" | translate }}  {{ averageTokenPrice | noexp:18 }} ETH/MNTP
+                    {{ "PAGES.Sell.Labels.TokenPrice" | translate }}  {{ averageTokenPrice | noexp:18 }} ETH/{{ tokenInfo.ticker }}
                     <span class="d-inline-block ml-2" [popover]='"POPOVER.AveragePrice" | translate' triggers="mouseenter:mouseleave" [placement]="isMobile ? 'auto' : 'top'" container="body">
                       <svg class="icon" width="17" height="17">
                         <use xlink:href="#info"></use>
