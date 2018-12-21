@@ -9,48 +9,58 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NLog;
 
-namespace Etherama.WebApplication.Services.HostedServices
-{
-	public abstract class BaseHostedService : IHostedService, IDisposable
-	{
+namespace Etherama.WebApplication.Services.HostedServices {
+
+	public abstract class BaseHostedService : IHostedService, IDisposable {
+
 		protected AppConfig AppConfig { get; }
 		protected ILogger Logger { get; }
 		protected ApplicationDbContext DbContext { get; }
 		protected IEthereumReader EthereumObserver { get; }
-	    protected IEthereumWriter EthereumWriter { get; }
+		protected IEthereumWriter EthereumWriter { get; }
 
-        protected abstract TimeSpan Period { get; }
-
-		private Timer _timer;
+		protected abstract TimeSpan Period { get; }
+		private Task _task;
+		private readonly CancellationTokenSource _cts = new CancellationTokenSource();
 
 		protected BaseHostedService(IServiceProvider services) {
 			Logger = services.GetLoggerFor(this.GetType());
 			AppConfig = services.GetRequiredService<AppConfig>();
 			DbContext = services.GetRequiredService<ApplicationDbContext>();
 			EthereumObserver = services.GetRequiredService<IEthereumReader>();
-		    EthereumWriter = services.GetRequiredService<IEthereumWriter>();
-		}
-
-		public async Task StartAsync(CancellationToken cancellationToken) {
-			await OnInit();
-
-			_timer = new Timer(DoWork, null, TimeSpan.Zero, Period);
-		}
-
-		public Task StopAsync(CancellationToken cancellationToken) {
-			_timer?.Change(Timeout.Infinite, 0);
-			return Task.CompletedTask;
-		}
-
-		protected abstract void DoWork(object state);
-
-		protected virtual Task OnInit() {
-			return Task.CompletedTask;
+			EthereumWriter = services.GetRequiredService<IEthereumWriter>();
 		}
 
 		public void Dispose() {
-			_timer?.Dispose();
 		}
 
+		public Task StartAsync(CancellationToken cancellationToken) {
+			_task = ExecuteAsync(_cts.Token);
+			return _task.IsCompleted ? _task : Task.CompletedTask;
+		}
+
+		public async Task StopAsync(CancellationToken cancellationToken) {
+			if (_task == null) {
+				return;
+			}
+			try {
+				_cts.Cancel();
+			}
+			finally {
+				await Task.WhenAny(_task, Task.Delay(Timeout.Infinite, cancellationToken));
+			}
+		}
+
+		private async Task ExecuteAsync(CancellationToken cancellationToken) {
+			await OnInit();
+
+			while (!cancellationToken.IsCancellationRequested) {
+				await DoWork();
+				await Task.Delay(Period, cancellationToken);
+			}
+		}
+
+		protected virtual Task OnInit() => Task.CompletedTask;
+		protected abstract Task DoWork();
 	}
 }

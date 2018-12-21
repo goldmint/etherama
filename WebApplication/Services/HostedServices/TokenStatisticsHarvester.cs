@@ -5,48 +5,67 @@ using System.Threading.Tasks;
 using Etherama.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Etherama.WebApplication.Services.HostedServices
-{
-    public class TokenStatisticsHarvester : BaseHostedService
-    {
-        protected override TimeSpan Period => TimeSpan.FromDays(1);
-        private List<Token> _tokenList;
+namespace Etherama.WebApplication.Services.HostedServices {
 
+	public class TokenStatisticsHarvester : BaseHostedService {
 
-        public TokenStatisticsHarvester(IServiceProvider services) : base(services) { }
+		protected override TimeSpan Period => TimeSpan.FromMinutes(5);
 
+		public TokenStatisticsHarvester(IServiceProvider services) : base(services) { }
 
-        protected override async Task OnInit()
-        {
-            await base.OnInit();
+		protected override async Task OnInit() {
+			await base.OnInit();
+		}
 
-            _tokenList = await DbContext.Tokens.Where(x => x.IsEnabled && !x.IsDeleted).ToListAsync();
-        }
+		protected override async Task DoWork() {
+			
+			DbContext.DetachEverything();
+			var tokenList = await DbContext.Tokens.Where(x => x.IsEnabled && !x.IsDeleted).ToListAsync();
+			var thisDayStart = DayStartOf(DateTime.Now);
 
-        protected override async void DoWork(object state)
-        {
-            foreach (var token in _tokenList)
-            {
-                var lastStat = await DbContext.TokenStatistics.LastOrDefaultAsync(x => x.TokenId == token.Id);
+			foreach (var token in tokenList) {
 
-                if (Math.Abs(lastStat?.Date.Subtract(DateTime.Now).Days ?? 1) < 1) continue; 
+				var lastStat = await DbContext.TokenStatistics.LastOrDefaultAsync(x => x.TokenId == token.Id);
+				var add = lastStat == null || lastStat.Date != thisDayStart;
 
-                var price = await EthereumObserver.GetTokenPrice(token.EtheramaContractAddress);
-                var buyCount = await EthereumObserver.GetBuyCount(token.EtheramaContractAddress);
-                var sellCount = await EthereumObserver.GetSellCount(token.EtheramaContractAddress);
-                var bonusPerShare = await EthereumObserver.GetBonusPerShare(token.EtheramaContractAddress);
-                var volumeEth = await EthereumObserver.GetVolumeEth(token.EtheramaContractAddress);
-                var volumeToken = await EthereumObserver.GetVolumeToken(token.EtheramaContractAddress);
-                var blockNum = await EthereumObserver.GetLogsLatestBlockNumber();
+				var price = await EthereumObserver.GetTokenPrice(token.EtheramaContractAddress);
+				var buyCount = await EthereumObserver.GetBuyCount(token.EtheramaContractAddress);
+				var sellCount = await EthereumObserver.GetSellCount(token.EtheramaContractAddress);
+				var bonusPerShare = await EthereumObserver.GetBonusPerShare(token.EtheramaContractAddress);
+				var volumeEth = await EthereumObserver.GetVolumeEth(token.EtheramaContractAddress);
+				var volumeToken = await EthereumObserver.GetVolumeToken(token.EtheramaContractAddress);
+				var blockNum = await EthereumObserver.GetLogsLatestBlockNumber();
 
-                var tokenStat = new TokenStatistics { Date = DateTime.Now, PriceEth = price, BuyCount = buyCount, SellCount = sellCount,
-                    ShareReward = bonusPerShare, VolumeEth = volumeEth, VolumeToken = volumeToken, BlockNum = blockNum, TokenId = token.Id };
+				if (add) {
+					var tokenStat = new TokenStatistics {
+						Date = thisDayStart,
+						PriceEth = price,
+						BuyCount = buyCount,
+						SellCount = sellCount,
+						ShareReward = bonusPerShare,
+						VolumeEth = volumeEth,
+						VolumeToken = volumeToken,
+						BlockNum = blockNum,
+						TokenId = token.Id
+					};
+					await DbContext.TokenStatistics.AddAsync(tokenStat);
+				}
+				else {
+					lastStat.PriceEth = price;
+					lastStat.BuyCount = buyCount;
+					lastStat.SellCount = sellCount;
+					lastStat.ShareReward = bonusPerShare;
+					lastStat.VolumeEth = volumeEth;
+					lastStat.VolumeToken = volumeToken;
+					lastStat.BlockNum = blockNum;
+				}
+			}
 
-                await DbContext.TokenStatistics.AddAsync(tokenStat);
-            }
+			await DbContext.SaveChangesAsync();
+		}
 
-            await DbContext.SaveChangesAsync();
-        }
-
-    }
+		private DateTime DayStartOf(DateTime t) {
+			return new DateTime(t.Year, t.Month, t.Day, 0, 0, 0, t.Kind);
+		}
+	}
 }

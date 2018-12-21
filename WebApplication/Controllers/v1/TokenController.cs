@@ -29,15 +29,16 @@ namespace Etherama.WebApplication.Controllers.v1
             foreach (var token in list)
             {
                 var last7DStatList = await DbContext.TokenStatistics.Where(x => x.TokenId == token.Id && x.Date >= DateTime.Now.AddDays(-7)).ToListAsync();
-
-                var lastStatPrice = (last7DStatList.LastOrDefault()?.PriceEth ?? token.StartPriceEth).RoundUp(5);
-				
-				if (lastStatPrice > 0) {
-					token.PriceChangeLastDayPercent = (((token.CurrentPriceEth - lastStatPrice) / lastStatPrice) * 100).RoundUp(2);
-				}
-                token.PriceStatistics7D = last7DStatList.Select(x => x.PriceEth).ToList();
-
-                if (last7DStatList.Count > 1) token.TradingVolume24HEth = (last7DStatList[last7DStatList.Count - 1].VolumeEth - last7DStatList[last7DStatList.Count - 2].VolumeEth).RoundUp(2);
+				token.PriceStatistics7D = last7DStatList.Select(x => x.PriceEth).ToList();
+                
+	            if (last7DStatList.Count > 1) {
+		            var prevDayPrice = last7DStatList[last7DStatList.Count - 2].PriceEth.RoundUp(5);
+					if (prevDayPrice > 0) {
+						token.PriceChangeLastDayPercent = (((token.CurrentPriceEth - prevDayPrice) / prevDayPrice) * 100).RoundUp(2);
+					}
+		            
+		            token.TradingVolume24HEth = (last7DStatList[last7DStatList.Count - 1].VolumeEth - last7DStatList[last7DStatList.Count - 2].VolumeEth).RoundUp(2);
+	            }
             }
 
             return APIResponse.Success(list);

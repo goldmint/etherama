@@ -1,5 +1,6 @@
 /.vs/
 /.idea
+/*.user
 /appsettings*
 /**/appsettings*
 /**/obj

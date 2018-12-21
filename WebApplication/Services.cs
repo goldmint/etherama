@@ -191,7 +191,6 @@ namespace Etherama.WebApplication {
 		    services.AddSingleton<IHostedService, MaxGasPriceUpdater>();
 #endif
 
-
             services.AddSingleton(new MapperConfiguration(mc => { mc.AddProfile(new MappingProfile()); }).CreateMapper());
 
             return services.BuildServiceProvider();
