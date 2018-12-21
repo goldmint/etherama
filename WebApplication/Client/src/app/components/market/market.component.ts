@@ -51,6 +51,7 @@ export class MarketComponent implements OnInit, OnDestroy {
   private charts: any = {};
   private miniCharts: any = [];
   private destroy$: Subject<boolean> = new Subject<boolean>();
+  private updateTokenListInterval;
 
   modalRef: BsModalRef;
 
@@ -79,6 +80,7 @@ export class MarketComponent implements OnInit, OnDestroy {
       });
 
     this.init();
+    this.updateTokenListInterval = setInterval(() => this.init(), 120000);
 
     this.userService.currentLocale.takeUntil(this.destroy$).subscribe(() => {
       if (this.isDataLoaded) {
@@ -98,14 +100,6 @@ export class MarketComponent implements OnInit, OnDestroy {
       })
       .subscribe((data: any) => {
         this.originalRows = data.data || [];
-
-        // for (let i = 0; i < 30; i++) {
-        //   let obj = {};
-        //   Object.assign(obj, this.originalRows[0]);
-        //   obj['ticker'] = 'MNTP' + i;
-        //   obj['id'] = i;
-        //   this.originalRows.push(obj);
-        // }
 
         this.originalRows.forEach(row => {
           row.chartData = [];
@@ -251,6 +245,7 @@ export class MarketComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.destroy$.next(true);
+    clearInterval(this.updateTokenListInterval);
   }
 
 }
