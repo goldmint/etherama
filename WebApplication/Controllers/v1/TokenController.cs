@@ -32,11 +32,10 @@ namespace Etherama.WebApplication.Controllers.v1
 				token.PriceStatistics7D = last7DStatList.Select(x => x.PriceEth).ToList();
                 
 	            if (last7DStatList.Count > 1) {
-		            var prevDayPrice = last7DStatList[last7DStatList.Count - 2].PriceEth.RoundUp(5);
+		            var prevDayPrice = last7DStatList[last7DStatList.Count - 2].PriceEth;
 					if (prevDayPrice > 0) {
 						token.PriceChangeLastDayPercent = (((token.CurrentPriceEth - prevDayPrice) / prevDayPrice) * 100).RoundUp(2);
 					}
-		            
 		            token.TradingVolume24HEth = (last7DStatList[last7DStatList.Count - 1].VolumeEth - last7DStatList[last7DStatList.Count - 2].VolumeEth).RoundUp(2);
 	            }
             }
