@@ -6,7 +6,7 @@ namespace Etherama.WebApplication.Services.HostedServices {
 
 	public class MaxGasPriceUpdater : BaseHostedService {
 
-		protected override TimeSpan Period => TimeSpan.FromMinutes(20);
+		protected override TimeSpan Period => TimeSpan.FromHours(4);
 
 		public MaxGasPriceUpdater(IServiceProvider services) : base(services) { }
 
