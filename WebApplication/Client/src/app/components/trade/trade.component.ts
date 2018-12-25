@@ -22,6 +22,8 @@ export class TradeComponent implements OnInit, OnDestroy {
   @HostBinding('class') class = 'page';
 
   public etherscanContractUrl = environment.etherscanContractUrl;
+  public etheramaContractABI = environment.etheramaContractABI;
+  public tokenABI = environment.tokenABI;
   public ethAddress: string = null;
   public tokenBalance: BigNumber | any = null;
   public refLink: string = '';
@@ -158,6 +160,13 @@ export class TradeComponent implements OnInit, OnDestroy {
 
   openBuySellModal() {
     this.messageBox.buySell(false);
+  }
+
+  onCopyData(input) {
+    input.focus();
+    input.setSelectionRange(0, input.value.length);
+    document.execCommand("copy");
+    input.setSelectionRange(0, 0);
   }
 
   ngOnDestroy() {

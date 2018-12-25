@@ -93,6 +93,71 @@
       <app-statistic-charts></app-statistic-charts>
     </div>
 
+    <div class="mt-4">
+      <div class="mb-2" [innerHTML]="'PAGES.Trade.SendTokenInfo.Description' | translate:{address: tokenInfo?.etheramaContractAddress}"></div>
+      <div class="send-token-info-list">
+        <ol>
+          <li>{{ "PAGES.Trade.SendTokenInfo.Steps.1th" | translate }}
+            <a href='https://mycrypto.com/contracts/interact' target='_blank'>https://mycrypto.com/contracts/interact</a>
+          </li>
+
+          <li>
+            {{ "PAGES.Trade.SendTokenInfo.Steps.2th.1thPart" | translate }}
+            <input type="text" class="input-copy-address" [value]="tokenInfo?.tokenContractAddress" #tokenAddress readonly>
+            <span class="pointer" popover='{{ "PAGES.Trade.Labels.ClickToCopy" | translate }}' triggers="mouseenter:mouseleave" placement="top" (click)="onCopyData(tokenAddress)">
+              <b>{{ tokenInfo?.tokenContractAddress }}</b>
+            </span>
+            {{ "PAGES.Trade.SendTokenInfo.Steps.2th.2thPart" | translate }}
+          </li>
+
+          <li class="mb-3">
+            <div>{{ "PAGES.Trade.SendTokenInfo.Steps.3th" | translate }}</div>
+            <div class="text-right">
+              <button class="btn btn-sm btn-primary" type="button" (click)="onCopyData(tokenAbi)">
+                {{ "PAGES.Trade.Buttons.Copy" | translate }}
+              </button>
+            </div>
+            <textarea class="form-control" name="token-address" id="token-address" rows="6" [value]="tokenABI" #tokenAbi readonly></textarea>
+          </li>
+
+          <li>{{ "PAGES.Trade.SendTokenInfo.Steps.4th" | translate }}</li>
+          <li>{{ "PAGES.Trade.SendTokenInfo.Steps.5th" | translate }}</li>
+          <li>{{ "PAGES.Trade.SendTokenInfo.Steps.6th" | translate }}</li>
+
+          <li>{{ "PAGES.Trade.SendTokenInfo.Steps.7th" | translate }}</li>
+          <li>{{ "PAGES.Trade.SendTokenInfo.Steps.8th" | translate }}
+            <a href="https://mycrypto.com/contracts/interact" target="_blank">https://mycrypto.com/contracts/interact</a>
+          </li>
+
+          <li>
+            {{ "PAGES.Trade.SendTokenInfo.Steps.9th.1thPart" | translate }}
+            <input type="text" class="input-copy-address" [value]="tokenInfo?.etheramaContractAddress" #etheramaAddress readonly>
+            <span class="pointer" popover='{{ "PAGES.Trade.Labels.ClickToCopy" | translate }}' triggers="mouseenter:mouseleave" placement="top" (click)="onCopyData(etheramaAddress)">
+              <b>{{ tokenInfo?.etheramaContractAddress }}</b>
+            </span>
+            {{ "PAGES.Trade.SendTokenInfo.Steps.9th.2thPart" | translate }}
+          </li>
+
+          <li class="mb-3">
+            <div>{{ "PAGES.Trade.SendTokenInfo.Steps.10th" | translate }}</div>
+            <div class="text-right">
+              <button class="btn btn-sm btn-primary" type="button" (click)="onCopyData(etheramaContractAbi)">
+                {{ "PAGES.Trade.Buttons.Copy" | translate }}
+              </button>
+            </div>
+            <textarea class="form-control" name="token-address" id="etherama-address" rows="6" [value]="etheramaContractABI" #etheramaContractAbi readonly></textarea>
+          </li>
+
+          <li>{{ "PAGES.Trade.SendTokenInfo.Steps.11th" | translate }}</li>
+          <li>{{ "PAGES.Trade.SendTokenInfo.Steps.12th" | translate }}</li>
+          <li>{{ "PAGES.Trade.SendTokenInfo.Steps.13th" | translate }}</li>
+          <li>{{ "PAGES.Trade.SendTokenInfo.Steps.14th" | translate }}</li>
+          <li>{{ "PAGES.Trade.SendTokenInfo.Steps.15th" | translate }}</li>
+
+        </ol>
+      </div>
+    </div>
+
   </div>
 
   <div class="trade-invalid-address" *ngIf="invalidContractAddress">

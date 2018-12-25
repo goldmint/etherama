@@ -44,7 +44,34 @@
       "Buttons": {
         "BuySell": "Buy/sell token",
         "Withdraw": "Withdraw bonus",
-        "View": "View Etherscan"
+        "View": "View Etherscan",
+        "Copy": "Copy"
+      },
+      "SendTokenInfo": {
+        "Description": "In case of this site is down you can trade your token by interacting directly with the smart-contract. To buy tokens you can just send your ETH to the address <b>{{ address }}</b>. To sell your tokens follow the instruction:",
+        "Steps": {
+          "1th": "Go to",
+          "2th": {
+            "1thPart": "Copy and paste",
+            "2thPart": "in the field \"Contract Address\"."
+          },
+          "3th": "Copy and paste ABI in the the field \"ABI / JSON Interface\".",
+          "4th": "Press the button \"Access\".",
+          "5th": "Select \"approve\" function.",
+          "6th": "Input amount of tokens you are going to sell in the field \"tokenAmount\". Be carefull. The amount should be multiplied by 10^18. For instance, 1 token = 1000000000000000000.",
+          "7th": "Generate, sign and send the transaction to Ethereum network.",
+          "8th": "After that you can to sell your tokens to the smart contract. Go to",
+          "9th": {
+            "1thPart": "Copy and paste",
+            "2thPart": "in the field \"Contract Address\"."
+          },
+          "10th": "Copy and paste ABI in the the field \"ABI / JSON Interface\".",
+          "11th": "Press the button \"Access\".",
+          "12th": "Select \"sell\" function.",
+          "13th": "Input amount of tokens you are going to sell in the field \"tokenAmount\". Be carefull. The amount should be multiplied by 10^18. For instance, 1 token = 1000000000000000000.",
+          "14th": "Input \"1\" in the field \"minReturn\".",
+          "15th": "Generate, sign and send the transaction to Ethereum network."
+        }
       },
       "Errors": {
         "InvalidAddress": "Invalid the contract address"
