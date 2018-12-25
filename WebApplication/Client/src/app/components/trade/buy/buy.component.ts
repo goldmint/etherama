@@ -10,6 +10,7 @@ import {UserService} from "../../../services/user.service";
 import {Observable} from "rxjs/Observable";
 import {TokenInfo} from "../../../interfaces/token-info";
 import {CommonService} from "../../../services/common.service";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'app-buy',
@@ -59,6 +60,7 @@ export class BuyComponent implements OnInit, OnDestroy {
   private gasLimit: number = 600000;
   private ethBalanceForCheck: BigNumber;
   private timeOut: any;
+  private sub1: Subscription;
 
   constructor(
     private ethService: EthereumService,
@@ -94,14 +96,17 @@ export class BuyComponent implements OnInit, OnDestroy {
 
     this.ethService.passEthBalance.takeUntil(this.destroy$).subscribe(eth => {
       this.ethBalanceForCheck = eth;
+      let firstStart = true;
 
       if (eth) {
         this.ethService._contractInfura.getMaxGasPrice((err, res) => {
           let gas = (+res * this.gasLimit) / Math.pow(10, 18);
-          this.ethBalance = +this.substrValue(+eth - gas);
-          this.eth = +this.substrValue(+eth - gas);
+          let value = +eth - gas;
+          this.ethBalance = value > 0 ? +this.substrValue(value) : 0;
+          this.eth = value > 0 ? +this.substrValue(value) : 0;
+          this.sub1 && this.sub1.unsubscribe();
 
-          Observable.combineLatest(
+          this.sub1 = Observable.combineLatest(
             this.ethService.getObservableTokenDealRange(),
             this.ethService.getObservableEthDealRange()
           ).takeUntil(this.destroy$).subscribe(limits => {
@@ -111,7 +116,8 @@ export class BuyComponent implements OnInit, OnDestroy {
 
               this.ethLimits.min = limits[1].min;
               this.ethLimits.max = limits[1].max;
-              this.estimateBuyOrder(this.eth, true, true);
+              firstStart && this.estimateBuyOrder(this.eth, true, true);
+              firstStart = false;
             }
           });
         });
