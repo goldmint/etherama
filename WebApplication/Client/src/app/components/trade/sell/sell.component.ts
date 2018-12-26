@@ -10,6 +10,7 @@ import {UserService} from "../../../services/user.service";
 import {Observable} from "rxjs/Observable";
 import {TokenInfo} from "../../../interfaces/token-info";
 import {CommonService} from "../../../services/common.service";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
   selector: 'app-sell',
@@ -56,6 +57,7 @@ export class SellComponent implements OnInit, OnDestroy {
   private minReturnPercent = 1;
   private web3: Web3 = new Web3();
   private destroy$: Subject<boolean> = new Subject<boolean>();
+  private sub1: Subscription;
 
   constructor(
     private ethService: EthereumService,
@@ -90,11 +92,13 @@ export class SellComponent implements OnInit, OnDestroy {
     this.initTransactionHashModal();
 
     this.ethService.passTokenBalance.takeUntil(this.destroy$).subscribe(gold => {
+      this.sub1 && this.sub1.unsubscribe();
+
       if (gold) {
         this.tokenBalance = gold;
         this.mntp = +this.substrValue(+gold);
 
-        Observable.combineLatest(
+        this.sub1 = Observable.combineLatest(
           this.ethService.getObservableTokenDealRange(),
           this.ethService.getObservableEthDealRange()
         ).takeUntil(this.destroy$).subscribe(limits => {

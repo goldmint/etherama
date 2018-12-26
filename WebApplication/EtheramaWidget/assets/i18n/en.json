@@ -1,0 +1,1104 @@
+{
+  "COMMONS": {
+	"Loading": "Loading...",
+	"TFACode": "Two-factor authentication code",
+	"TFACodeInvalid": "Invalid code"
+  },
+  "HEADER": {
+    "Wallet": "Wallet",
+    "SignIn": "Sign in",
+    "SignUp": "Sign up",
+    "SignOut": "Sign out",
+    "AccountInfo": "Account Info",
+    "Menu": {
+      "Sell": "Sell Gold",
+      "Buy": "Buy Gold",
+      "Transfer": "Transfer Gold",
+      "Finance": "Finance"
+    }
+  },
+  "FOOTER": {
+    "Menu": {
+      "About": "About",
+      "Transparency": "Transparency",
+      "LegalSecurity": "Legal & Security",
+      "HelpCenter": "Help Center"
+    },
+    "Copyright": "GoldMint, PTE, LTD © {{year}}"
+  },
+  "PAGES": {
+    "Home": {
+      "Heading": "Do You want to buy or sell gold cryptoassets?",
+      "Or": "or",
+      "Buttons": {
+        "Sell": "Sell",
+        "Buy": "Buy"
+      }
+    },
+    "Sell": {
+      "Heading": "Sell GOLD cryptoassets",
+      "Labels": {
+        "Amount": "Amount",
+        "Estimate": "Estimates Amount *",
+        "Buy": "Buy now",
+        "Get": "and get"
+      },
+      "SectionTitle": "Instant Sell",
+      "Discount": "Fee",
+      "Note": "*The estimated USD amount is calculated from the highest price offered to a lower price until all BTC is sold",
+      "Buttons": {
+        "SellNow": "Sell now",
+        "BuyMore": "Buy more"
+      },
+      "Errors": {
+        "Invalid": "Invalid gold amount"
+      }
+    },
+    "Buy": {
+      "Heading": "Buy GOLD cryptoassets",
+      "Method": {
+        "CryptoCurrency": "Cryptocurrency",
+        "Card": "Payment card",
+        "Transfer": "Bank transfer",
+        "CryptoCapital": "CryptoCapital"
+      },
+      "TFA": {
+        "SectionTitle": "You need to enable 2FA first",
+        "Text": "<span class=\"lead\">Enable 2FA in a few clicks</span>",
+        "Button": "Enable 2FA"
+      },
+      "CryptoCurrency": {
+        "Heading": "Cryptocurrency",
+        "Labels": {
+          "Caption": "Cryptocurrency",
+          "Estimate": "Estimates Amount"
+        },
+        "Buttons": {
+          "BuyNow": "Buy Now"
+        },
+        "Errors": {
+          "InvalidEth": "Invalid eth amount"
+        }
+      },
+
+
+      "SectionTitle": "Instant Buy",
+      "Note": "*The estimated USD amount is calculated from the highest price offered to a lower price until all BTC is sold",
+	  "DepositDesc": "Make a deposit in a fiat currency to your account for purchases",
+      "Labels": {
+        "Spend": "Spend",
+        "Estimate": "Estimates Amount *"
+      },
+      "Buttons": {
+        "BuyNow": "Buy now",
+        "Deposit": "Deposit"
+      },
+      "Message": {
+        "Progress": "Your request is in progress now!"
+      },
+      "Errors": {
+        "Exceeded": "You have exceeded request frequency (One request for 30 minutes). Please try later",
+        "Pending": "Your previously blockchain operation is still pending",
+        "Invalid": "Invalid amount"
+      }
+    },
+    "Transfer": {
+      "Heading": "Transfer gold cryptoassets",
+      "Labels": {
+        "TransferToWallet": "Transfer to wallet",
+        "Amount": "Amount",
+        "ChooseMethod": "Choose transfer method",
+        "MyWallet": "My Etherium wallet",
+        "Or": "or"
+      },
+      "Steps": {
+        "One": "Go to",
+        "Two": "Enter the address of the smart contract",
+        "Three": "Click confirm transaction"
+      },
+      "Placeholders": {
+        "EtheriumWallet": "Etherium wallet"
+      },
+      "Buttons": {
+        "Send": "Send"
+      },
+      "Errors": {
+        "InvalidAddress": "Invalid address",
+        "InvalidAmount": "Invalid amount value"
+      }
+    },
+    "Finance": {
+      "Heading": "Finance",
+      "Menu": {
+        "Deposit": "Deposit",
+        "Withdraw": "Withdraw",
+        "History": "History"
+      },
+      "KYC": {
+        "Text": "<span class=\"lead\">We need to confirm your identity</span>",
+        "Pros": {
+          "Secure": {
+            "Title": "Secure",
+            "Text": "All provided information is encrypted and securely stored."
+          },
+          "Simple": {
+            "Title": "Simple",
+            "Text": "Verification process is very simple and takes not more than 15 minutes."
+          },
+          "Complaint": {
+            "Title": "Complaint",
+            "Text": "Verification procedure is fully compliant with AML and KYC regulations."
+          }
+        }
+      },
+      "TableLimits": {
+        "Heading": "Account limits",
+        "Table": {
+          "Heading": {
+            "AccountType": "Account type",
+            "Basic": "BASIC",
+            "Verified": "VERIFIED",
+            "Verified+": "VERIFIED PLUS",
+            "Corporate": "CORPORATE"
+          },
+          "Labels": {
+            "Daily": "Daily",
+            "Monthly": "Monthly",
+            "Unlimited": "Unlimited",
+            "LimitUsed": "Limit used:"
+          }
+        }
+      }
+    },
+    "Deposit": {
+      "Heading": "Deposit",
+      "SectionTitle": "Choose deposit payment method",
+      "Method": {
+        "CryptoCapital": "Cryptocurrency",
+        "Card": "Payment card",
+        "Transfer": "Bank transfer",
+        "Crypto": "CryptoCapital"
+      },
+      "LimitInfo": "Your available for payment limit is less than minimally bank transfer sum",
+      "Table": {
+        "Menu": {
+          "Daily": "Daily",
+          "Monthly": "Monthly"
+        },
+        "Heading": "Account limits",
+        "Available": "Available for payment",
+        "Limit": "Limit",
+        "Increase": "Increase"
+      },
+      "CryptoCapital": {
+        "Heading": "Cryptocurrency",
+        "Labels": {
+          "EstimatesAmount": "Estimates Amount"
+        },
+        "Errors": {
+          "Invalid": "Invalid amount"
+        }
+      },
+      "Crypto": {
+        "Heading": "Crypto Capital",
+        "Table": {
+          "CellName": {
+            "Company": "Company name:",
+            "Address": "Address:",
+            "Country": "Country:",
+            "Account": "Beneficiary account:",
+            "Reference": "Reference:"
+          }
+        },
+        "EditForm": {
+          "Heading": "Edit requisites",
+          "Labels": {
+            "Company": "Company name:",
+            "Address": "Address:",
+            "Country": "Country:",
+            "Account": "Beneficiary account:"
+          },
+          "Errors": {
+            "Required": "Field is required"
+          }
+        },
+        "Warning": {
+          "First": "REFERENCE IS MANDATORY AND SHOULD BE ENTERED IN THE INFO FIELD WHEN YOU SEND A PAYMENT CRYPTO CAPITAL",
+          "Second": "PLEASE SEND TNE EXACT AMOUNT IN CURRENCY YOU APPLIED FOR AND MAKE SURE YOUR PAYMENT DETAILS ARE STATED CORRECTLY",
+          "Third": "PAYMENTS FROM THIRD PARTIES WILL NOT BE ACCEPTED AND RETURNED BACK TO THE SEDER"
+        },
+        "Buttons": {
+          "Copy": "Copy",
+          "Edit": "Edit requisites"
+        }
+      },
+      "PaymentCard": {
+        "Labels": {
+          "SelectCard": "Select a card:",
+          "Amount": "Amount:"
+        },
+        "Text": {
+          "Agree": "I agree with",
+          "Document": "Very Important Document"
+        },
+        "Errors": {
+          "Invalid": "Invalid amount value",
+          "Minimal": "Minimal amount value is",
+          "Maximum": "Maximum amount value is"
+        }
+      },
+      "BankTransfer": {
+        "Labels": {
+          "Ready": "Due to the specifics of our payment partner’s operations, we cannot guarantee payment processing time. Currently, transaction processing may take 2 to 60 days.",
+          "USDAmount": "Deposit amount",
+          "Country": "Choose your bank country"
+        },
+        "SelectCountryNote": {
+          "FirstText": "If your country is not on the list, if means we are unable to receive a bank transfer for this country. Please check",
+          "Link": "Limits and Commission",
+          "LastText": "tab."
+        },
+        "Table": {
+          "Heading": "PAYMENT DETAILS",
+          "Cell": {
+            "BeneficiaryName": "Beneficiary name:",
+            "BeneficiaryAddress": "Beneficiary address:",
+            "BeneficiaryIBAN": "Beneficiary’s bank account number (IBAN):",
+            "BeneficiaryBankName": "Beneficiary’s Bank name:",
+            "BeneficiaryBankAddress": "Beneficiary’s Bank address:",
+            "BeneficiaryBankSWIFT": "Beneficiary bank SWIFT:",
+            "Reference": "Reference:"
+          },
+          "Text": {
+            "One": "REFERENCE SHOULD BE ENTERED FIRST IN THE NARRATIVE OF THE SENDING BANK'S PAYMENT INSTRUCTIONS, BEFORE ANY OTHER REFERENCES.",
+            "Two": "PLEASE SEND THE EXACT AMOUNT IN CURRENCY YOU APPLIED FOR (EXCLUDING BANK CHARGES) AND MAKE SURE YOUR PAYMENT DETAILS IS STATED CORRECTLY.",
+            "Three": "PAYMENTS FROM THIRD PARTIES WILL NOT BE ACCEPTED AND RETURNED BACK TO THE SENDER. PLEASE NOTE THAT BANK CHARGES FOR PAYMENT RETURN WILL BE DEDUCTED FROM THE AMOUNT.",
+            "Four": "CRYPTO SP.ZO.O is the payment processor for Crypto Capital Corp (Crypto Capital)."
+          }
+        },
+        "Checkbox": "I have double-checked all the risks and acknowledge that GOLDMINT.IO should not be responsible for the outcomes of my actions. It also concerns the risks of losses and lost profits in case of payment delays."
+      },
+      "CardsList": {
+        "SectionTitle": "Card details",
+        "Processed": "Your request is being processed"
+      },
+      "Buttons": {
+        "AddCard": "Add a card",
+        "Continue": "Continue",
+        "Start": "Start",
+        "Proceed": "Proceed",
+        "Download": "Download",
+        "Print": "Print",
+        "Done": "Done"
+      },
+      "Errors": {
+        "Invalid": "Invalid amount value"
+      }
+    },
+    "Withdraw": {
+      "Heading": "Withdraw {{ asset }}",
+      "SectionTitle": "Choose withdrawal payment method",
+      "TFA": {
+        "SectionTitle": "You need to enable 2FA first",
+        "Text": "<span class=\"lead\">Enable 2FA in a few clicks</span>",
+        "Button": "Enable 2FA"
+      },
+      "Method": {
+        "CryptoCapital": "Cryptocurrency",
+        "Card": "Payment card",
+        "Transfer": "Bank transfer",
+        "Crypto": "CryptoCapital",
+        "Errors": {
+          "BalanceLess": "Your balance is less than minimal method limit",
+          "LimitLess": "Your daily limit is less than minimal method limit"
+        }
+      },
+      "Table": {
+        "Menu": {
+          "Daily": "Daily",
+          "Monthly": "Monthly"
+        },
+        "Heading": "Account limits",
+        "Available": "Available for payment",
+        "Limit": "Limit",
+        "Increase": "Increase"
+      },
+      "CryptoCapital": {
+        "Heading": "Cryptocurrency",
+        "Labels": {
+          "Amount": "Amount",
+          "EstimatesAmount": "Estimates Amount"
+        },
+        "Errors": {
+          "Invalid": "Invalid amount"
+        }
+      },
+      "Crypto": {
+        "Heading": "Crypto Capital",
+        "Labels": {
+          "Amount": "Amount",
+          "Number": "Specify your Crypto Capital number"
+        },
+        "Errors": {
+          "Invalid": "Invalid amount",
+          "Required": "Field is required"
+        },
+        "Text": {
+          "FirstText": "Pay attention that each Crypto Capital account in each currency should be verified by GoldMint.io. You can proceed with unverified account as well, but the payment will be processed only after verification of your Crypto Capital account.",
+          "SecondText": "Please note that if the withdrawal currency differs from the currency of your Crypto Capital account? conversion fees may be applied."
+        },
+        "Checkbox": "I have read, understood and agree with above mentioned policies.",
+        "Message": {
+          "PopUp": {
+            "Heading": "Attention",
+            "Text": "How to verify a Crypto Capital account?<br><br>1. Take a screenshot of your Crypto Capital account with clearly visible account number. A separate screenshot is required for each Crypto Capital account.<br><br>2. Provide this screenshot to our support team via <b>support@goldmint.io</b>"
+          },
+          "AccountAdded": "Account has been added",
+          "Remove": "Do you want to remove account?",
+          "AccountRemoved": "Account has been removed",
+          "Sent": "Request has been sent"
+        },
+        "Buttons": {
+          "Proceed": "Proceed"
+        }
+      },
+      "PaymentCard": {
+        "Labels": {
+          "SelectCard": "Select a card:",
+          "Amount": "Amount:",
+          "2FA": "Two-factor authentication code"
+        },
+        "Text": {
+          "Agree": "I am agree with",
+          "Document": "Very Important Document"
+        },
+        "Errors": {
+          "Invalid": "Invalid amount value",
+          "Minimal": "Minimal amount value is",
+          "Maximum": "Maximum amount value is",
+          "Length": "Code should be 6-digits length"
+        }
+      },
+      "BankTransfer": {
+        "Heading": "Bank transfer",
+        "Labels": {
+          "BankAccount": "Bank account",
+          "Amount": "Amount",
+          "Fee": "Fee:"
+        },
+        "AddForm": {
+          "Heading": "Add account",
+          "Labels": {
+            "Description": "Description",
+            "NameAccount": "Name on account",
+            "IBAN": "IBAN",
+            "BankName": "Bank name",
+            "BIC": "BIC",
+            "Address": "Address"
+          },
+          "Placeholder": {
+            "Description": "Unique description used to identify this bank account",
+            "NameOnAccount": "The name on this bank account must match this account",
+            "Address": "The physical address of your bank's branch, including the country"
+          },
+          "Buttons": {
+            "Save": "Save bank account",
+            "Back": "Back"
+          }
+        },
+        "RemoveForm": {
+          "Heading": "Remove account",
+          "Labels": {
+            "BankAccount": "Bank account"
+          },
+          "Buttons": {
+            "Remove": "Remove bank account",
+            "Back": "Back"
+          }
+        },
+        "Buttons": {
+          "Add": "Add account",
+          "Remove": "Remove account",
+          "Send": "Send request"
+        }
+      },
+      "CardsList": {
+        "SectionTitle": "Card details",
+        "Processed": "Your request is being processed"
+      },
+      "Buttons": {
+        "AddCard": "Add a card",
+        "Continue": "Continue",
+        "Start": "Start",
+        "Proceed": "Proceed",
+        "Download": "Download",
+        "Print": "Print",
+        "Done": "Done"
+      }
+    },
+    "History": {
+      "Heading": "History",
+      "SectionTitle": "Transactions",
+      "Table": {
+        "Columns": {
+          "Date": "Date",
+          "Amount": "Amount",
+          "Balance": "Balance",
+          "Type": "Type",
+          "Fee": "Fee",
+          "Comment": "Comment"
+        },
+        "Link": "Link",
+        "EmptyMessage": "No data"
+      },
+      "Types": {
+        "withdraw": "Withdraw",
+        "deposit": "Deposit",
+        "goldbuy": "Gold buying",
+        "goldsell": "Gold selling",
+        "hwtransfer": "Transfer"
+      }
+    },
+    "Login": {
+      "SectionTitles": {
+        "Login": "Sign in",
+        "Social": "Sign in via Social Network"
+      },
+      "Labels": {
+        "Username": "Email or Username",
+        "Password": "Password",
+        "TFACode": "Two-factor authentication code"
+      },
+      "LoginDPARequired": {
+        "Heading": "Data Processing Agreement",
+        "Text": {
+          "First": "In order to use Goldmint application you should sign data processing agreement we have sent to your email.",
+          "Second": "If you have signed an agreement, please note that in particular cases processing could take a while. Please be patient, wait a few minutes and try to sign in. ",
+          "Third": "If you have problems with signing this agreement, please contact our support team via ",
+          "Support": "support@goldmint.io"
+        }
+      },
+      "LoginDPASigned": {
+        "Heading": "Data Processing Agreement",
+        "Text": {
+          "First": "We have received document. Please click button below to sign in.",
+          "Second": "If you have problems with signing this agreement, please contact our support team via ",
+          "Support": "support@goldmint.io"
+        }
+      },
+      "Errors": {
+        "Username": {
+          "required": "Email or Username is required",
+          "minlength": "Email or Username is too short",
+          "maxlength": "Email or Username is too long"
+        },
+        "Password": {
+          "required": "Password is required",
+          "minlength": "The password is too short",
+          "maxlength": "The password is too long"
+        },
+        "TFACode": {
+          "pattern": "Only 6-digits numeric code is allowed"
+        }
+      },
+      "Buttons": {
+        "LogIn": "Sign in",
+        "LogInViaSocial": "Sign in via {{ provider }}",
+        "Back": "Back"
+      },
+      "Links": {
+        "RegisterAccount": "Register new account",
+        "ForgotPassword": "Forgot your password?"
+      }
+    },
+    "ResetPassword": {
+      "Heading": {
+        "Reset": "Reset password",
+        "Recovery": {
+          "FirstLine": "Password recovery",
+          "SecondLine": "email sent"
+        },
+        "Change": "Change password"
+      },
+      "Labels": {
+        "Reset": "Reset",
+        "EnterEmail": "Enter Your Email Address",
+        "Recovery": "Recovery",
+        "Provide": "Provide a new password for your account",
+        "NewPass": "New password",
+        "ConfirmPass": "Confirm password"
+      },
+      "Text": {
+        "Reset": "To reset your password, enter the email address you use to sign in to GOLDMINT.IO. It can be your email address, an email address you use with one of the social networks, or any email address associated with your account.",
+        "Recovery": {
+          "FirstLine": "We've sent you an email containing a password recovery link. You will be able to reset your password by clicking the link within the next 24 hours. Please click on the button in your email.",
+          "SecondLine": "If you don't see the email, be sure to check the spam folder."
+        }
+      },
+      "Errors": {
+        "Email": "Email is required",
+        "RepeatPass": "Repeat new password, please"
+      },
+      "Buttons": {
+        "Submit": "Submit",
+        "Back": "Back to the site"
+      }
+    },
+    "Register": {
+      "SectionTitles": {
+        "Register": "Register",
+        "Social": "Sign in via Social Network"
+      },
+      "Labels": {
+        "Username": "Email or Username",
+        "Email": "Email",
+        "Password": "Password"
+      },
+      "Errors": {
+        "Username": {
+          "required": "Email or Username is required",
+          "minlength": "Should be at least 3 symbols length"
+        },
+        "Email": {
+          "required": "Email is required",
+          "pattern": "Should be a valid email address, at least 5 symbols length"
+        },
+        "Password": {
+          "required": "Password is required",
+          "minlength": "Should be at least 6 symbols length",
+          "maxlength": "Should be up to 128 symbols length",
+          "pattern": "Should contain uppercase letters, lowercase letters and digits",
+          "weak": "Password is too weak",
+          "weakChecking": "Checking password..."
+        }
+      },
+      "Buttons": {
+        "Register": "Register",
+        "RegisterViaSocial": "Sign in via {{ provider }}"
+      },
+      "Links": "Already own an account? Sign in",
+      "SuccessPage":  {
+        "Title": "Registered",
+        "Content": "We have sent you confirmation email. Please check your email and follow confirmation link."
+      },
+      "EmailConfirmedPage":  {
+        "Title": "Email confirmation",
+        "ContentProcessing": "Checking email confirmation.",
+		"ContentSuccess": "Your email has been successfully confirmed. Now you are free to sign in.",
+		"ContentFailure": "There was an error while email confirmation. Please contact our support team."
+      },
+      "EmailTakenPage":  {
+        "Title": "This email is already taken",
+        "Content": "We are sorry, but email you specified is already taken. Please try another one."
+      },
+      "IAgreeText": "Hereby I grant the company GoldMint PTE LTD the right to keep and handle my personal data."
+    },
+    "2FA": {
+      "SecurityBlock": {
+        "Heading": "Security",
+        "Labels": {
+          "Notice": "Your account security is low",
+          "Recommended": "Recommended!",
+          "NotRecommended": "Not Recommended!"
+        },
+        "Description": {
+          "General": {
+            "One": "Two-Factor Authentication makes your account strongly secure.",
+            "Two": "If you lose your mobile device with enabled 2FA, contact our support team via",
+            "Three": "to solve your problem."
+          },
+          "Setup": "2FA code will be generated by your smartphone app <b>Google Authenticator</b>, available for i0S, Android and Windows phone.",
+          "Keep": {
+            "Text": "Your account will be insecure and can be easily",
+            "Word": "hacked"
+          }
+        },
+        "Buttons": {
+          "Setup": "Setup 2FA",
+          "Keep": "Keep 2FA disabled"
+        }
+      },
+      "SecurityIssueBlock": {
+        "Heading": "Security issue",
+        "Labels": {
+          "Notice": "Your account security is low"
+        },
+        "Description": {
+          "One": {
+            "Text": "We strongly recommend you to",
+            "Link": "Enable Two-Factor Authentication (2FA)"
+          },
+          "Two": {
+            "FirstText": "If your email or password are compromised, it can result in",
+            "StyleText": "loss of your funds or your personal data.",
+            "LastText": "This can be avoided with enabled 2FA."
+          }
+        },
+        "Checkbox": {
+          "One": "I acknowledge and agree that GOLDMINT.IO shall not be liable for the safety of my funds and personal information.",
+          "Two": "I am aware of the risks involved when disabling 2FA."
+        }
+      }
+    },
+    "Settings": {
+      "Heading": "Account Info",
+      "Menu": {
+        "Profile": "Profile",
+        "Verification": "KYC Verification",
+        "TFA": "Two-Factor Authentication",
+        "Cards": "Cards",
+        "SocialNetworks": "Social Networks",
+        "AccountActivity": "Account Activity",
+        "AccountLimits": "Account Limits",
+        "Fees": "Withdraw/Deposit Fees"
+      },
+      "Profile": {
+        "UserIdSection": {
+          "Title": "UserID"
+        },
+		"EmailSection": {
+          "Title": "Email",
+          "Labels": {
+            "PrimaryEmail": "Primary Email Address"
+          },
+          "Buttons": {
+            "Confirm": "Confirm"
+          },
+          "Errors": {
+            "Email": {
+              "required": "Email is required",
+              "email": "Should be a valid email"
+            }
+          }
+        },
+        "PasswordSection": {
+          "Title": "Change Password",
+		  "Texts": {
+			"Changed": "Password successfully changed"
+		  },
+          "Labels": {
+            "CurrentPassword": "Current Password",
+            "NewPassword": "New Password",
+            "NewPasswordRepeat": "Repeat New Password"
+          },
+          "Buttons": {
+            "ChangePassword": "Change password"
+          },
+          "Errors": {
+            "CurrentPassword": {
+			  "invalid": "Invalid password specified"
+            },
+            "NewPassword": {
+              "required": "New password is required",
+              "minlength": "Should be at least 6 symbols length"
+            },
+            "NewPasswordRepeat": {
+              "required": "Repeat new password, please",
+              "equal": "New passwords does not match"
+            }
+          }
+        }
+      },
+      "Cards": {
+        "Heading": "Cards",
+        "Labels": {
+          "VerificationCode": "Verification code:"
+        },
+        "Info": {
+          "Add": "You did not add any card.",
+          "Confirm": "In order to add credit card you have to confirm your person.",
+          "Redirect": "You will be redirected to acquirer page to fill card data.",
+          "InputData": "You have to enter the same card data one more time. You will be redirected to acquirer page.",
+          "Verify": "We have charged test payment. Please check bank statement for exact amount of this payment. In order to verify this card please type this amount below. For example: 1.23",
+          "CardIsReady": "Card verified and ready to use.",
+          "Wrong": "Oops! Something went wrong. Card has not been added."
+        },
+        "Status": {
+          "New": "New",
+          "Failed": "Failed",
+          "Disabled": "Disabled",
+          "Checking": "Checking...",
+          "Confirm": "Confirm",
+          "Verify": "Verify",
+          "Verified": "Verified"
+        }
+      },
+      "KYC": {
+        "AccountType": {
+          "Label": "Account type:",
+          "Types": {
+            "Verified": "Verified",
+            "VerifiedPlus": "Verified+"
+          }
+        },
+        "DefaultSection": {
+          "Title": "Identity verification",
+          "StatusText": "Not verified",
+          "Labels": {
+            "KYCVer": "Advanced verification",
+            "NotSigned": "Not signed",
+            "NotVerified": "Not verified"
+          },
+          "Text": "Complete verification to withdraw fiat funds and unlock account opportunities",
+          "Note": "Verification procedures is very simple and intuitive. We will only ask you to provide is some personal information and supporting documents.",
+          "Buttons": {
+            "Start": "Start Verification",
+            "Upgrade": "Upgrade Verification",
+            "GetAdvancedVer": "Get advanced verification"
+          }
+        },
+		"WarningSection": {
+          "Title": "Advanced verification",
+		  "Widget": "Not verified",
+          "Text": "Unverified accounts cannot make any fiat operaions. You will be redirected to identity verification service.",
+		  "TextPending": "Advanced verification is still in progress. Please come back later or try to refresh this page.",
+		  "Button": "Get verification"
+        },
+		"AgreementSection": {
+          "Title": "Sign agreement",
+          "Text": "Complete verification by signing Goldmint agreement. Agreement will be sent to your primary email address.",
+		  "TextPending": "Agreement signing is still in progress. Please come back later or try to refresh this page.",
+		  "Widget": "Not signed",
+          "Buttons": {
+            "Resend": "Send agreement"
+          }
+        },
+        "FinishedSection": {
+          "Title": "Advanced verification",
+          "StatusText": "Advanced verification completed",
+          "Text": "<span class=\"lead\">Congratulations! Identity verification successfully finished!</span>"
+        },
+        "FormSection": {
+          "Title": "Basic Information",
+          "StatusText": "Basic information filled",
+          "NewAccountText": "<b>NEW ACCOUNT.</b> Please submit the information below to apply for a basic account. Please use your full legal name as it exists on your government identification.",
+          "Important": "<b>IMPORTANT:</b> once submitted, all the information cannot be changed. Please ensure the spelling is correct.",
+          "RequiredFields": "Required fields",
+          "Labels": {
+            "FirstName": "First Name",
+            "MiddleName": "Middle Name",
+            "LastName": "Last Name",
+            "BirthMonth": "Birth Month",
+            "BirthDay": "Birth Day",
+            "BirthYear": "Birth Year",
+            "Country": "Country",
+            "State": "State or province",
+            "City": "City",
+            "PostalCode": "Postal or ZIP code",
+            "Street": "Street Address",
+            "Apartment": "Apartment or unit",
+            "Passport": "Passport number (optional)",
+            "Phone": "Phone number"
+          },
+          "Month": {
+            "January": "January",
+            "February": "February",
+            "March": "March",
+            "April": "April",
+            "May": "May",
+            "June": "June",
+            "July": "July",
+            "August": "August",
+            "September": "September",
+            "October": "October",
+            "November": "November",
+            "December": "December"
+          },
+          "Placeholders": {
+            "ChooseCountry": "Choose your Country",
+            "ChooseState": "Choose your State",
+            "ChooseBirthYear": "Choose your Birth Year..."
+          },
+          "Errors": {
+            "FirstName": {
+              "required": "This field is required",
+              "pattern": "Only latin characters allowed",
+              "minLength": "Name should be at least 2 symbols length"
+            },
+            "MiddleName": {
+              "pattern": "Only latin characters allowed"
+            },
+            "LastName": {
+              "required": "This field is required",
+              "pattern": "Only latin characters allowed",
+              "minLength": "Name should be at least 2 symbols length"
+            },
+            "BirthMonth": {
+              "required": "This field is required",
+              "pattern": "Only latin characters allowed"
+            },
+            "BirthDay": {
+              "required": "This field is required"
+            },
+            "BirthYear": {
+              "required": "This field is required"
+            },
+            "Country": {
+              "required": "This field is required"
+            },
+            "Street": {
+              "required": "This field is required",
+              "pattern": "Only latin characters allowed"
+            },
+            "City": {
+              "required": "This field is required",
+              "pattern": "Only latin characters allowed"
+            },
+            "State": {
+              "required": "This field is required",
+              "pattern": "Only latin characters allowed"
+            },
+            "PostalCode": {
+              "required": "This field is required",
+              "pattern": "Only numbers allowed"
+            },
+            "PhoneNumber": {
+              "required": "This field is required",
+              "pattern": "Invalid number format"
+            }
+          },
+          "Buttons": {
+            "Submit": "Submit"
+          }
+        }
+      },
+      "TFA": {
+        "SecretKeySection": {
+          "Title": "Two-factor authentication",
+          "TitleWidget": {
+            "Enabled": "Enabled",
+            "Disabled": "Disabled"
+          },
+          "WarningText": "<p>Two-factor authentication (2FA) greatly increases security by requiring both your password and another form of authentication. Goldmint implements 2FA utilizing Google Authenticator. To enable this feature simply download <a href=\"https://support.google.com/accounts/answer/1066447\" target=\"_blank\">Google Authenticator</a> on your mobile device and scan the CPCode. Once you have linked the Authenticator with Bittrex, enter the 6 digit code provided. </p>",
+          "Text": "<p><b>Please back up your secret key.</b> Resetting two-factor authentication requires opening a support ticket and may take up to 7 days.</p>",
+          "KeyLabel": "Secret key:",
+          "CodeLabel": "Authenticator Code",
+          "CodeHelpText": "Input your 6-digit authenticator code",
+		  "DisableWarning": "If you want to turn off 2FA, input your account password and the six-digit code provided by the Google Authenticator app below, then click \"Disable 2FA\". Your account will be insecure and can be easily hacked.",
+          "Steps": {
+            "One": "1. Backup secret key",
+            "Two": "2. Install application",
+            "Three": "3. Scan QR-code",
+            "Four": "4. Type current code"
+          },
+          "Errors": {
+            "pattern": "Only 6-digits numeric code is allowed"
+          },
+          "Buttons": {
+            "Enable": "Enable 2FA",
+            "Disable": "Disable 2FA"
+          }
+        }
+      },
+      "Social": {
+        "NetworksSection": {
+          "Title": "Social Networks",
+          "Text": "You can sign in into app.goldmint.io with your Social Network account",
+          "Buttons": {
+            "Connect": "Connect",
+            "Connected": "Connected"
+          }
+        }
+      },
+      "Activity": {
+        "SectionTitle": "Account activity events",
+        "TitleWidget": {
+          "Label": "Date"
+        },
+        "ActivityTypes": {
+          "auth": "Authentication",
+          "password": "User password",
+          "settings": "Settings",
+          "deposit": "Deposit",
+          "withdraw": "Withdraw",
+          "exchange": "Assets exchange",
+          "creditcard": "Credit card"
+        }
+      },
+      "Limits": {
+        "Heading": "Get an overview of your account opportunities",
+        "Buttons": {
+          "Deposit": "Deposit",
+          "Withdraw": "Withdraw"
+        },
+        "AccountTypes": {
+          "Heading": "Account types",
+          "Labels": {
+            "Basic": "BASIC",
+            "Verified": "VERIFIED"
+          },
+          "Text": {
+            "Basic": "Buy and sale Bitcoins in a few clicks using your Visa or Master Card.",
+            "Verified": "Extend your limits and enable more payment options by verifying your identity."
+          },
+          "AccountType": "Your account type"
+        },
+        "TotalLimits": {
+          "Heading": "TOTAL ACCOUNT LIMITS",
+          "SubTitle": {
+            "deposit": "Deposit",
+            "withdraw": "Withdraw"
+          },
+          "Labels": {
+            "Daily": "Daily",
+            "Monthly": "Monthly"
+          }
+        },
+        "PaymentLimits": {
+          "Heading": "PAYMENT METHODS LIMITS",
+          "Text": "Please note that each payment method has It’s own limits, BUT cumulative amount of payment method limits should not exceed total amount limits of your account type",
+          "Labels": {
+            "PaymentCard": "Payment card",
+            "BankTransfer": "Bank transfer",
+            "CryptoCapital": "Cryptocurrency",
+            "Commission": "Commission",
+            "NoCommission": "No commission"
+          }
+        }
+      },
+      "Fees": {
+        "Heading": "Withdraw/Deposit Fees",
+        "CurrencyType": {
+          "Fiat": "Fiat money",
+          "Crypto": "Cryptocurrency"
+        },
+        "Table": {
+          "Head": {
+            "Currency": "Currency",
+            "PaymentMethod": "Payment method",
+            "Deposit": "Deposit",
+            "Withdrawal": "Withdrawal"
+          },
+          "Method": {
+            "VISA": "VISA",
+            "MasterCard": "MasterCard",
+            "BankTransfer": "Bank Transfer",
+            "Card": "Card",
+            "SEPA": "SEPA",
+            "CryptoCapital": "CryptoCapital"
+          }
+        }
+      }
+    },
+    "Transparency": {
+      "Heading": "Transparency",
+      "Issued": "Total issued:",
+      "Burnt": "Total burnt:",
+      "Circulation": "Total in circulation:",
+      "Link": "Link",
+      "Table": {
+        "Heading": "Documents",
+        "TableCell": {
+          "Date": "Date",
+          "Amount": "Amount",
+          "Document": "Document",
+          "Comment": "Comment"
+        }
+      },
+      "TableInfo": {
+        "Headings": {
+          "Assets": "Assets",
+          "Liabilities": "Liabilities",
+          "Exchange": "Money at broker/exchange",
+          "Storage": "Physical gold in the storage",
+          "DataProvided": "Data provided",
+          "Report": "The latest auditor's report",
+          "MoneyInBanks": "Money in banks",
+          "Distribution": "GOLD Cryptoassets in distribution"
+        },
+        "TableCell": {
+          "Borrowings": "Borrowings",
+          "Capital": "Capital",
+          "Profits": "Undistributed profits"
+        }
+      }
+    },
+    "LegalSecurity": {
+      "Heading": "Legal & Security",
+      "Label": "1. Documents",
+      "Links": {
+        "Terms": "Terms of use",
+        "Privacy": "Privacy policy",
+        "KYCPolicy": "KYC Policy"
+      }
+    },
+    "ErrorPage": {
+      "404": {
+        "Heading": "Error 404. Page not found",
+        "SectionTitle": "Use the menu to navigate the site"
+      }
+    }
+  },
+  "BUTTONS": {
+    "Ok": "OK",
+    "Cancel": "Cancel",
+    "Close": "Close",
+    "AddCard": "Add card",
+    "Remove": "Remove",
+    "Refresh": "Refresh",
+    "Proceed": "Proceed",
+    "ConfirmCard": "Confirm card",
+    "VerifyCard": "Verify card",
+    "Verification": "Verification",
+    "Back": "Back",
+    "Next": "Next",
+    "Save": "Save",
+    "BackToCard": "Back to Cards list",
+    "GoToCard": "Go to Cards list",
+    "Deposit": "Deposit",
+    "Withdraw": "Withdraw"
+  },
+  "ERRORS": {
+    "Registration": {
+      "AccountEmailTaken": "This email address is already taken"
+    },
+    "Login": {
+      "AccountNotFound": "User/password pair not found",
+      "AccountLocked": "Too many unsuccessful attempts. Account is locked, try to sign in later",
+      "AccountEmailNotConfirmed": "Your email address is not confirmed yet"
+    },
+    "TFA": {
+      "InvalidCode": "Invalid code"
+    }
+  },
+  "APIErrors": {
+    "102": "You have exceeded request frequency (One request for 30 minutes). Please try later",
+    "1001": "Too many unsuccessful attempts. Account is locked, try to sign in later",
+    "1002": "Your email address is not confirmed yet",
+    "1010": "You have exceeded request frequency (One request for 30 minutes). Please try later",
+    "1012": "Your previously blockchain operation is still pending",
+    "default": "Sorry, somethings went wrong (error code {{ errorCode }})",
+    "notFound": {
+      "title": "Connection error",
+      "message": "Goldmint server does not respond. Please try again in few minutes."
+    }
+  },
+  "MessageBox": {
+    "RequestProgress": "Your request is in progress now!",
+    "GoldSell": "GOLD to sell: {{ goldAmount }} GOLD <br> You will get: $ {{ fiatAmount }} ($ {{ feeAmount }} fee) <br> GOLD/USD: $ {{ goldRate }}",
+    "GoldBuy": "GOLD to buy: {{ goldAmount }} GOLD <br> GOLD/USD: $ {{ goldRate }}",
+    "GoldTransfer": "Target address: {{ address }} <br> GOLD amount: {{ amount }} GOLD",
+    "EthDeposit": "Gold to buy: {{ coinAmount }} Eth <br> Estimates Amount: {{ goldAmount }} GOLD<br> Eth/USD: {{ ethRate }}",
+    "EthWithdraw": "Gold to sell: {{ coinAmount }} GOLD <br> Estimates Amount: {{ goldAmount }} Eth<br> Eth/USD: {{ ethRate }}",
+    "PasswordChanged": "Password successfully changed",
+    "InvalidCode": "Invalid code",
+    "ConnectionError": {
+      "Title": "Connection error",
+      "Message": "Seems like your internet connection is lost.<br>Please check it and try again."
+    },
+    "Cards": {
+      "Remove": "Remove the card?",
+      "Removed": "Your card has been removed",
+      "WrongID": "Wrong card ID",
+      "InvalidCode": "Invalid code",
+      "InvalidFormat": "Invalid code format. Only digits are allowed."
+    },
+    "MetaMask": {
+      "Heading": "What is Metamask?",
+      "Text": "MetaMask is a bridge that allows you to visit the distributed web of tomorrow in your browser today. It allows you to run Ethereum dApps right in your browser without running a full Ethereum node. Get <a href=\"https://metamask.io\" target=\"_blank\">Metamask</a>"
+    },
+    "logOut": "Are you sure you want to log out?",
+    "SomethingWrong": "Something went wrong.",
+    "DepositLimit": "Deposit limit reached"
+  }
+}
