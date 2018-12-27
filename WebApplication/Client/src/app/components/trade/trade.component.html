@@ -5,8 +5,8 @@
 
 <section class="page__section container">
 
-  <div class="row" *ngIf="!invalidContractAddress">
-    <div class="col-12 col-lg-6 p-0 pr-lg-3" *ngIf="isDataLoaded">
+  <div class="row" *ngIf="!invalidContractAddress && isDataLoaded">
+    <div class="col-12 col-lg-6 p-0 pr-lg-3">
 
       <div class="token-logo-container">
         <div class="token-logo">
@@ -40,7 +40,7 @@
       </div>
     </div>
 
-    <div class="col-12 col-lg-6 p-0 pl-lg-3" *ngIf="isDataLoaded">
+    <div class="col-12 col-lg-6 p-0 pl-lg-3">
       <div class="row">
         <div class="col-12">
           <app-promo-bonus></app-promo-bonus>
@@ -89,7 +89,7 @@
       </div>
     </div>
 
-    <div class="col-12" *ngIf="isDataLoaded">
+    <div class="col-12">
       <app-statistic-charts></app-statistic-charts>
     </div>
 
