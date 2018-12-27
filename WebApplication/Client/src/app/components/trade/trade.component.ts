@@ -123,6 +123,7 @@ export class TradeComponent implements OnInit, OnDestroy {
       address && (this.ethAddress = address);
       if (this.ethAddress && !address) {
         this.ethAddress = address;
+        this.tokenBalance = 0;
       }
 
       this.sub1 && this.sub1.unsubscribe();

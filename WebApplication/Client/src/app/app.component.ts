@@ -3,6 +3,7 @@ import {EthereumService} from "./services/ethereum.service";
 import {BigNumber} from "bignumber.js";
 import {CommonService} from "./services/common.service";
 import {MessageBoxService} from "./services/message-box.service";
+import {MainContractService} from "./services/main-contract.service";
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ export class AppComponent implements OnInit {
     private ethService: EthereumService,
     private commonService: CommonService,
     private messageBox: MessageBoxService,
+    private mainContractService: MainContractService,
     private cdRef: ChangeDetectorRef
   ) {}
 
@@ -39,6 +41,7 @@ export class AppComponent implements OnInit {
 
     this.ethService.getObservableTokenBalance().subscribe((balance) => {
       if (balance !== null && (this.tokenBalance === null || !this.tokenBalance.eq(balance))) {
+        this.tokenBalance && this.mainContractService.getAllUserBalances();
         this.tokenBalance = balance;
         this.ethService.passTokenBalance.next(balance);
       }

@@ -74,6 +74,7 @@ export class EthereumService {
 
   public getSuccessBuyRequestLink$ = new Subject();
   public getSuccessSellRequestLink$ = new Subject();
+  public isEthServiceStarted: boolean = false;
 
   private isTradePage: boolean;
   private destroy$: Subject<boolean> = new Subject<boolean>();
@@ -87,6 +88,7 @@ export class EthereumService {
         this.etheramaContractAddress = data.etheramaContractAddress;
         this.tokenContractAddress = data.tokenContractAddress;
         this.isTradePage = data.isTradePage;
+        this.isEthServiceStarted = true;
         this.setInterval();
       } else {
         this.stopService();
@@ -96,6 +98,7 @@ export class EthereumService {
 
   private stopService() {
     this._lastAddress = this._web3Infura = this._web3Metamask = null;
+    this.isEthServiceStarted = false;
     this.destroy$.next(true);
   }
 

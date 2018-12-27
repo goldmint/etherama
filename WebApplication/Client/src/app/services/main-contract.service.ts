@@ -10,6 +10,7 @@ import {Observable} from "rxjs/Observable";
 import {APIService} from "./api.service";
 import {AllTokensBalance} from "../interfaces/all-tokens-balance";
 import {TokenList} from "../interfaces/token-list";
+import {EthereumService} from "./ethereum.service";
 
 @Injectable()
 export class MainContractService {
@@ -24,7 +25,7 @@ export class MainContractService {
 
   private _web3Infura: Web3 = null;
   private _web3Metamask: Web3 = null;
-  private _lastAddress: string | null;
+  private _lastAddress: string | null = null;
 
   private _obsEthAddressSubject = new BehaviorSubject(null);
   private _obsEthAddress = this._obsEthAddressSubject.asObservable();
@@ -43,15 +44,15 @@ export class MainContractService {
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
   private web3: Web3 = new Web3();
+  private isFirstLoad: boolean = true;
 
   public isRefAvailable$ = new BehaviorSubject(null);
   public passTokensBalance$ = new BehaviorSubject(null);
-  public tokensBalance: AllTokensBalance[] = [];
-  public prevUserTotalReward: number = null;
   public getSuccessWithdrawRequestLink$ = new Subject();
 
   constructor(
     private commonService: CommonService,
+    private ethService: EthereumService,
     private apiService: APIService
   ) {
     this.commonService.initMainContract$.subscribe(init => {
@@ -102,6 +103,7 @@ export class MainContractService {
     interval(500).takeUntil(this.destroy$).subscribe(this.checkWeb3.bind(this));
     interval(7500).takeUntil(this.destroy$).subscribe(this.checkBalance.bind(this));
     interval(60000).takeUntil(this.destroy$).subscribe(this.updatePromoBonus.bind(this));
+    interval(60000).takeUntil(this.destroy$).subscribe(this.getAllUserBalances.bind(this));
     interval(10000).takeUntil(this.destroy$).subscribe(this.updateWinBIGPromoBonus.bind(this));
     interval(10000).takeUntil(this.destroy$).subscribe(this.updateWinQUICKPromoBonus.bind(this));
   }
@@ -118,16 +120,23 @@ export class MainContractService {
 
     this._obsEthAddressSubject.next(ethAddress);
     this.checkBalance();
+
+    if (this.isFirstLoad) {
+      this.getAllUserBalances();
+      this.isFirstLoad = false;
+      return;
+    }
+    !this.ethService.isEthServiceStarted && this.getAllUserBalances();
   }
 
   private checkBalance() {
     this.updateUserTotalReward();
   }
 
-  private getAllUserBalances() {
+  public getAllUserBalances() {
     this.apiService.getTokenList().subscribe((tokenList: any) => {
-      let count = 0;
-      this.tokensBalance = [];
+      let count = 0,
+          tokensBalance: AllTokensBalance[] = [];
 
       tokenList.data.forEach(token => {
         let contractMetamask = this._web3Metamask['eth'].contract(JSON.parse(this.etheramaContractABI)).at(token.etheramaContractAddress);
@@ -139,14 +148,14 @@ export class MainContractService {
           if (balance > 0) {
             contractMetamask && contractMetamask.estimateSellOrder(wei, true, (err, res) => {
               const estimate = +new BigNumber(res[0].toString()).div(new BigNumber(10).pow(18));
-              this.tokensBalance.push({token: token.ticker, balance, estimate});
+              tokensBalance.push({token: token.ticker, balance, estimate});
               count++;
-              count === tokenList.data.length && this.passTokensBalance$.next(this.tokensBalance);
+              count === tokenList.data.length && this.passTokensBalance$.next(tokensBalance);
             });
           } else {
-            this.tokensBalance.push({token: token.ticker, balance, estimate: 0});
+            tokensBalance.push({token: token.ticker, balance, estimate: 0});
             count++;
-            count === tokenList.data.length && this.passTokensBalance$.next(this.tokensBalance);
+            count === tokenList.data.length && this.passTokensBalance$.next(tokensBalance);
           }
         });
       });
@@ -193,10 +202,6 @@ export class MainContractService {
       this._obsUserTotalRewardSubject.next(null);
     } else {
       this._contractMetamask.getCurrentUserTotalReward((err, res) => {
-        let result = +new BigNumber(res.toString()).div(new BigNumber(10).pow(18));
-
-        this.prevUserTotalReward !== result && this.getAllUserBalances();
-        this.prevUserTotalReward = result;
         this._obsUserTotalRewardSubject.next(new BigNumber(res.toString()).div(new BigNumber(10).pow(18)));
       });
     }
