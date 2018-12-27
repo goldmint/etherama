@@ -55,7 +55,11 @@ namespace Etherama.WebApplication.Services.HostedServices {
 			await OnInit();
 
 			while (!cancellationToken.IsCancellationRequested) {
-				await DoWork();
+				try {
+					await DoWork();
+				} catch (Exception e) {
+					Logger.Error(e, "Hosted service failure");
+				}
 				await Task.Delay(Period, cancellationToken);
 			}
 		}
