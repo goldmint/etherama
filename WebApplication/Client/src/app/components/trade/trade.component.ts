@@ -22,6 +22,7 @@ export class TradeComponent implements OnInit, OnDestroy {
   @HostBinding('class') class = 'page';
 
   public etherscanContractUrl = environment.etherscanContractUrl;
+  public etherscanTokenUrl = environment.etherscanTokenUrl;
   public etheramaContractABI = environment.etheramaContractABI;
   public tokenABI = environment.tokenABI;
   public ethAddress: string = null;
