@@ -28,6 +28,7 @@
         "EthContract": "ETH in contract:",
         "TokensContract": "Tokens sold:",
         "TotalSupply": "Total token supply:",
+        "TokenAddress": "Token address:",
         "Tokens": "My tokens:",
         "Balances": "My balance:",
         "Bonus": "My bonus:",
@@ -316,6 +317,10 @@
         "11th": {
           "Heading": "Etherama fees",
           "Text": "Small fees paid on each trade, as well as the gas costs, which is possible to set manually during a trade. On minor transactions, the percentage of gas costs might be high. We recommend to set gas price manually and to avoid numerous minor transactions."
+        },
+        "12th": {
+          "Heading": "Etherama-widget",
+          "Text": "If you have your own web site, you can add Etherama-widget on your page. It will allow to trade tokens straight from the page. A major benefit for the site’s owner is his hard-coded referral link. Any purchase from the widget will bring some reward to him. Your widget can be customized and will look simular like this <br><br><img src='../../../assets/img/etherama-widget.png' width='100%' alt='widget'><br><br>To get it please contact us by email <a href='mailto:support@etherama.io' target='_blank'>support@etherama.io<a/>"
         }
       }
     },
