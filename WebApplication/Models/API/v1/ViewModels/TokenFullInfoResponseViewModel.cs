@@ -18,6 +18,10 @@ namespace Etherama.WebApplication.Models.API.v1.ViewModels
 
         public string Description { get; set; }
 
+        public string DescriptionRu { get; set; }
+
+        public string DescriptionEn { get; set; }
+
         public decimal StartPriceEth { get; set; }
 
         public DateTime TimeCreated { get; set; }
