@@ -9,7 +9,7 @@
     /**
      * Widget innerHTML
      */
-    var widgetHTML = '<div class="gold-container"> <div class="gold-heading">My token balance: <span data-bind="tokens">0</span> <span data-bind="tokenTicker"></span></div><div class="gold-info"> <div class="gold-info-price-block"> <div class="gold-buy-block"> <div class="gold-buy-token-price"> <div>Current buy price for 1 token:</div><div><b data-bind="tokenBuyPrice">0</b> ETH/<span data-bind="tokenTicker"></span></div></div><div class="gold-buy-btn-block"> <div class="gold-buttons"> <button type="button" class="gold-buttons__button gold-buttons-buy" data-event-click="buy" data-disabled="loading">Buy</button> </div></div></div><div class="gold-info-price-separator"></div><div class="gold-sell-block"> <div class="gold-buy-token-price"> <div>Current sell price for 1 token:</div><div><b data-bind="tokenSellPrice">0</b> ETH/<span data-bind="tokenTicker"></span></div></div><div class="gold-sell-btn-block"> <div class="gold-buttons"> <button type="button" class="gold-buttons__button gold-buttons-sell" data-event-click="sell" data-disabled="loading">Sell</button> </div></div></div></div></div></div>';
+    var widgetHTML = '<div class="gold-container"> <div class="gold-heading">My token balance: <span data-bind="tokens">0</span> <span data-bind="tokenTicker"></span></div><div class="gold-info"> <div class="gold-info-price-block"> <div class="gold-buy-block"> <div class="gold-buy-token-price"> <div>Current buy price for 1 token:</div><div><b data-bind="tokenBuyPrice">0</b> ETH/<span data-bind="tokenTicker"></span></div></div><div class="gold-buy-btn-block"> <div class="gold-buttons"> <button type="button" class="gold-buttons__button gold-buttons-buy" data-event-click="buy" data-disabled="loading" disabled>Buy</button> </div></div></div><div class="gold-info-price-separator"></div><div class="gold-sell-block"> <div class="gold-buy-token-price"> <div>Current sell price for 1 token:</div><div><b data-bind="tokenSellPrice">0</b> ETH/<span data-bind="tokenTicker"></span></div></div><div class="gold-sell-btn-block"> <div class="gold-buttons"> <button type="button" class="gold-buttons__button gold-buttons-sell" data-event-click="sell" data-disabled="loading" disabled>Sell</button> </div></div></div></div></div></div>';
 
     /**
      * Widget modal container template
@@ -299,24 +299,25 @@
         }
 
         if (!this.web3Infura && this.options.etheramaContractAddress) {
+            var self = this;
             this.web3Infura = new Web3(new Web3.providers.HttpProvider('https://service.goldmint.io/proxy/infura/mainnet'));
 
-            // Get ABI
-            // this.getContractsByAddress(this.options.etheramaContractAddress, function(abi) {
-            //     if (!Array.isArray(abi)) {
-            //         return console.warn('Mintarama Widget: Invalid contract address');
-            //     }
-            // });
-
             if (this.web3Infura.eth) {
-                this.contractInfura = this.web3Infura.eth.contract(JSON.parse(this.options.etheramaContractABI)).at(this.options.etheramaContractAddress);
-                !window.hasOwnProperty('web3') && this.contractInfura && changeCallback && changeCallback(null);
+                this.getContractsByAddress(this.options.etheramaContractAddress, function(abi) {
+                    if (!Array.isArray(abi)) {
+                        return console.warn('Mintarama Widget: Invalid contract address');
+                    }
+                    self.options.etheramaContractABI = abi;
+                    self.contractInfura = self.web3Infura.eth.contract(self.options.etheramaContractABI).at(self.options.etheramaContractAddress);
+                    !window.hasOwnProperty('web3') && self.contractInfura && changeCallback && changeCallback(null);
+                });
             } else {
                 this.web3Infura = null;
             }
         }
 
-        if (!this.web3Metamask && this.options.etheramaContractAddress && this.options.tokenAddress && (window.hasOwnProperty('Web3') || window.hasOwnProperty('ethereum'))) {
+        if (!this.web3Metamask && this.options.etheramaContractAddress && this.options.etheramaContractABI && (window.hasOwnProperty('Web3') || window.hasOwnProperty('ethereum'))) {
+            var self = this;
             var ethereum = window.ethereum;
 
             if (ethereum) {
@@ -325,10 +326,16 @@
             } else {
                 this.web3Metamask = new Web3(window.Web3.currentProvider);
             }
-
+            
             if (this.web3Metamask.eth) {
-                this.contractMetamask = this.web3Metamask.eth.contract(JSON.parse(this.options.etheramaContractABI)).at(this.options.etheramaContractAddress);
-                this.contractToken = this.web3Metamask.eth.contract(JSON.parse(this.options.tokenABI)).at(this.options.tokenAddress);
+                this.getContractsByAddress(this.options.tokenAddress, function(abi) {
+                    if (!Array.isArray(abi)) {
+                        return console.warn('Mintarama Widget: Invalid contract address');
+                    }
+                    self.options.tokenABI = abi;
+                    self.contractMetamask = self.web3Metamask.eth.contract(self.options.etheramaContractABI).at(self.options.etheramaContractAddress);
+                    self.contractToken = self.web3Metamask.eth.contract(self.options.tokenABI).at(self.options.tokenAddress);
+                });
             } else {
                 this.web3Metamask = null;
             }
@@ -939,6 +946,9 @@
             this.updateTokenBuyPrice();
             this.updateTokenSellPrice();
             ethAddress && this.updateTokens();
+            this.binds.update({
+               loading: false
+            });
         }).bind(this));
 
         function openForm(direction) {
@@ -1094,12 +1104,14 @@
         }
 
         options = typeof options === 'object' ? options : {};
-        var requiredOptions = ['etheramaContractABI', 'tokenABI', 'tokenID'];
+        var requiredOptions = ['tokenID'];
         for (var i = requiredOptions.length; i--; ) {
             if (!options.hasOwnProperty(requiredOptions[i]) || !options[requiredOptions[i]]) {
                 return console.error('Mintarama Widget: required option "' + requiredOptions[i] + '" hasn\'t been found');
             }
         }
+        options.etheramaContractABI = '';
+        options.tokenABI = '';
         new GoldWidget(element, options);
     };
 }();
