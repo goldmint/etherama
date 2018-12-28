@@ -29,6 +29,8 @@
         "TokensContract": "Tokens sold:",
         "TotalSupply": "Total token supply:",
         "TokenAddress": "Token address:",
+        "StartTokenPrice": "Start token price:",
+        "CurrentTokenPrice": "Current token price:",
         "Tokens": "My tokens:",
         "Balances": "My balance:",
         "Bonus": "My bonus:",

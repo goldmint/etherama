@@ -4,7 +4,7 @@ import {CommonService} from "../../services/common.service";
 import {MarketData} from "../../interfaces/market-data";
 import {Subject} from "rxjs/Subject";
 import {APIService} from "../../services/api.service";
-import {TokenInfo} from "../../interfaces/token-info";
+import {TokenInfoDetails} from "../../interfaces/token-info-details";
 
 @Component({
   selector: 'app-buy-sell-modal',
@@ -19,7 +19,7 @@ export class BuySellModalComponent implements OnInit, OnDestroy {
     type: 'buy'|'sell'
   };
   public isDataLoaded: boolean = false;
-  public tokenInfo: TokenInfo;
+  public tokenInfo: TokenInfoDetails;
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
 

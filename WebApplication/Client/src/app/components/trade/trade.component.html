@@ -10,9 +10,9 @@
 
       <div class="token-logo-container">
         <div class="token-logo">
-          <img [src]="tokenInfo.logoUrl" alt="token-logo" width="">
+          <img [src]="tokenInfoDetails.logoUrl" alt="token-logo" width="">
         </div>
-        <div class="token-logo-name">{{ tokenInfo.ticker }}</div>
+        <div class="token-logo-name">{{ tokenInfoDetails.ticker }}</div>
       </div>
 
       <div class="total-info-block">
@@ -20,14 +20,16 @@
           <span *ngIf="tillExpiration">{{ expirationTime?.expiration * 1000 | date:'d.M.yyyy' }} ({{ tillExpiration | date:'d.M.yyyy H:mm:ss' }})</span>
         </div>
         <div><b>{{ "PAGES.Trade.Labels.EthContract" | translate }}</b> {{ +totalData.totalEth | noexp }} ETH</div>
-        <div><b>{{ "PAGES.Trade.Labels.TokensContract" | translate }}</b> {{ +totalData.totalTokens | noexp }} {{ tokenInfo.ticker }}</div>
+        <div><b>{{ "PAGES.Trade.Labels.TokensContract" | translate }}</b> {{ +totalData.totalTokens | noexp }} {{ tokenInfoDetails.ticker }}</div>
         <div><b>{{ "PAGES.Trade.Labels.TotalSupply" | translate }}</b> {{ tokenSupply | number }}</div>
-        <div class="overflow-ellipsis"><b>{{ "PAGES.Trade.Labels.TokenAddress" | translate }}</b> <a class="token-address-link" [href]="etherscanTokenUrl + tokenInfo?.tokenContractAddress" target="_blank">{{ tokenInfo?.tokenContractAddress }}</a></div>
+        <div class="overflow-ellipsis"><b>{{ "PAGES.Trade.Labels.TokenAddress" | translate }}</b> <a class="token-address-link" [href]="etherscanTokenUrl + tokenInfoDetails?.tokenContractAddress" target="_blank">{{ tokenInfoDetails?.tokenContractAddress }}</a></div>
+        <div><b>{{ "PAGES.Trade.Labels.StartTokenPrice" | translate }}</b> {{ tokenInfo.startPriceEth | noexp:6 }} ETH</div>
+        <div><b>{{ "PAGES.Trade.Labels.CurrentTokenPrice" | translate }}</b> {{ tokenInfo.currentPriceEth | noexp:6 }} ETH</div>
       </div>
 
       <div class="text-justify">
         <div class="mb-1"><b>{{ "PAGES.Trade.Labels.Description" | translate }}</b></div>
-        {{ tokenInfo.description }}
+        {{ tokenInfoDetails['description' + local] }}
 
        <div class="mt-3 text-center">
          <share-buttons [theme]="'default'"
@@ -58,7 +60,7 @@
                   </svg>
                 </span>
               </div>
-               <b>{{ +tokenBalance | noexp }} {{ tokenInfo.ticker }}</b>
+               <b>{{ +tokenBalance | noexp }} {{ tokenInfoDetails.ticker }}</b>
             </div>
 
             <div class="text-right">
@@ -75,7 +77,7 @@
             <div class="overflow-hidden"> </div>
 
             <div class="text-right">
-              <a [href]="etherscanContractUrl + tokenInfo.etheramaContractAddress" target="_blank">
+              <a [href]="etherscanContractUrl + tokenInfoDetails.etheramaContractAddress" target="_blank">
                 <button class="btn btn-sm btn-primary w-100" type="button">
                   <svg  width="23" height="23">
                     <use xlink:href="#link-out"></use>
@@ -95,7 +97,7 @@
     </div>
 
     <div class="mt-4">
-      <div class="mb-2" [innerHTML]="'PAGES.Trade.SendTokenInfo.Description' | translate:{address: tokenInfo?.etheramaContractAddress}"></div>
+      <div class="mb-2" [innerHTML]="'PAGES.Trade.SendTokenInfo.Description' | translate:{address: tokenInfoDetails?.etheramaContractAddress}"></div>
       <div class="send-token-info-list">
         <ol>
           <li>{{ "PAGES.Trade.SendTokenInfo.Steps.1th" | translate }}
@@ -104,9 +106,9 @@
 
           <li>
             {{ "PAGES.Trade.SendTokenInfo.Steps.2th.1thPart" | translate }}
-            <input type="text" class="input-copy-address" [value]="tokenInfo?.tokenContractAddress" #tokenAddress readonly>
+            <input type="text" class="input-copy-address" [value]="tokenInfoDetails?.tokenContractAddress" #tokenAddress readonly>
             <span class="pointer" popover='{{ "PAGES.Trade.Labels.ClickToCopy" | translate }}' triggers="mouseenter:mouseleave" placement="top" (click)="onCopyData(tokenAddress)">
-              <b>{{ tokenInfo?.tokenContractAddress }}</b>
+              <b>{{ tokenInfoDetails?.tokenContractAddress }}</b>
             </span>
             {{ "PAGES.Trade.SendTokenInfo.Steps.2th.2thPart" | translate }}
           </li>
@@ -132,9 +134,9 @@
 
           <li>
             {{ "PAGES.Trade.SendTokenInfo.Steps.9th.1thPart" | translate }}
-            <input type="text" class="input-copy-address" [value]="tokenInfo?.etheramaContractAddress" #etheramaAddress readonly>
+            <input type="text" class="input-copy-address" [value]="tokenInfoDetails?.etheramaContractAddress" #etheramaAddress readonly>
             <span class="pointer" popover='{{ "PAGES.Trade.Labels.ClickToCopy" | translate }}' triggers="mouseenter:mouseleave" placement="top" (click)="onCopyData(etheramaAddress)">
-              <b>{{ tokenInfo?.etheramaContractAddress }}</b>
+              <b>{{ tokenInfoDetails?.etheramaContractAddress }}</b>
             </span>
             {{ "PAGES.Trade.SendTokenInfo.Steps.9th.2thPart" | translate }}
           </li>

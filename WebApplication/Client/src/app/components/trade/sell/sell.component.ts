@@ -8,9 +8,9 @@ import {TranslateService} from "@ngx-translate/core";
 import {MessageBoxService} from "../../../services/message-box.service";
 import {UserService} from "../../../services/user.service";
 import {Observable} from "rxjs/Observable";
-import {TokenInfo} from "../../../interfaces/token-info";
 import {CommonService} from "../../../services/common.service";
 import {Subscription} from "rxjs/Subscription";
+import {TokenInfoDetails} from "../../../interfaces/token-info-details";
 
 @Component({
   selector: 'app-sell',
@@ -19,7 +19,7 @@ import {Subscription} from "rxjs/Subscription";
 })
 export class SellComponent implements OnInit, OnDestroy {
 
-  @Input('tokenInfo') tokenInfo: TokenInfo;
+  @Input('tokenInfo') tokenInfo: TokenInfoDetails;
   @ViewChild('mntpInput') mntpInput;
   @ViewChild('ethInput') ethInput;
 
