@@ -192,6 +192,9 @@ export class BuyComponent implements OnInit, OnDestroy {
 
   setCoinBalance(percent) {
     let value = this.substrValue(+this.ethBalance * percent);
+    if (!value) {
+      return
+    }
     this.eth = +value;
     this.checkErrors(true, value);
 
@@ -274,7 +277,9 @@ export class BuyComponent implements OnInit, OnDestroy {
       !this.ethAddress && this.userService.loginToMM(heading);
     } else {
       this.translate.get('MESSAGE.MetaMask').subscribe(phrase => {
-        this.messageBox.alert(phrase.Text, phrase.Heading);
+        this.messageBox.alert(phrase.Text, phrase.Heading).subscribe(ok => {
+          ok && window.location.reload();
+        });
       });
     }
   }

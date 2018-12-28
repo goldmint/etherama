@@ -351,7 +351,7 @@
   "MESSAGE": {
     "MetaMask": {
       "Heading": "To continue you'll need to have MetaMask",
-      "Text": "MetaMask is a bridge that allows you to visit the distributed web of tomorrow in your browser today. It allows you to run Ethereum dApps right in your browser without running a full Ethereum node. Please, install the MetaMask add-on in Chrome, Firefox or Opera browser. Get <a href=\"https://metamask.io\" target=\"_blank\">MetaMask</a>"
+      "Text": "MetaMask is a bridge that allows you to visit the distributed web of tomorrow in your browser today. It allows you to run Ethereum dApps right in your browser without running a full Ethereum node. Please, install the MetaMask add-on in Chrome, Firefox or Opera browser. Get <a href=\"https://metamask.io\" target=\"_blank\">MetaMask</a>.<br>After installing MetaMask, please, press OK button"
     },
     "MMHandingOut": "Seems like your MetaMask is hanging out or doesn't work properly at the moment. Please try to turn it off and then on at your extension settings. After reloading MetaMask please click OK.",
     "LoginToMM": {

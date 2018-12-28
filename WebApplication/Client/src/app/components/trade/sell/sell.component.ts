@@ -157,9 +157,11 @@ export class SellComponent implements OnInit, OnDestroy {
   setCoinBalance(percent) {
     if (this.ethAddress) {
       let value = this.isBalanceBetter ? this.substrValue(this.tokenLimits.max * percent) : this.substrValue(+this.tokenBalance * percent);
+      if (!value) {
+        return
+      }
       if (+value != this.mntp) {
         this.mntp = +value;
-        // !this.errors.tokenLimit && this.estimateSellOrder(this.mntp, true, false);
       }
       this.checkErrors(true, value);
       this.cdRef.markForCheck();
@@ -246,7 +248,9 @@ export class SellComponent implements OnInit, OnDestroy {
       !this.ethAddress && this.userService.loginToMM(heading);
     } else {
       this.translate.get('MESSAGE.MetaMask').subscribe(phrase => {
-        this.messageBox.alert(phrase.Text, phrase.Heading);
+        this.messageBox.alert(phrase.Text, phrase.Heading).subscribe(ok => {
+          ok && window.location.reload();
+        });
       });
     }
   }
