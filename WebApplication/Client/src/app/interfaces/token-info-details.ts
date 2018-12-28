@@ -6,6 +6,7 @@ export interface TokenInfoDetails {
   fullName: string;
   id: number;
   logoUrl: string;
+  siteUrl: string;
   startPriceEth: number;
   ticker: string;
   timeCreated: Date;

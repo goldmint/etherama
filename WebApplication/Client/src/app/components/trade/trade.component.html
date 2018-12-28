@@ -22,9 +22,10 @@
         <div><b>{{ "PAGES.Trade.Labels.EthContract" | translate }}</b> {{ +totalData.totalEth | noexp }} ETH</div>
         <div><b>{{ "PAGES.Trade.Labels.TokensContract" | translate }}</b> {{ +totalData.totalTokens | noexp }} {{ tokenInfoDetails.ticker }}</div>
         <div><b>{{ "PAGES.Trade.Labels.TotalSupply" | translate }}</b> {{ tokenSupply | number }}</div>
-        <div class="overflow-ellipsis"><b>{{ "PAGES.Trade.Labels.TokenAddress" | translate }}</b> <a class="token-address-link" [href]="etherscanTokenUrl + tokenInfoDetails?.tokenContractAddress" target="_blank">{{ tokenInfoDetails?.tokenContractAddress }}</a></div>
+        <div class="overflow-ellipsis"><b>{{ "PAGES.Trade.Labels.TokenAddress" | translate }}</b> <a [href]="etherscanTokenUrl + tokenInfoDetails?.tokenContractAddress" target="_blank">{{ tokenInfoDetails?.tokenContractAddress }}</a></div>
         <div><b>{{ "PAGES.Trade.Labels.StartTokenPrice" | translate }}</b> {{ tokenInfo.startPriceEth | noexp:6 }} ETH</div>
         <div><b>{{ "PAGES.Trade.Labels.CurrentTokenPrice" | translate }}</b> {{ tokenInfo.currentPriceEth | noexp:6 }} ETH</div>
+        <div class="overflow-ellipsis"><b>{{ "PAGES.Trade.Labels.SiteUrl" | translate }}</b> <a [href]="tokenInfoDetails.siteUrl" target="_blank">{{ tokenInfoDetails?.siteUrl }}</a></div>
       </div>
 
       <div class="text-justify">

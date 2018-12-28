@@ -31,6 +31,7 @@
         "TokenAddress": "Token address:",
         "StartTokenPrice": "Start token price:",
         "CurrentTokenPrice": "Current token price:",
+        "SiteUrl": "Site URL:",
         "Tokens": "My tokens:",
         "Balances": "My balance:",
         "Bonus": "My bonus:",

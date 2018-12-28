@@ -31,6 +31,7 @@
         "TokenAddress": "Адрес токена:",
         "StartTokenPrice": "Начальная цена токена:",
         "CurrentTokenPrice": "Текущая цена токена:",
+        "SiteUrl": "Адрес сайта:",
         "Tokens": "Мои токены:",
         "Balances": "Мой баланс:",
         "Bonus": "Мой бонус:",
