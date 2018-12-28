@@ -23,8 +23,17 @@ namespace Etherama.DAL.Models
         [Column("description"), Required, MaxLength(1024)]
         public string Description { get; set; }
 
+        [Column("description_ru"), MaxLength(1024)]
+        public string DescriptionRu { get; set; }
+
+        [Column("description_en"), MaxLength(1024)]
+        public string DescriptionEn { get; set; }
+
         [Column("logo_url"), Required, MaxLength(1024)]
         public string LogoUrl { get; set; }
+
+        [Column("site_url"), MaxLength(1024)]
+        public string SiteUrl { get; set; }
 
         [Column("start_price_eth"), Required, MaxLength(1024)]
         public decimal StartPriceEth { get; set; }
