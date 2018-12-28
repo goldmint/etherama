@@ -48,6 +48,7 @@
     var loginToMetaMaskModalHTML = '<div class="gold-modal-error"><div class="gold-modal-error-text">Please login to your MetaMask account</div><div class="gold-modal-mm-icon"><div class="gold-modal-mm-link"></div></div></div>';
 
     var _Web3;
+    var metaMask;
 
     /**
      * Binds service constructor
@@ -283,23 +284,21 @@
         this.contractToken = null;
         this.ethAddress;
         this.options = options;
+        this.checkWeb3Callbacks = [];
+        this.checkWeb3Started = false;
     }
 
-    /**
-     * Check MetaMask and calls callback function if status is being changed
-     *
-     * @param {Function} changeCallback
-     * @param options
-     */
-    MetaMaskWeb3.prototype.checkWeb3 = function(changeCallback) {
+    MetaMaskWeb3.prototype.checkWeb3Process = function()
+    {
         if (!window.hasOwnProperty('Web3')) {
-            return setTimeout(this.checkWeb3.bind(this, changeCallback), 300);
+            return setTimeout(this.checkWeb3Process.bind(this), 300);
         } else if (!_Web3) {
             _Web3 = new Web3();
         }
 
+        var self = this;
+
         if (!this.web3Infura && this.options.etheramaContractAddress) {
-            var self = this;
             this.web3Infura = new Web3(new Web3.providers.HttpProvider('https://service.goldmint.io/proxy/infura/mainnet'));
 
             if (this.web3Infura.eth) {
@@ -309,7 +308,9 @@
                     }
                     self.options.etheramaContractABI = abi;
                     self.contractInfura = self.web3Infura.eth.contract(self.options.etheramaContractABI).at(self.options.etheramaContractAddress);
-                    !window.hasOwnProperty('web3') && self.contractInfura && changeCallback && changeCallback(null);
+                    !window.hasOwnProperty('web3') && self.contractInfura && self.checkWeb3Callbacks.forEach(function(callback) {
+                        callback(null);
+                    });
                 });
             } else {
                 this.web3Infura = null;
@@ -317,7 +318,6 @@
         }
 
         if (!this.web3Metamask && this.options.etheramaContractAddress && this.options.etheramaContractABI && (window.hasOwnProperty('Web3') || window.hasOwnProperty('ethereum'))) {
-            var self = this;
             var ethereum = window.ethereum;
 
             if (ethereum) {
@@ -326,7 +326,7 @@
             } else {
                 this.web3Metamask = new Web3(window.Web3.currentProvider);
             }
-            
+
             if (this.web3Metamask.eth) {
                 this.getContractsByAddress(this.options.tokenAddress, function(abi) {
                     if (!Array.isArray(abi)) {
@@ -341,25 +341,53 @@
             }
         }
 
-        this.isInstalled && window.web3.eth.getAccounts((function(error, accounts) {
+        this.isInstalled && window.web3.eth.getAccounts(function(error, accounts) {
             var status = !error && !!accounts.length,
                 address = accounts[0] ? accounts[0] : null;
 
-            if (address !== this.ethAddress && this.web3Metamask) {
-                this.isLoggedIn = status;
-                this.ethAddress = address;
-                this.web3Metamask.eth.defaultAccount = this.ethAddress;
+            if (address !== self.ethAddress && self.web3Metamask) {
+                self.isLoggedIn = status;
+                self.ethAddress = address;
+                self.web3Metamask.eth.defaultAccount = self.ethAddress;
 
                 (function(callback) {
                     window.ethereum && status ? window.ethereum.enable().then(callback) : callback();
-                })((function() {
-                    this.web3Metamask.eth.defaultAccount = this.ethAddress;
-                    changeCallback && changeCallback(this.ethAddress);
-                }).bind(this));
+                })(function() {
+                    self.web3Metamask.eth.defaultAccount = self.ethAddress;
+                    self.checkWeb3Callbacks.forEach(function(callback) {
+                        callback(self.ethAddress);
+                    });
+                });
             }
 
-            setTimeout(this.checkWeb3.bind(this, changeCallback), 300);
-        }).bind(this));
+            setTimeout(self.checkWeb3Process.bind(self), 300);
+        });
+    };
+
+    /**
+     * Check MetaMask and calls callback function if status is being changed
+     *
+     * @param {Function} changeCallback
+     * @param options
+     */
+    MetaMaskWeb3.prototype.checkWeb3 = function(changeCallback) {
+        if (typeof changeCallback !== 'function') {
+            return;
+        }
+
+        var self = this;
+
+        self.checkWeb3Callbacks.indexOf(changeCallback) < 0 && self.checkWeb3Callbacks.push(changeCallback);
+
+        if (!self.checkWeb3Started) {
+            self.checkWeb3Started = true;
+            self.checkWeb3Process();
+        }
+
+        return function() {
+            var index = self.checkWeb3Callbacks.indexOf(changeCallback);
+            index >= 0 && self.checkWeb3Callbacks.splice(index, 1);
+        };
     };
 
     /**
@@ -372,6 +400,10 @@
         var ethBalance = 0;
 
         function update() {
+            if (!window.web3) {
+                return changeCallback(0);
+            }
+
             if (changeCallback && !window.web3.eth.coinbase) {
                 return setTimeout(update, 100);
             }
@@ -403,6 +435,7 @@
      * @param {Function} callback
      */
     MetaMaskWeb3.prototype.getContractsByAddress = function(address, callback) {
+        var self = this.getContractsByAddress.bind(this, address, callback);
         AJAX({
             uri: 'https://api.etherscan.io/api',
             data: {
@@ -413,7 +446,8 @@
             },
             success: function(data) {
                 typeof callback === 'function' && callback(data);
-            }
+            },
+            error: setTimeout.bind(null, self, 500)
         })
     };
 
@@ -546,8 +580,8 @@
                 {
                     self.binds.event('click', {
                         again: function() {
-                            delete self.globalModalData.fromAmount;
-                            delete self.globalModalData.toAmount;
+                            delete self.modalData.fromAmount;
+                            delete self.modalData.toAmount;
                             self.open('form');
                         }
                     });
@@ -620,8 +654,8 @@
         });
 
         function openForm(direction) {
-            delete this.globalModalData.fromAmount;
-            delete this.globalModalData.toAmount;
+            delete this.modalData.fromAmount;
+            delete this.modalData.toAmount;
             this.open('form', direction);
         }
 
@@ -658,8 +692,8 @@
 
                     self.metamask.contractMetamask.buy(
                         refAddress,
-                        toWei(self.globalModalData.toAmount),
-                        {from: self.metamask.ethAddress, value: toWei(self.globalModalData.fromAmount), gas: 600000, gasPrice: self.modalData.gasPrice},
+                        toWei(self.modalData.toAmount),
+                        {from: self.metamask.ethAddress, value: toWei(self.modalData.fromAmount), gas: 600000, gasPrice: self.modalData.gasPrice},
                         transactionCompleted
                     );
                 } else {
@@ -673,15 +707,15 @@
                             callback();
                         }, self.open.bind('error'));
                     })(function() {
-                        self.metamask.contractToken.approve(self.globalModalData.options.etheramaContractAddress, toWei(self.globalModalData.fromAmount), {from: self.metamask.ethAddress, value: 0, gas: 600000, gasPrice: self.modalData.gasPrice}, function(err, res) {
+                        self.metamask.contractToken.approve(self.globalModalData.options.etheramaContractAddress, toWei(self.modalData.fromAmount), {from: self.metamask.ethAddress, value: 0, gas: 600000, gasPrice: self.modalData.gasPrice}, function(err, res) {
                             if (err) {
                                 return self.open('reject');
                             }
 
                             setTimeout(function() {
                                 self.metamask.contractMetamask.sell(
-                                    toWei(self.globalModalData.fromAmount),
-                                    toWei(self.globalModalData.toAmount),
+                                    toWei(self.modalData.fromAmount),
+                                    toWei(self.modalData.toAmount),
                                     {from: self.metamask.ethAddress, value: 0, gas: 600000, gasPrice: self.modalData.gasPrice},
                                     transactionCompleted
                                 );
@@ -703,6 +737,9 @@
          */
         function loadLimits(callback) {
             self.metamask.contractInfura.getEthDealRange(function(err, res) {
+                if (!res) {
+                    return
+                }
                 self.modalData.ethLimits = {
                     min: res[0] / Math.pow(10, 18),
                     max: res[1] / Math.pow(10, 18)
@@ -723,16 +760,16 @@
          * Inits from value
          */
         function init() {
-            if (!self.metamask.isLoggedIn) {
-                self.binds.update({loading: false});
-                return;
-            }
-
             if (!self.opened) {
                 return;
             }
 
-            if (self.opened.direction === 'buy') {
+            self.modalData.checkWeb3Unsubscribe = metaMask.checkWeb3((function() {
+                self.opened && (self.opened.direction === 'buy' ? getEthBalance() : getTokenBalance());
+            }));
+
+            function getEthBalance() {
+                self.modalData.unsubscribeBalanceUpdate && self.modalData.unsubscribeBalanceUpdate();
                 self.modalData.unsubscribeBalanceUpdate = self.metamask.updateEthBalance(function(balance) {
                     getGasPrice(self, function(price) {
                         var gasLimit = 600000;
@@ -740,15 +777,25 @@
                         var bal = balance - gas;
                         self.modalData.balance = bal > 0 ? bal : 0;
                         self.modalData.gasPrice = price;
-                        recalculate(true, self.globalModalData.fromAmount || self.modalData.balance, !!self.globalModalData.fromAmount);
+                        recalculate(true, self.modalData.fromAmount || self.modalData.balance, !!self.modalData.fromAmount);
                     }, self.open.bind(self, 'error'));
                 });
-            } else {
+            }
+
+            function getTokenBalance() {
+                // If we don't have MetaMask
+                if (!self.metamask.contractMetamask) {
+                    self.modalData.balance = 0;
+                    recalculate(true, self.modalData.balance);
+                    return;
+                }
+
                 self.metamask.contractMetamask.getCurrentUserLocalTokenBalance(function(err, res) {
                     self.modalData.balance = res / Math.pow(10, 18);
                     recalculate(true, self.modalData.balance);
                 });
             }
+            self.opened.direction === 'buy' ? getEthBalance() :  getTokenBalance();
         }
 
         /**
@@ -767,7 +814,7 @@
          */
         function checkFromErrors() {
             if (self.metamask.isLoggedIn) {
-                if (self.globalModalData.fromAmount > self.modalData.balance) {
+                if (self.modalData.fromAmount > self.modalData.balance) {
                     self.binds.update({
                         fromError: 'You don\'t have enough money.'
                     });
@@ -775,7 +822,7 @@
                 }
 
                 var limits = self.opened ? self.modalData[self.opened.direction === 'buy' ? 'ethLimits' : 'tokenLimits'] : {}
-                if (self.globalModalData.fromAmount < limits.min || self.globalModalData.fromAmount > limits.max) {
+                if (self.modalData.fromAmount < limits.min || self.modalData.fromAmount > limits.max) {
                     self.binds.update({
                         fromError: 'Minimal value is ' + limits.min + '. Maximum value is ' + limits.max + '.'
                     });
@@ -795,7 +842,7 @@
         function checkToErrors() {
             if (self.metamask.isLoggedIn && self.opened) {
                 var limits = self.modalData[self.opened.direction === 'sell' ? 'ethLimits' : 'tokenLimits']
-                if (self.globalModalData.toAmount < limits.min || self.globalModalData.toAmount > limits.max) {
+                if (self.modalData.toAmount < limits.min || self.modalData.toAmount > limits.max) {
                     self.binds.update({
                         toError: 'Minimal value is ' + limits.min + '. Maximum value is ' + limits.max + '.'
                     });
@@ -817,14 +864,14 @@
         function recalculate(isFromField, amount, ignoreDuplicate) {
             amount = substrValue(amount);
 
-            if (amount <= 0 || (!ignoreDuplicate && self.globalModalData[isFromField ? 'fromAmount' : 'toAmount'] === amount)) {
-                self.globalModalData[isFromField ? 'fromAmount' : 'toAmount'] = amount;
+            if (amount <= 0 || (!ignoreDuplicate && self.modalData[isFromField ? 'fromAmount' : 'toAmount'] === amount)) {
+                self.modalData[isFromField ? 'fromAmount' : 'toAmount'] = amount;
                 self.binds.update(isFromField ? {fromAmount: amount} : {toAmount: amount});
                 self.binds.update({loading: false, next: true});
                 return;
             }
 
-            self.globalModalData[isFromField ? 'fromAmount' : 'toAmount'] = amount;
+            self.modalData[isFromField ? 'fromAmount' : 'toAmount'] = amount;
             self.binds.update(isFromField ? {fromAmount: amount} : {toAmount: amount});
 
             if (isFromField ? !checkFromErrors() : !checkToErrors()) {
@@ -840,12 +887,12 @@
                 {
                     self.opened && self.metamask.contractInfura[
                         self.opened.direction === 'buy' ? 'estimateBuyOrder' : 'estimateSellOrder'
-                        ](toWei(self.globalModalData[isFromField ? 'fromAmount' : 'toAmount']), isFromField, function(err, res) {
-                        self.globalModalData[isFromField ? 'toAmount' : 'fromAmount'] = substrValue(res[0] / Math.pow(10, 18));
+                        ](toWei(self.modalData[isFromField ? 'fromAmount' : 'toAmount']), isFromField, function(err, res) {
+                        self.modalData[isFromField ? 'toAmount' : 'fromAmount'] = substrValue(res[0] / Math.pow(10, 18));
 
                         self.binds.update({
-                            toAmount: self.globalModalData.toAmount,
-                            fromAmount: self.globalModalData.fromAmount,
+                            toAmount: self.modalData.toAmount,
+                            fromAmount: self.modalData.fromAmount,
                             fee: noexp(res[1] / Math.pow(10, 18), 18),
                             averagePrice: noexp(res[2] / Math.pow(10, 18), 18),
                             loading: false,
@@ -889,6 +936,7 @@
      */
     ModalWindow.prototype.formDestroy = function() {
         this.modalData.unsubscribeBalanceUpdate && this.modalData.unsubscribeBalanceUpdate();
+        this.modalData.checkWeb3Unsubscribe && this.modalData.checkWeb3Unsubscribe();
     };
 
     /**
@@ -941,11 +989,11 @@
         this.elements.widgetContainer.classList.add('gold-widget');
         this.elements.widgetContainer.innerHTML = widgetHTML;
 
-        this.metamask = new MetaMaskWeb3(this.options);
+        this.metamask = metaMask = new MetaMaskWeb3(this.options);
         this.metamask.checkWeb3((function(ethAddress) {
             this.updateTokenBuyPrice();
             this.updateTokenSellPrice();
-            ethAddress && this.updateTokens();
+            this.updateTokens();
             this.binds.update({
                loading: false
             });
@@ -1025,7 +1073,6 @@
      */
     GoldWidget.prototype.updateTokens = function() {
         clearTimeout(this.updateTokensTimeout);
-
         if (this.metamask.contractMetamask) {
             this.metamask.contractMetamask.getCurrentUserLocalTokenBalance((function(err, res) {
                 this.binds.update({
@@ -1035,6 +1082,8 @@
             }).bind(this));
 
             this.updateTokensTimeout = setTimeout(this.updateTokens.bind(this), 7500);
+        } else {
+            setTimeout(this.updateTokens.bind(this), 300);
         }
     };
 
