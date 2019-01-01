@@ -185,9 +185,9 @@ namespace Etherama.WebApplication {
 
 
             // workers
-		    services.AddSingleton<IHostedService, TokenPriceObserver>();
-            services.AddSingleton<IHostedService, TokenStatisticsHarvester>();
-		    services.AddSingleton<IHostedService, MaxGasPriceUpdater>();
+		    //services.AddSingleton<IHostedService, TokenPriceObserver>();
+      //      services.AddSingleton<IHostedService, TokenStatisticsHarvester>();
+		    //services.AddSingleton<IHostedService, MaxGasPriceUpdater>();
 
             services.AddSingleton(new MapperConfiguration(mc => { mc.AddProfile(new MappingProfile()); }).CreateMapper());
 

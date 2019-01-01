@@ -37,6 +37,7 @@ import {LanguageSwitcherBlockComponent} from "./blocks/language-switcher-block/l
 import {UserService} from "./services/user.service";
 import {BuyComponent} from "./components/trade/buy/buy.component";
 import {SellComponent} from "./components/trade/sell/sell.component";
+import {TransferComponent} from "./components/transfer/transfer.component";
 import {SubstrPipe} from "./pipes/substr.pipe";
 import {NoexpPipe} from "./pipes/noexp.pipe";
 import { PromoBonusComponent } from './components/trade/promo-bonus/promo-bonus.component';
@@ -53,6 +54,7 @@ import {environment} from "../environments/environment";
 import { EmailValidatorDirective } from './directives/email-validator.directive';
 import { MainPromoBonusComponent } from './components/market/main-promo-bonus/main-promo-bonus.component';
 import { EtheramaMainModalComponent } from './common/etherama-main-modal/etherama-main-modal.component';
+import {TransferModalComponent} from "./common/transfer-modal/transfer-modal.component";
 import {MainContractService} from "./services/main-contract.service";
 import {ShareButtonsModule} from "@ngx-share/buttons";
 import {FooterBlockComponent} from "./blocks/footer-block/footer-block.component";
@@ -100,6 +102,7 @@ export function createTranslateLoader(http: HttpClient) {
     NotFoundPageComponent,
     BuyComponent,
     SellComponent,
+    TransferComponent,
     SubstrPipe,
     NoexpPipe,
     PromoBonusComponent,
@@ -107,6 +110,7 @@ export function createTranslateLoader(http: HttpClient) {
     TimerComponent,
     StatisticChartsComponent,
     BuySellModalComponent,
+    TransferModalComponent,
     FaqComponent,
     MarketComponent,
     TradeComponent,
@@ -143,7 +147,8 @@ export function createTranslateLoader(http: HttpClient) {
   entryComponents: [
     MessageBoxComponent,
     BuySellModalComponent,
-    EtheramaMainModalComponent
+    EtheramaMainModalComponent,
+    TransferModalComponent
   ],
   bootstrap: [AppComponent]
 })

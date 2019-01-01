@@ -7,6 +7,7 @@ import { MessageType } from '../common/message-box/message-box.enum';
 import { MessageBoxComponent } from '../common/message-box/message-box.component';
 import {BuySellModalComponent} from "../common/buy-sell-modal/buy-sell-modal.component";
 import {EtheramaMainModalComponent} from "../common/etherama-main-modal/etherama-main-modal.component";
+import {TransferModalComponent} from "../common/transfer-modal/transfer-modal.component";
 
 @Injectable()
 export class MessageBoxService {
@@ -99,6 +100,13 @@ export class MessageBoxService {
     }
     let messageBox  = this._modalService.show(BuySellModalComponent, config);
     messageBox.content = {isStop: stopService};
+  }
+
+  public transferTokens() {
+    let config = {
+      class: 'etherama-main-modal'
+    }
+    this._modalService.show(TransferModalComponent, config);
   }
 
   public mainModal() {

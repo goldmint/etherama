@@ -176,6 +176,10 @@ export class TradeComponent implements OnInit, OnDestroy {
     this.messageBox.buySell(false);
   }
 
+  openTransferModal() {
+    this.messageBox.transferTokens();
+  }
+
   onCopyData(input) {
     input.focus();
     input.setSelectionRange(0, input.value.length);

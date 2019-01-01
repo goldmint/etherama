@@ -1,0 +1,13 @@
+<div class="message-box__header">
+    <h4 class="modal-title pull-left">ETHERAMA TOKEN TRANSFER</h4>
+    <button type="button" class="message-box__close" (click)="hide()">
+      <svg class="icon">
+        <use xlink:href="#close"></use>
+      </svg>
+    </button>
+  </div>
+  
+  <div class="message-box__body position-relative">
+    <app-transfer [tokenInfo]="tokenInfo"></app-transfer>
+  </div>
+  

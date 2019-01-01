@@ -49,6 +49,7 @@
         "BuySell": "Buy/sell token",
         "Withdraw": "Withdraw bonus",
         "View": "View Etherscan",
+        "TransferTokens": "Transfer tokens",
         "Copy": "Copy"
       },
       "SendTokenInfo": {

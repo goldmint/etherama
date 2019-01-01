@@ -18,7 +18,7 @@
     },
     "WebApplication": {
       "commandName": "Project",
-      "workingDirectory": "D:\\dev\\gm\\private\\etherama\\app-settings",
+      "workingDirectory": "C:\\_PROJECTS\\gm-private-data\\etherama\\app-settings",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

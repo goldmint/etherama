@@ -1,0 +1,36 @@
+<div class="pt-2">
+    <div class="mt-1">
+        <form #form="ngForm">
+            <div>
+                <div class="from-row form-group m-0">
+                    <div class="d-flex align-items-center">
+                        <div class="form-currency">
+                            <!--div class="buy-sell-token-icon">
+                              <img [src]="tokenInfo.logoUrl" alt="token_icon">
+                            </div-->
+                        </div>
+                        <input type="text" class="form-control m-0" name="mntp-input" id="mntp-input" placeholder="0.01"
+                               #mntpInput="ngModel"
+                               [(ngModel)]="mntp"
+                               autocomplete="off"
+                               (input)="changeValue($event, true)"
+                               required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="percent-btn-cont mt-2">
+              <button class="percent-btn" (click)="setCoinBalance(0.25)">25%</button>
+              <button class="percent-btn" (click)="setCoinBalance(0.5)">50%</button>
+              <button class="percent-btn" (click)="setCoinBalance(0.75)">75%</button>
+              <button class="percent-btn" (click)="setCoinBalance(1)">100%</button>
+
+              <div class="ml-2" [popover]='"POPOVER.PercentBtnSell" | translate' triggers="mouseenter:mouseleave" placement="top">
+                <svg class="icon" width="17" height="17">
+                  <use xlink:href="#info"></use>
+                </svg>
+              </div>
+            </div>
+        </form>
+    </div>
+</div>

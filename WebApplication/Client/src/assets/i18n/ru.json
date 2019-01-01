@@ -49,6 +49,7 @@
         "BuySell": "Купить / продать токен",
         "Withdraw": "Вывести бонус",
         "View": "Посмотреть на Etherscan",
+        "TransferTokens": "Переслать токены",
         "Copy": "Копировать"
       },
       "SendTokenInfo": {
