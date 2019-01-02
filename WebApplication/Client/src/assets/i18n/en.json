@@ -127,6 +127,20 @@
         "minReturn": "Minimal value must be greater than <b>0</b>. Maximal value is <b>{{ max }}</b>."
       }
     },
+    "Transfer": {
+      "Heading": "Transfer",
+      "Buttons": {
+        "Send": "Send"
+      },
+      "Placeholder": {
+        "Wallet": "Ethereum wallet"
+      },
+      "Errors": {
+        "InvalidBalance": "You don't have enough tokens",
+        "InvalidAddress": "Invalid address",
+        "AddressMatches": "Address matches to active Metamask wallet address"
+      }
+    },
     "PromoBonus": {
       "Labels": {
         "BigBonus": "WIN BIG BANK",
@@ -379,6 +393,7 @@
     "QuickBank": "You can get this promo bonus if your transaction turns out to be the first in each block whose number is a multiple of 100",
     "PercentBtnBuy": "Amount of ETH for the active Metamask wallet for which you want to buy tokens",
     "PercentBtnSell": "Amount of tokens for the active Metamask wallet for which you want to sell tokens",
+    "PercentBtnTransfer": "Amount of tokens for the active Metamask wallet which you want to transfer",
     "TokenFee": "Size of the Etherama's commission excluding the cost of gas per transaction",
     "AveragePrice": "Calculated average token price of the deal",
     "EstimateBuy": "The minimum amount of tokens you will receive as soon as the transaction is confirmed",

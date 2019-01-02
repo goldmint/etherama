@@ -104,7 +104,7 @@ export class MessageBoxService {
 
   public transferTokens() {
     let config = {
-      class: 'etherama-main-modal'
+      class: 'transfer-box'
     }
     this._modalService.show(TransferModalComponent, config);
   }

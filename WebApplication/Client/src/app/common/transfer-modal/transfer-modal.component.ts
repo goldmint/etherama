@@ -15,8 +15,6 @@ import {TokenInfoDetails} from "../../interfaces/token-info-details";
 
 export class TransferModalComponent implements OnInit, OnDestroy {
 
-  public isStop: boolean = true;
-
   public isDataLoaded: boolean = false;
   public tokenInfo: TokenInfoDetails;
 
@@ -39,10 +37,6 @@ export class TransferModalComponent implements OnInit, OnDestroy {
         });
       }
     });
-
-    setTimeout(() => {
-      this.isStop = this.bsModalRef.content.isStop;
-    }, 0);
   }
 
   public hide() {
@@ -51,7 +45,6 @@ export class TransferModalComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.destroy$.next(true);
-    this.isStop && this.commonService.passMarketData$.next(null);
   }
 
 }

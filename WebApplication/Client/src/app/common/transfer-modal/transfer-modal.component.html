@@ -1,13 +1,19 @@
 <div class="message-box__header">
-    <h4 class="modal-title pull-left">ETHERAMA TOKEN TRANSFER</h4>
-    <button type="button" class="message-box__close" (click)="hide()">
-      <svg class="icon">
-        <use xlink:href="#close"></use>
-      </svg>
-    </button>
+  <h4 class="modal-title pull-left">ETHERAMA TOKEN TRANSFER</h4>
+  <button type="button" class="message-box__close" (click)="hide()">
+    <svg class="icon">
+      <use xlink:href="#close"></use>
+    </svg>
+  </button>
+</div>
+
+<div class="message-box__body position-relative">
+  <div class="progress-linear progress-linear--tiny trade-progress-linear" *ngIf="!isDataLoaded">
+    <div class="container"></div>
   </div>
-  
-  <div class="message-box__body position-relative">
+
+  <div *ngIf="isDataLoaded">
     <app-transfer [tokenInfo]="tokenInfo"></app-transfer>
   </div>
+</div>
   

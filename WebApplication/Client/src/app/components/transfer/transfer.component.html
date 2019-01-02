@@ -1,36 +1,82 @@
 <div class="pt-2">
-    <div class="mt-1">
-        <form #form="ngForm">
-            <div>
-                <div class="from-row form-group m-0">
-                    <div class="d-flex align-items-center">
-                        <div class="form-currency">
-                            <!--div class="buy-sell-token-icon">
-                              <img [src]="tokenInfo.logoUrl" alt="token_icon">
-                            </div-->
-                        </div>
-                        <input type="text" class="form-control m-0" name="mntp-input" id="mntp-input" placeholder="0.01"
-                               #mntpInput="ngModel"
-                               [(ngModel)]="mntp"
-                               autocomplete="off"
-                               (input)="changeValue($event, true)"
-                               required>
-                    </div>
-                </div>
+  <div class="text-center">
+    <div class="buy-sell__title-block">
+      <div class="buy-sell-logo">
+        <img [src]="tokenInfo.logoUrl" alt="token_icon">
+      </div>
+      <div class="buy-sell__title">{{ "PAGES.Transfer.Heading" | translate }}</div>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <form #form="ngForm">
+      <div>
+        <div class="from-row form-group m-0">
+          <div class="d-flex align-items-center">
+            <div class="form-currency">
+              <svg class="icon" width="30" height="30">
+                <use xlink:href="#etherium"></use>
+              </svg>
             </div>
+            <input type="text" class="form-control m-0" name="address-input" id="address-input" placeholder='{{ "PAGES.Transfer.Placeholder.Wallet" | translate }}'
+                   #addressInput="ngModel"
+                   ngModel
+                   autocomplete="off"
+                   (input)="changeAddress($event.target.value)"
+                   [(ngModel)]="toAddress"
+                   required>
+          </div>
+        </div>
+      </div>
 
-            <div class="percent-btn-cont mt-2">
-              <button class="percent-btn" (click)="setCoinBalance(0.25)">25%</button>
-              <button class="percent-btn" (click)="setCoinBalance(0.5)">50%</button>
-              <button class="percent-btn" (click)="setCoinBalance(0.75)">75%</button>
-              <button class="percent-btn" (click)="setCoinBalance(1)">100%</button>
+      <div class="my-3">
+        <div *ngIf="errors.invalidAddress">{{ "PAGES.Transfer.Errors.InvalidAddress" | translate }}</div>
+        <div *ngIf="errors.addressMatches">{{ "PAGES.Transfer.Errors.AddressMatches" | translate }}</div>
+      </div>
 
-              <div class="ml-2" [popover]='"POPOVER.PercentBtnSell" | translate' triggers="mouseenter:mouseleave" placement="top">
-                <svg class="icon" width="17" height="17">
-                  <use xlink:href="#info"></use>
-                </svg>
+      <div>
+        <div class="from-row form-group m-0">
+          <div class="d-flex align-items-center">
+            <div class="form-currency">
+              <div class="buy-sell-token-icon">
+                <img [src]="tokenInfo.logoUrl" alt="token_icon">
               </div>
             </div>
-        </form>
-    </div>
+            <input type="text" class="form-control m-0" name="token-input" id="token-input" placeholder="0.01"
+                   #tokenAmountInput="ngModel"
+                   ngModel
+                   autocomplete="off"
+                   (input)="changeValue($event)"
+                   [(ngModel)]="tokenAmount"
+                   required>
+          </div>
+        </div>
+
+        <div class="percent-btn-cont mt-2">
+          <button class="percent-btn" (click)="setCoinBalance(0.25)">25%</button>
+          <button class="percent-btn" (click)="setCoinBalance(0.5)">50%</button>
+          <button class="percent-btn" (click)="setCoinBalance(0.75)">75%</button>
+          <button class="percent-btn" (click)="setCoinBalance(1)">100%</button>
+
+          <div class="ml-2" [popover]='"POPOVER.PercentBtnTransfer" | translate' triggers="mouseenter:mouseleave" placement="top" container="body">
+            <svg class="icon" width="17" height="17">
+              <use xlink:href="#info"></use>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="my-3">
+        <div *ngIf="ethAddress && errors.invalidBalance">{{ "PAGES.Transfer.Errors.InvalidBalance" | translate }}</div>
+      </div>
+
+      <div class="text-center mt-3">
+        <div class="d-inline-block position-relative">
+          <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="!tokenAmount || !toAddress || errors.invalidBalance || errors.invalidAddress || errors.addressMatches || isInvalidNetwork">
+            {{ "PAGES.Transfer.Buttons.Send" | translate }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

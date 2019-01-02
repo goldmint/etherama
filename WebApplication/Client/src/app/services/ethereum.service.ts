@@ -408,4 +408,14 @@ export class EthereumService {
       }, 1000);
     });
   }
+
+  public transfer(fromAddr: string, toAddr: string, amount: string, gasPrice: number) {
+    this._contractMntp.approve(this.etheramaContractAddress, amount, { from: fromAddr, value: 0, gas: 600000, gasPrice: gasPrice }, (err, res) => {
+      res && setTimeout(() => {
+        this._contractMetamask.transferTokens(toAddr, amount, { from: fromAddr, value: 0, gas: 600000, gasPrice: gasPrice }, (err, res) => {
+          this.getSuccessSellRequestLink$.next(res);
+        });
+      }, 1000);
+    });
+  }
 }
