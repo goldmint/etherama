@@ -101,7 +101,7 @@ export class BuyComponent implements OnInit, OnDestroy {
       if (eth) {
         this.ethService._contractInfura.getMaxGasPrice((err, res) => {
           let gas = (+res * this.gasLimit) / Math.pow(10, 18);
-          let value = +eth - gas;
+          let value = +eth - (gas * 2);
           this.ethBalance = value > 0 ? +this.substrValue(value) : 0;
           this.eth = value > 0 ? +this.substrValue(value) : 0;
           this.sub1 && this.sub1.unsubscribe();
