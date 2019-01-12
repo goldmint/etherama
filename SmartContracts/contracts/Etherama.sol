@@ -569,11 +569,11 @@ contract EtheramaData {
     address public _tokenContractAddress;
     
     // token price in the begining
-    uint256 constant public TOKEN_PRICE_INITIAL = 0.001 ether;
+    uint256 constant public TOKEN_PRICE_INITIAL = 0.0001 ether;
     // a percent of the token price which adds/subs each _priceSpeedInterval tokens
     uint64 constant public PRICE_SPEED_PERCENT = 5;
     // Token price speed interval. For instance, if PRICE_SPEED_PERCENT = 5 and PRICE_SPEED_INTERVAL = 10000 it means that after 10000 tokens are bought/sold  token price will increase/decrease for 5%.
-    uint64 constant public PRICE_SPEED_INTERVAL = 10000;
+    uint64 constant public PRICE_SPEED_INTERVAL = 50000;
     // lock-up period in days. Until this period is expeired nobody can close the contract or withdraw users' funds
     uint64 constant public EXP_PERIOD_DAYS = 0;
 
@@ -920,13 +920,21 @@ contract Etherama {
 
         distributeFee(totalFeeEth, address(0x0));
 
-        _core.trackSell(msg.sender, ethAmount, tokenAmount);
-       
+        uint256 userEthVol = _data.getUserEthVolumeSaldo(msg.sender);
+        _core.trackSell(msg.sender, ethAmount > userEthVol ? userEthVol : ethAmount, tokenAmount);
+             
         emit onTokenSell(msg.sender, tokenAmount, ethAmount);
 
         return ethAmount;
     }   
 
+    function transferTokens(address toUser, uint256 tokenAmount) onlyActive onlyContractUsers public {
+        require(getUserLocalTokenBalance(msg.sender) >= tokenAmount);
+        
+        _core.subUserTokenLocalBalance(msg.sender, tokenAmount);
+        _core.addUserTokenLocalBalance(toUser, tokenAmount);
+        _token.transferFrom(msg.sender, toUser, tokenAmount);
+    }
 
     //Fallback function to handle eth that was sent straight to the contract
     function() onlyActive validGasPrice validPayableValue payable external {
