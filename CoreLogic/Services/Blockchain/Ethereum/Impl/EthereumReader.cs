@@ -115,7 +115,7 @@ namespace Etherama.CoreLogic.Services.Blockchain.Ethereum.Impl
         public async Task<decimal> GetBonusPerShare(string contactAddress)
         {
             var val = await GetViewFuntionResult(contactAddress, AppConfig.Services.Ethereum.BonusPerShareFunctionName);
-
+	        val /= BigInteger.Pow(10, TokensPrecision.Ethereum);
             return val.FromWei();
         }
 
