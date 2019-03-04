@@ -18,7 +18,7 @@ namespace Etherama.WebApplication.Services.HostedServices {
 
 		protected override async Task DoWork() {
 
-			DbContext.DetachEverything();
+			//DbContext.DetachEverything();
 			var tokenList = await DbContext.Tokens.Where(x => x.IsEnabled && !x.IsDeleted).ToListAsync();
 
 			foreach (var token in tokenList) {
